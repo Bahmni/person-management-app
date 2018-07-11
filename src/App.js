@@ -1,42 +1,46 @@
 import React, { Component } from 'react';
 import './App.css';
 
-// const url = "https://192.168.33.10/openmrs/ws/rest/v1/person";
-// const data = {
-//   "names": [
-//     {
-//     "display": "Sam Smith",
-//     "familyName": "Smith",
-//     "givenName": "Sam",
-//     "preferred": false
-//     }
-//   ],
-//   "gender": "M",
-//   "age": 0,
-//   "birthdate": "1989-07-01T00:00:00.000+0200",
-//   "birthdateEstimated": false,
-//   "dead": false,
-//   "deathDate": null,
-//   "causeOfDeath": null,
-//   "addresses": [
-//     {}
-//   ],
-//   "deathdateEstimated": false,
-//   "birthtime": null
-// }
+const url = process.env.REACT_APP_URL
+const data = {
+  "names": [
+    {
+    "display": "Sam Smith",
+    "familyName": "Smith",
+    "givenName": "Sam",
+    "preferred": false
+    }
+  ],
+  "gender": "M",
+  "age": 0,
+  "birthdate": "1989-07-01T00:00:00.000+0200",
+  "birthdateEstimated": false,
+  "dead": false,
+  "deathDate": null,
+  "causeOfDeath": null,
+  "addresses": [
+    {}
+  ],
+  "deathdateEstimated": false,
+  "birthtime": null
+}
 
-// fetch(url, {
-//   method: 'POST',
-//   body: JSON.stringify(data), // data can be `string` or {object}!
-//   headers:{
-//     'Content-Type': 'application/json',
-//     'Accept': 'application/json',
-//   },
-//   credentials: 'include'
 
-// }).then(res => res.json())
-// .catch(error => console.error('Error:', error))
-// .then(response => console.log('Success:', response));
+
+fetch(url, {
+  method: 'POST',
+  body: JSON.stringify(data), // data can be `string` or {object}!
+  headers:{
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  credentials: 'include'
+
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+
 
 class App extends Component {
 // givenName, familyName, age, gender
