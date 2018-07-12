@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-// const url = "https://192.168.33.10/openmrs/ws/rest/v1/person";
+// const url = process.env.REACT_APP_URL;
 // const data = {
 //   "names": [
 //     {
