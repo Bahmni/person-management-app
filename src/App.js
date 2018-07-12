@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-// const url = const url = process.env.REACT_APP_URL;
+// const url = process.env.REACT_APP_URL;
 // const data = {
 //   "names": [
 //     {
