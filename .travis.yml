@@ -5,7 +5,7 @@ node_js:
 #   directories:
 #   - node_modules
 script:
-  - cd test-app
+#  - cd test-app
   - npm install
   - npm test
   - npm run build
