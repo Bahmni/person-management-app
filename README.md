@@ -1,4 +1,4 @@
-# person-management-app
+# person-management-app [!Build Status (https://travis-ci.org/gtl90/person-management-app.svg?branch=master)]
 
 ## Description
 
@@ -18,8 +18,10 @@ Version 1 accepts the input of given name, family name, age and gender.
 
 Clone the repository onto your local machine.
 
-Run `npm install`
-Run `npm start`
+Run **`npm install`
+
+Run **`npm start`
+
 The app should be accessible on: http://localhost:3000/
 
 ## Tests
