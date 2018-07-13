@@ -1,4 +1,4 @@
-# person-management-app [!Build Status (https://travis-ci.org/gtl90/person-management-app.svg?branch=master)]
+# person-management-app [![Build Status] (https://travis-ci.org/gtl90/person-management-app.svg?branch=master)]
 
 ## Description
 
