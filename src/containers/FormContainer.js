@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SingleInput from '../components/SingleInput';
 import Select from '../components/Select';
+import logo from './logo.png';
 
 // set state and bind
 class FormContainer extends Component {
@@ -86,7 +87,9 @@ class FormContainer extends Component {
   render() {
     return (
       <form className="container" onSubmit={this.handleFormSubmit}>
-        <h5>Sign Up Form</h5>
+        <h5>
+          <img src={logo} className="App-logo" alt="logo" /> Sign Up Form
+        </h5>
         <SingleInput
           inputType={'text'}
           title={'Given name:'}
