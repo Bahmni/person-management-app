@@ -20,6 +20,7 @@ const Input = props => {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        required
         {...other} //object spread
       />
     </div>
@@ -27,6 +28,9 @@ const Input = props => {
 };
 
 Input.propTypes = {
-  name: PropTypes.string.isRequired
+  type: PropTypes.oneOf(['text', 'number']).isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  placeholder: PropTypes.string
 };
+
 export default Input;

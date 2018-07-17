@@ -1,8 +1,4 @@
 language: node_js
 node_js:
   - "stable"
-<<<<<<< HEAD
-=======
 
- 
->>>>>>> 14a477c7cefab020c19fce93a9b04e515d6559c0
