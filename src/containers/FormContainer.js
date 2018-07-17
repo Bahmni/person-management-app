@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SingleInput from '../components/SingleInput';
-import Select from '../components/Select';
+import StringInput from '../components/StringInput';
+import SelectFromList from '../components/SelectFromList';
 import logo from './logo.png';
 
 // set state and bind
@@ -96,7 +96,7 @@ class FormContainer extends Component {
         <h5>
           <img src={logo} className="App-logo" alt="logo" /> Sign Up Form
         </h5>
-        <SingleInput
+        <StringInput
           inputType={'text'}
           title={'Given name:'}
           name={'givenName'}
@@ -105,7 +105,7 @@ class FormContainer extends Component {
           placeholder={'Given name'}
         />
 
-        <SingleInput
+        <StringInput
           inputType={'text'}
           title={'Family name:'}
           name={'familyName'}
@@ -114,7 +114,7 @@ class FormContainer extends Component {
           placeholder={'Family name'}
         />
 
-        <Select
+        <SelectFromList
           name={'genderList'}
           placeholder={'Gender'}
           controlFunc={e => this.handleGenderOptions(e)}
@@ -122,7 +122,7 @@ class FormContainer extends Component {
           selectedOption={this.state.gender}
         />
 
-        <SingleInput
+        <StringInput
           inputType={'number'}
           title={'Age:'}
           name={'age'}
@@ -131,17 +131,8 @@ class FormContainer extends Component {
           placeholder={'Age'}
         />
 
-        <input
-          type="submit"
-          className="btn btn-primary float-right"
-          value="Submit"
-        />
-        <button
-          className="btn btn-link float-left"
-          onClick={this.handleClearForm}
-        >
-          Clear form
-        </button>
+        <input type="submit" value="Submit" />
+        <button onClick={this.handleClearForm}>Clear form</button>
       </form>
     );
   }

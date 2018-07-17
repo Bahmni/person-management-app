@@ -1,12 +1,11 @@
 import React from 'react';
 
-const Select = props => (
-  <div className="form-group">
+const SelectFromList = props => (
+  <div>
     <select
       name={props.name}
       value={props.selectedOption}
       onChange={props.controlFunc}
-      className="form-select"
     >
       <option value="">{props.placeholder}</option>
       {props.options.map(opt => {
@@ -20,4 +19,4 @@ const Select = props => (
   </div>
 );
 
-export default Select;
+export default SelectFromList;

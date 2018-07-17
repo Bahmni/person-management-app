@@ -4,11 +4,7 @@ import './index.css';
 
 class App extends Component {
   render() {
-    return (
-      <div className="container">
-        <FormContainer />
-      </div>
-    );
+    return <FormContainer />;
   }
 }
 

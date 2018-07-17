@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const SingleInput = props => (
-  <div className="form-group">
-    <label className="form-label">{props.title}</label>
+const StringInput = props => (
+  <div>
+    <label>{props.title}</label>
     <input
-      className="form-input"
       name={props.name}
       type={props.inputType}
       value={props.content}
@@ -14,4 +14,7 @@ const SingleInput = props => (
   </div>
 );
 
-export default SingleInput;
+StringInput.propTypes = {
+  name: PropTypes.string.isRequired
+};
+export default StringInput;
