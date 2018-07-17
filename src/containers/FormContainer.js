@@ -98,6 +98,7 @@ class FormContainer extends Component {
           onChange={e => this.handleGivenName(e)}
           value={this.state.givenName}
           placeholder={'Given name'}
+          required
         />
 
         <Input
@@ -107,6 +108,7 @@ class FormContainer extends Component {
           onChange={e => this.handleFamilyName(e)}
           value={this.state.familyName}
           placeholder={'Family name'}
+          required
         />
 
         <SelectFromList
