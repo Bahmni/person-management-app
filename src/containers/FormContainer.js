@@ -68,26 +68,21 @@ class FormContainer extends Component {
     // send to Bahmni person API
     const url = process.env.REACT_APP_URL;
 
-    if (!this.state.givenName) {
-      console.log('Error! Please intput a given name');
-      return;
-    } else {
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(formPayload), // data can be `string` or {object}!
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        credentials: 'include'
-      })
-        .then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(formPayload), // data can be `string` or {object}!
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      credentials: 'include'
+    })
+      .then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
 
-      console.log('Send this in a POST request:', formPayload);
-      this.handleClearForm(e);
-    }
+    console.log('Send this in a POST request:', formPayload);
+    this.handleClearForm(e);
   }
 
   render() {

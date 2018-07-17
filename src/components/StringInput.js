@@ -10,6 +10,7 @@ const StringInput = props => (
       value={props.content}
       onChange={props.controlFunc}
       placeholder={props.placeholder}
+      required
     />
   </div>
 );
