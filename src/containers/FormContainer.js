@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StringInput from '../components/StringInput';
+import Input from '../components/Input';
 import SelectFromList from '../components/SelectFromList';
 import logo from './logo.png';
 
@@ -91,20 +91,20 @@ class FormContainer extends Component {
         <h5>
           <img src={logo} className="App-logo" alt="logo" /> Sign Up Form
         </h5>
-        <StringInput
-          inputType={'text'}
+        <Input
+          type={'text'}
           title={'Given name:'}
           name={'givenName'}
-          controlFunc={e => this.handleGivenName(e)}
+          onChange={e => this.handleGivenName(e)}
           content={this.state.givenName}
           placeholder={'Given name'}
         />
 
-        <StringInput
-          inputType={'text'}
+        <Input
+          type={'text'}
           title={'Family name:'}
           name={'familyName'}
-          controlFunc={e => this.handleFamilyName(e)}
+          onChange={e => this.handleFamilyName(e)}
           content={this.state.familyName}
           placeholder={'Family name'}
         />
@@ -112,16 +112,16 @@ class FormContainer extends Component {
         <SelectFromList
           name={'genderList'}
           placeholder={'Gender'}
-          controlFunc={e => this.handleGenderOptions(e)}
+          onChange={e => this.handleGenderOptions(e)}
           options={this.state.genderOptions}
           selectedOption={this.state.gender}
         />
 
-        <StringInput
-          inputType={'number'}
+        <Input
+          type={'number'}
           title={'Age:'}
           name={'age'}
-          controlFunc={e => this.handleAge(e)}
+          onChange={e => this.handleAge(e)}
           content={this.state.age}
           placeholder={'Age'}
         />

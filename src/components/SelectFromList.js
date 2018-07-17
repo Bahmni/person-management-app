@@ -5,7 +5,7 @@ const SelectFromList = props => (
     <select
       name={props.name}
       value={props.selectedOption}
-      onChange={props.controlFunc}
+      onChange={props.onChange}
     >
       <option value="">{props.placeholder}</option>
       {props.options.map(opt => {
