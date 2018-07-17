@@ -96,7 +96,7 @@ class FormContainer extends Component {
           title={'Given name:'}
           name={'givenName'}
           onChange={e => this.handleGivenName(e)}
-          content={this.state.givenName}
+          value={this.state.givenName}
           placeholder={'Given name'}
         />
 
@@ -105,7 +105,7 @@ class FormContainer extends Component {
           title={'Family name:'}
           name={'familyName'}
           onChange={e => this.handleFamilyName(e)}
-          content={this.state.familyName}
+          value={this.state.familyName}
           placeholder={'Family name'}
         />
 
@@ -122,7 +122,7 @@ class FormContainer extends Component {
           title={'Age:'}
           name={'age'}
           onChange={e => this.handleAge(e)}
-          content={this.state.age}
+          value={this.state.age}
           placeholder={'Age'}
         />
 
