@@ -1,4 +1,4 @@
-# person-management-app [![Build Status](https://travis-ci.org/Bahmni/person-management-app.svg?branch=master)]
+# person-management-app [![Build Status](https://travis-ci.org/Bahmni/person-management-app.svg?branch=master)](https://travis-ci.org/Bahmni/person-management-app)
 
 ## Description
 
