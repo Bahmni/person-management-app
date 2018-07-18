@@ -1,13 +1,42 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import FormContainer from './FormContainer';
+import Input from '../components/Input';
+import logo from './logo.png';
+import SelectFromList from '../components/SelectFromList';
 
 it('renders without crashing', () => {
   shallow(<FormContainer />);
 });
 
+it('renders "Signup" with logo', () => {
+  const wrapper = shallow(<FormContainer />);
+  const signup = (
+    <h5>
+      <img src={logo} alt="logo" /> Sign Up Form
+    </h5>
+  );
+  expect(wrapper.contains(signup)).toEqual(true);
+});
+
+it('renders three <Input /> components', () => {
+  expect(shallow(<FormContainer />).find(Input).length).toEqual(3);
+});
+
+it('renders one <SelectFromList /> component', () => {
+  expect(shallow(<FormContainer />).find(SelectFromList).length).toEqual(1);
+});
+
 it('renders givenName input', () => {
   expect(shallow(<FormContainer />).find('#givenName').length).toEqual(1);
+});
+
+it('requires Given Name input', () => {
+  expect(
+    shallow(<FormContainer />)
+      .find('#givenName')
+      .is('[required]')
+  ).toBe(true);
 });
 
 it('should change the Family Name input when the user types', () => {
