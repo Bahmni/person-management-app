@@ -87,9 +87,9 @@ class FormContainer extends Component {
 
   render() {
     return (
-      <form className="container" onSubmit={this.handleFormSubmit}>
+      <form onSubmit={this.handleFormSubmit}>
         <h5>
-          <img src={logo} className="App-logo" alt="logo" /> Sign Up Form
+          <img src={logo} alt="logo" /> Sign Up Form
         </h5>
         <Input
           type={'text'}
@@ -98,6 +98,7 @@ class FormContainer extends Component {
           onChange={e => this.handleGivenName(e)}
           value={this.state.givenName}
           placeholder={'Given name'}
+          id="givenName"
           required
         />
 
@@ -108,6 +109,7 @@ class FormContainer extends Component {
           onChange={e => this.handleFamilyName(e)}
           value={this.state.familyName}
           placeholder={'Family name'}
+          id="familyName"
           required
         />
 
@@ -126,6 +128,7 @@ class FormContainer extends Component {
           onChange={e => this.handleAge(e)}
           value={this.state.age}
           placeholder={'Age'}
+          id="age"
         />
 
         <input type="submit" value="Submit" />
