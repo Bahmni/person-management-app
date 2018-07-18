@@ -19,11 +19,6 @@
       "git add"
     ]
   },
-
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
-  },
-
   "scripts": {
     "precommit": "lint-staged",
     "start": "react-scripts start",
