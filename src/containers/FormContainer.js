@@ -119,6 +119,7 @@ class FormContainer extends Component {
           onChange={e => this.handleGenderOptions(e)}
           options={this.state.genderOptions}
           selectedOption={this.state.gender}
+          id="select"
         />
 
         <Input

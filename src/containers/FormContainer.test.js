@@ -54,3 +54,10 @@ it('should change the Age input when the user types or clicks', () => {
     .simulate('change', { target: { name: 'age', value: '33' } });
   expect(wrapper.state('age')).toEqual('33');
 });
+
+// not working
+// it("when simulating a change, select should update its value", () => {
+//   const wrapper = shallow(<FormContainer />);
+//   wrapper.find('#select').simulate('change',{target: { value : 'Female'}});
+//   expect(wrapper.state('select').props().value).toBe("Female");
+// });
