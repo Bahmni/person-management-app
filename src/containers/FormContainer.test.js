@@ -57,6 +57,14 @@ describe('FormContainer', () => {
 
       expect(wrapper.state('givenName')).toBe('');
     });
+
+    // it('clears the givenName value when the submit button is clicked', () => {
+    //   const formComponent = <FormContainer handleFormSubmit={onSubmit}/>
+    //   formComponent.simulate('submit');
+    //   expect(
+    //     wrapper.state('givenName')
+    //   ).toBe('');
+    // });
   }); // end of givenName describe
 
   describe('the user selects value from gender options', () => {
