@@ -68,3 +68,13 @@ it('when simulating a change, select should update its value', () => {
     .simulate('change', { target: { name: 'genderList', value: 'Male' } });
   expect(wrapper.state('gender')).toBe('Male');
 });
+
+// not working
+// it('clears all the form values after clear button is clicked', () => {
+//   const wrapper = shallow(<FormContainer />);
+//   wrapper
+//     .find('#age')
+//     .simulate('change', { target: { name: 'age', value:31} });
+//   wrapper.find('#clearButton').simulate('click')
+//   expect(wrapper.state('age')).toBe(0);
+// });
