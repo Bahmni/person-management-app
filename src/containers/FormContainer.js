@@ -3,6 +3,9 @@ import Input from '../components/Input';
 import SelectFromList from '../components/SelectFromList';
 import logo from './logo.png';
 
+// Bahmni person API URL
+const url = process.env.REACT_APP_URL;
+
 // set state and bind
 class FormContainer extends Component {
   constructor(props) {
@@ -65,9 +68,12 @@ class FormContainer extends Component {
       age: this.state.age
     };
 
-    // send to Bahmni person API
-    const url = process.env.REACT_APP_URL;
+    this.submitRequest(formPayload);
+    this.handleClearForm(e);
+  }
 
+  submitRequest(formPayload) {
+    console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(formPayload), // data can be `string` or {object}!
@@ -80,9 +86,6 @@ class FormContainer extends Component {
       .then(res => res.json())
       .catch(error => console.error('Error:', error))
       .then(response => console.log('Success:', response));
-
-    console.log('Send this in a POST request:', formPayload);
-    this.handleClearForm(e);
   }
 
   render() {
