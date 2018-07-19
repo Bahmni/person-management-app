@@ -20,7 +20,6 @@ const Input = props => {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        required
         {...other} //object spread
       />
     </div>

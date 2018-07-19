@@ -110,7 +110,6 @@ class FormContainer extends Component {
           value={this.state.familyName}
           placeholder={'Family name'}
           id="familyName"
-          required
         />
 
         <SelectFromList

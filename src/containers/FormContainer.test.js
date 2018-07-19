@@ -38,7 +38,7 @@ describe('FormContainer', () => {
     let givenNameInput;
 
     beforeEach(() => {
-      givenNameInput = wrapper.find('#givenName');
+      givenNameInput = wrapper.find('Input').first();
       givenNameInput.simulate('change', {
         target: { value: exampleGivenName }
       });
@@ -55,16 +55,21 @@ describe('FormContainer', () => {
     it('clears the givenName value when the clear button is clicked', () => {
       wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
 
-      expect(wrapper.state('givenName')).toBe('');
+      expect(givenNameInput.props().value).toEqual('');
     });
 
-    // it('clears the givenName value when the submit button is clicked', () => {
-    //   const formComponent = <FormContainer handleFormSubmit={onSubmit}/>
-    //   formComponent.simulate('submit');
-    //   expect(
-    //     wrapper.state('givenName')
-    //   ).toBe('');
-    // });
+    describe('and then submits the form', () => {
+      beforeEach(() => {
+        const form = wrapper.find('form');
+        wrapper.state.givenName = 'Max';
+        form.simulate('submit', {
+          preventDefault: () => {}
+        });
+      });
+      it('should reset Given Name to default value', () => {
+        expect(wrapper.state().givenName).toEqual('');
+      });
+    });
   }); // end of givenName describe
 
   describe('the user selects value from gender options', () => {
