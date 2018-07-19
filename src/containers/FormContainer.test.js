@@ -39,6 +39,12 @@ it('requires Given Name input', () => {
   ).toBe(true);
 });
 
+it('requires Given Name input - alternative way of testing', () => {
+  const wrapper = shallow(<FormContainer />);
+  const givenName = wrapper.find('#givenName');
+  expect(givenName.props().required).toBe(true);
+});
+
 it('should change the Family Name input when the user types', () => {
   const wrapper = shallow(<FormContainer />);
   wrapper
@@ -55,9 +61,10 @@ it('should change the Age input when the user types or clicks', () => {
   expect(wrapper.state('age')).toEqual('33');
 });
 
-// not working
-// it("when simulating a change, select should update its value", () => {
-//   const wrapper = shallow(<FormContainer />);
-//   wrapper.find('#select').simulate('change',{target: { value : 'Female'}});
-//   expect(wrapper.state('select').props().value).toBe("Female");
-// });
+it('when simulating a change, select should update its value', () => {
+  const wrapper = shallow(<FormContainer />);
+  wrapper
+    .find('#select')
+    .simulate('change', { target: { name: 'genderList', value: 'Male' } });
+  expect(wrapper.state('gender')).toBe('Male');
+});
