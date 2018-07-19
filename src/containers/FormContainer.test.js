@@ -7,6 +7,7 @@ import SelectFromList from '../components/SelectFromList';
 
 describe('FormContainer', () => {
   let wrapper;
+
   beforeEach(() => {
     wrapper = shallow(<FormContainer />);
   });
@@ -32,42 +33,58 @@ describe('FormContainer', () => {
     expect(wrapper.find('#givenName').length).toEqual(1);
   });
 
-  it('requires Given Name input', () => {
-    expect(wrapper.find('#givenName').is('[required]')).toBe(true);
-  });
+  describe('the user populates given name input', () => {
+    const exampleGivenName = 'Max';
+    let givenNameInput;
 
-  it('requires Given Name input - alternative way of testing', () => {
-    const givenName = wrapper.find('#givenName');
-    expect(givenName.props().required).toBe(true);
-  });
+    beforeEach(() => {
+      givenNameInput = wrapper.find('#givenName');
+      givenNameInput.simulate('change', {
+        target: { value: exampleGivenName }
+      });
+    });
 
-  it('should change the Family Name input when the user types', () => {
-    wrapper
-      .find('#familyName')
-      .simulate('change', { target: { name: 'familyName', value: 'Stevens' } });
-    expect(wrapper.state('familyName')).toEqual('Stevens');
-  });
+    it('should update the state property givenName', () => {
+      expect(wrapper.state().givenName).toEqual(exampleGivenName);
+    });
+
+    it('requires Given name input', () => {
+      expect(givenNameInput.props().required).toBe(true);
+    });
+
+    it('clears the givenName value when the clear button is clicked', () => {
+      wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
+
+      expect(wrapper.state('givenName')).toBe('');
+    });
+  }); // end of givenName describe
+
+  describe('the user selects value from gender options', () => {
+    const exampleGenderSelected = 'Female';
+    let selectGender;
+
+    beforeEach(() => {
+      selectGender = wrapper.find('#selectGender');
+      selectGender.simulate('change', {
+        target: { name: 'genderList', value: exampleGenderSelected }
+      });
+    });
+
+    it('should update the state property gender', () => {
+      expect(wrapper.state().gender).toEqual(exampleGenderSelected);
+    });
+
+    it('clears the gender value when the clear button is clicked', () => {
+      wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
+      expect(wrapper.state('gender')).toBe('');
+    });
+  }); // end of gender options describe
 
   it('should change the Age input when the user types or clicks', () => {
     wrapper
       .find('#age')
       .simulate('change', { target: { name: 'age', value: '33' } });
+
     expect(wrapper.state('age')).toEqual('33');
   });
-  it('when simulating a change, select should update its value', () => {
-    wrapper
-      .find('#select')
-      .simulate('change', { target: { name: 'genderList', value: 'Male' } });
-    expect(wrapper.state('gender')).toBe('Male');
-  });
-});
-
-// not working
-// it('clears all the form values after clear button is clicked', () => {
-//   const wrapper = shallow(<FormContainer />);
-//   wrapper
-//     .find('#age')
-//     .simulate('change', { target: { name: 'age', value:31} });
-//   wrapper.find('#clearButton').simulate('click')
-//   expect(wrapper.state('age')).toBe(0);
-// });
+}); // end of outer describe
