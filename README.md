@@ -1,4 +1,3 @@
-# person-management-app [![Build Status](https://travis-ci.com/Bahmni/person-management-app.svg?branch=master)](https://travis-ci.com/Bahmni/person-management-app)
 
 ## Description
 
@@ -17,9 +16,6 @@ Version 1 accepts the input of given name, family name, age and gender.
 ## Installation
 
 Clone the repository onto your local machine.
-
-Run **`Yarn install`**
-Run **`Yarn start`**
 
 Create or add to your .env file 'REACT_APP_URL =' "insert your path to Bahmni" 
     example : https://demo.mybahmni.org/openmrs/ws/rest/v1/person
