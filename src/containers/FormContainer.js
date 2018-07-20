@@ -126,6 +126,7 @@ class FormContainer extends Component {
           type={'radio'}
           options={this.state.genderOptions}
           selectedOption={this.state.gender}
+          id="selectGender"
         />
 
         <Input
