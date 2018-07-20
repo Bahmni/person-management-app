@@ -18,8 +18,8 @@ Version 1 accepts the input of given name, family name, age and gender.
 
 Clone the repository onto your local machine.
 
-Run **`npm install`**
-Run **`npm start`**
+Run **`Yarn install`**
+Run **`Yarn start`**
 
 Create or add to your .env file 'REACT_APP_URL =' "insert your path to Bahmni" 
     example : https://demo.mybahmni.org/openmrs/ws/rest/v1/person
@@ -50,11 +50,15 @@ To enable CORS request you will need to adapt the apache http server configurati
 The app should be accessible on: http://localhost:3000/
 
 ## Tests
-Tests will be written with Jest and Enzyme.
+Tests will be written with Jest and Enzyme and Sinon
 
 Jest is installed by default, but you will need to install Enzyme along with an Adapter corresponding to the version of React you are using. 
 
 Run **`yarn install`**
+
+If sinon is not installed you may need to ;
+Run **'yarn add sinon'**  
+
 
 To run the tests:
 Run **`yarn test`**
