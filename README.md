@@ -57,7 +57,7 @@ Jest is installed by default, but you will need to install Enzyme along with an 
 Run **`yarn install`**
 
 If sinon is not installed you may need to ;
-Run **'yarn add sinon'**  
+Run **`yarn add sinon`**  
 
 
 To run the tests:
