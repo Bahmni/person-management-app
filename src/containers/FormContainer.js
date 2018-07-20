@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Input from '../components/Input';
-import SelectFromList from '../components/SelectFromList';
+import RadioButtonGroup from '../components/RadioButtonGroup';
 import logo from './logo.png';
 
 // Bahmni person API URL
@@ -13,7 +13,7 @@ class FormContainer extends Component {
     this.state = {
       givenName: '',
       familyName: '',
-      genderOptions: ['Male', 'Female', 'Other', 'Prefer not to say'],
+      genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0
     };
@@ -98,6 +98,8 @@ class FormContainer extends Component {
           type={'text'}
           title={'Given name:'}
           name={'givenName'}
+          aria-label={'Given name'}
+          aria-required="true"
           onChange={e => this.handleGivenName(e)}
           value={this.state.givenName}
           placeholder={'Given name'}
@@ -109,25 +111,29 @@ class FormContainer extends Component {
           type={'text'}
           title={'Family name:'}
           name={'familyName'}
+          aria-label={'Family name'}
+          aria-required="true"
           onChange={e => this.handleFamilyName(e)}
           value={this.state.familyName}
           placeholder={'Family name'}
           id="familyName"
         />
 
-        <SelectFromList
-          name={'genderList'}
-          placeholder={'Gender'}
+        <RadioButtonGroup
+          title={'Please state your gender:'}
+          name={'gender'}
           onChange={e => this.handleGenderOptions(e)}
+          type={'radio'}
           options={this.state.genderOptions}
           selectedOption={this.state.gender}
-          id="selectGender"
         />
 
         <Input
           type={'number'}
           title={'Age:'}
           name={'age'}
+          aria-label={'Age'}
+          aria-required="true"
           onChange={e => this.handleAge(e)}
           value={this.state.age}
           placeholder={'Age'}

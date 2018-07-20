@@ -12,12 +12,13 @@ const Input = props => {
     ...other // rest
   } = props; // object desctructuring
   return (
-    <div>
-      <label>{title}</label>
+    <div className="form-input">
+      <label htmlFor={name}>{title}</label>
       <input
         name={name}
         type={type}
         value={value}
+        aria-label={placeholder}
         onChange={onChange}
         placeholder={placeholder}
         {...other} //object spread
