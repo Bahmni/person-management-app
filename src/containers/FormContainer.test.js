@@ -4,6 +4,7 @@ import FormContainer from './FormContainer';
 import Input from '../components/Input';
 import logo from './logo.png';
 import SelectFromList from '../components/SelectFromList';
+import sinon from 'sinon';
 
 describe('FormContainer', () => {
   let wrapper;
@@ -59,8 +60,10 @@ describe('FormContainer', () => {
     });
 
     describe('and then submits the form', () => {
+      let submitRequest;
       beforeEach(() => {
         const form = wrapper.find('form');
+        submitRequest = sinon.stub(FormContainer.prototype, 'submitRequest');
         wrapper.state.givenName = 'Max';
         form.simulate('submit', {
           preventDefault: () => {}
@@ -68,6 +71,18 @@ describe('FormContainer', () => {
       });
       it('should reset Given Name to default value', () => {
         expect(wrapper.state().givenName).toEqual('');
+        expect(
+          submitRequest.calledWith({
+            names: [
+              {
+                givenName: 'Max',
+                familyName: ''
+              }
+            ],
+            gender: '',
+            age: 0
+          })
+        ).toBeTruthy();
       });
     });
   }); // end of givenName describe
