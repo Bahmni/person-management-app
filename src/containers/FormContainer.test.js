@@ -82,9 +82,9 @@ describe('FormContainer', () => {
             gender: '',
             age: 0
           })
-        ).toBeTruthy();
+        ).toBe(true);
       });
-    });
+    }); // end of submit describe
   }); // end of givenName describe
 
   describe('the user selects value from gender options', () => {
