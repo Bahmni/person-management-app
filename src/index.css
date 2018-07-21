@@ -1,12 +1,9 @@
 body {
-  padding-bottom: 80px;
   font-size: 1.1em;
   font-family: Helvetica, Arial, sans-serif;
 }
 form {
-  border: 3px solid #ccc;
-  padding: 0 20px 25px 20px;
-  border-radius: 10px;
+  border: none;
   max-width: 500px;
   margin: auto;
 }

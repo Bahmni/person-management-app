@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const RadioButtonGroup = props => {
   const { title, name, type, options, selectedOption, onChange } = props;
@@ -26,13 +27,13 @@ const RadioButtonGroup = props => {
   );
 };
 
-// CheckboxOrRadioGroup.propTypes = {
-// 	title: React.PropTypes.string.isRequired,
-// 	type: React.PropTypes.oneOf(['checkbox', 'radio']).isRequired,
-// 	setName: React.PropTypes.string.isRequired,
-// 	options: React.PropTypes.array.isRequired,
-// 	selectedOptions: React.PropTypes.array,
-// 	controlFunc: React.PropTypes.func.isRequired
-// };
+RadioButtonGroup.propTypes = {
+  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['radio']).isRequired,
+  name: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
+  selectedOptions: PropTypes.array,
+  onChange: PropTypes.func.isRequired
+};
 
 export default RadioButtonGroup;
