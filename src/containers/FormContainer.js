@@ -69,9 +69,8 @@ class FormContainer extends Component {
     const formPayload = {
       names: [
         {
-          givenName: this.state.givenName,
-          middleName: this.state.middleName,
-          lastName: this.state.lastName
+          givenName: this.state.givenName + this.state.middleName,
+          familyName: this.state.lastName
         }
       ],
       gender: this.state.gender,
@@ -102,82 +101,84 @@ class FormContainer extends Component {
     return (
       <div className="wrapper">
         <form onSubmit={this.handleFormSubmit}>
-          <div className="flex-container-row">
+          <div>
             <h5>
               <img src={logo} alt="logo" /> Sign Up Form
             </h5>
           </div>
-          <div className="flex-container-row">
+          <div>
             <fieldset>
               <legend>Name</legend>
-              <Input
-                type={'text'}
-                title={'Given name:'}
-                name={'givenName'}
-                aria-label={'Given name'}
-                aria-required="true"
-                onChange={e => this.handleGivenName(e)}
-                value={this.state.givenName}
-                placeholder={'Given name'}
-                id="givenName"
-                required
-              />
+              <div className="flex-container-row">
+                <Input
+                  type={'text'}
+                  title={'Given name: '}
+                  name={'givenName'}
+                  aria-label={'Given name'}
+                  aria-required="true"
+                  onChange={e => this.handleGivenName(e)}
+                  value={this.state.givenName}
+                  id="givenName"
+                  required
+                />
 
-              <Input
-                type={'text'}
-                title={'Midle name:'}
-                name={'midleName'}
-                aria-label={'Middle name'}
-                aria-required="true"
-                onChange={e => this.handleMiddleName(e)}
-                value={this.state.middleName}
-                placeholder={'Middle name'}
-                id="middleName"
-              />
+                <Input
+                  type={'text'}
+                  title={'Midle name: '}
+                  name={'midleName'}
+                  aria-label={'Middle name'}
+                  aria-required="true"
+                  onChange={e => this.handleMiddleName(e)}
+                  value={this.state.middleName}
+                  id="middleName"
+                />
 
-              <Input
-                type={'text'}
-                title={'Last name:'}
-                name={'lastName'}
-                aria-label={'Last name'}
-                aria-required="true"
-                onChange={e => this.handleLastName(e)}
-                value={this.state.lastName}
-                placeholder={'Last name'}
-                id="lastName"
-              />
+                <Input
+                  type={'text'}
+                  title={'Last name: '}
+                  name={'lastName'}
+                  aria-label={'Last name'}
+                  aria-required="true"
+                  onChange={e => this.handleLastName(e)}
+                  value={this.state.lastName}
+                  id="lastName"
+                />
+              </div>
             </fieldset>
           </div>
 
-          <div className="flex-container-row">
+          <div>
             <fieldset>
               <legend>Age</legend>
-              <Input
-                type={'number'}
-                title={'Age:'}
-                name={'age'}
-                aria-label={'Age'}
-                aria-required="true"
-                onChange={e => this.handleAge(e)}
-                value={this.state.age}
-                placeholder={'Age'}
-                id="age"
-              />
+              <div className="flex-container-row">
+                <Input
+                  type={'number'}
+                  title={'Age: '}
+                  name={'age'}
+                  aria-label={'Age'}
+                  aria-required="true"
+                  onChange={e => this.handleAge(e)}
+                  value={this.state.age}
+                  id="age"
+                />
+              </div>
             </fieldset>
           </div>
 
-          <div className="flex-container-row">
+          <div>
             <fieldset>
               <legend>Gender</legend>
-              <RadioButtonGroup
-                title={'Please state your gender:'}
-                name={'gender'}
-                onChange={e => this.handleGenderOptions(e)}
-                type={'radio'}
-                options={this.state.genderOptions}
-                selectedOption={this.state.gender}
-                id="selectGender"
-              />
+              <div className="flex-container-row">
+                <RadioButtonGroup
+                  title={'Please state your gender:'}
+                  name={'gender'}
+                  onChange={e => this.handleGenderOptions(e)}
+                  type={'radio'}
+                  options={this.state.genderOptions}
+                  selectedOption={this.state.gender}
+                  id="selectGender"
+                />
+              </div>
             </fieldset>
           </div>
 

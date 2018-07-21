@@ -76,8 +76,7 @@ describe('FormContainer', () => {
             names: [
               {
                 givenName: 'Max',
-                middleName: '',
-                lastName: ''
+                familyName: ''
               }
             ],
             gender: '',

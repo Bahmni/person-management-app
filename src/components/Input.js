@@ -20,7 +20,6 @@ const Input = props => {
         value={value}
         aria-label={placeholder}
         onChange={onChange}
-        placeholder={placeholder}
         {...other} //object spread
       />
     </div>
