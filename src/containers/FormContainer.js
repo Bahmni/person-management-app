@@ -149,27 +149,37 @@ class FormContainer extends Component {
             </fieldset>
           </div>
 
-          <RadioButtonGroup
-            title={'Please state your gender:'}
-            name={'gender'}
-            onChange={e => this.handleGenderOptions(e)}
-            type={'radio'}
-            options={this.state.genderOptions}
-            selectedOption={this.state.gender}
-            id="selectGender"
-          />
+          <div className="flex-container-row">
+            <fieldset>
+              <legend>Age</legend>
+              <Input
+                type={'number'}
+                title={'Age:'}
+                name={'age'}
+                aria-label={'Age'}
+                aria-required="true"
+                onChange={e => this.handleAge(e)}
+                value={this.state.age}
+                placeholder={'Age'}
+                id="age"
+              />
+            </fieldset>
+          </div>
 
-          <Input
-            type={'number'}
-            title={'Age:'}
-            name={'age'}
-            aria-label={'Age'}
-            aria-required="true"
-            onChange={e => this.handleAge(e)}
-            value={this.state.age}
-            placeholder={'Age'}
-            id="age"
-          />
+          <div className="flex-container-row">
+            <fieldset>
+              <legend>Gender</legend>
+              <RadioButtonGroup
+                title={'Please state your gender:'}
+                name={'gender'}
+                onChange={e => this.handleGenderOptions(e)}
+                type={'radio'}
+                options={this.state.genderOptions}
+                selectedOption={this.state.gender}
+                id="selectGender"
+              />
+            </fieldset>
+          </div>
 
           <input type="submit" value="Submit" />
           <button id="clearButton" onClick={this.handleClearForm}>
