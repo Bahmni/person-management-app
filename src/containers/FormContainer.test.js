@@ -23,7 +23,7 @@ describe('FormContainer', () => {
   });
 
   it('renders three <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(3);
+    expect(wrapper.find(Input).length).toEqual(4);
   });
 
   it('renders one <SelectFromList /> component', () => {
@@ -76,7 +76,8 @@ describe('FormContainer', () => {
             names: [
               {
                 givenName: 'Max',
-                familyName: ''
+                middleName: '',
+                lastName: ''
               }
             ],
             gender: '',
