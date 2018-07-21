@@ -12,7 +12,8 @@ class FormContainer extends Component {
     super(props);
     this.state = {
       givenName: '',
-      familyName: '',
+      middleName: '',
+      lastName: '',
       genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0
@@ -28,9 +29,16 @@ class FormContainer extends Component {
       console.log('Given Name:', this.state.givenName)
     );
   }
-  handleFamilyName(e) {
-    this.setState({ familyName: e.target.value }, () =>
-      console.log('Family Name:', this.state.familyName)
+
+  handleMiddleName(e) {
+    this.setState({ middleName: e.target.value }, () =>
+      console.log('Middle Name:', this.state.lastName)
+    );
+  }
+
+  handleLastName(e) {
+    this.setState({ lastName: e.target.value }, () =>
+      console.log('Last Name:', this.state.lastName)
     );
   }
   handleAge(e) {
@@ -48,7 +56,8 @@ class FormContainer extends Component {
     e.preventDefault();
     this.setState({
       givenName: '',
-      familyName: '',
+      middleName: '',
+      lastName: '',
       gender: '',
       age: 0
     });
@@ -61,7 +70,8 @@ class FormContainer extends Component {
       names: [
         {
           givenName: this.state.givenName,
-          familyName: this.state.familyName
+          middleName: this.state.middleName,
+          lastName: this.state.lastName
         }
       ],
       gender: this.state.gender,
@@ -90,62 +100,83 @@ class FormContainer extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <h5>
-          <img src={logo} alt="logo" /> Sign Up Form
-        </h5>
-        <Input
-          type={'text'}
-          title={'Given name:'}
-          name={'givenName'}
-          aria-label={'Given name'}
-          aria-required="true"
-          onChange={e => this.handleGivenName(e)}
-          value={this.state.givenName}
-          placeholder={'Given name'}
-          id="givenName"
-          required
-        />
+      <div className="wrapper">
+        <form onSubmit={this.handleFormSubmit}>
+          <div className="flex-container-row">
+            <h5>
+              <img src={logo} alt="logo" /> Sign Up Form
+            </h5>
+          </div>
+          <div className="flex-container-row">
+            <fieldset>
+              <legend>Name</legend>
+              <Input
+                type={'text'}
+                title={'Given name:'}
+                name={'givenName'}
+                aria-label={'Given name'}
+                aria-required="true"
+                onChange={e => this.handleGivenName(e)}
+                value={this.state.givenName}
+                placeholder={'Given name'}
+                id="givenName"
+                required
+              />
 
-        <Input
-          type={'text'}
-          title={'Family name:'}
-          name={'familyName'}
-          aria-label={'Family name'}
-          aria-required="true"
-          onChange={e => this.handleFamilyName(e)}
-          value={this.state.familyName}
-          placeholder={'Family name'}
-          id="familyName"
-        />
+              <Input
+                type={'text'}
+                title={'Midle name:'}
+                name={'midleName'}
+                aria-label={'Middle name'}
+                aria-required="true"
+                onChange={e => this.handleMiddleName(e)}
+                value={this.state.middleName}
+                placeholder={'Middle name'}
+                id="middleName"
+              />
 
-        <RadioButtonGroup
-          title={'Please state your gender:'}
-          name={'gender'}
-          onChange={e => this.handleGenderOptions(e)}
-          type={'radio'}
-          options={this.state.genderOptions}
-          selectedOption={this.state.gender}
-          id="selectGender"
-        />
+              <Input
+                type={'text'}
+                title={'Last name:'}
+                name={'lastName'}
+                aria-label={'Last name'}
+                aria-required="true"
+                onChange={e => this.handleLastName(e)}
+                value={this.state.lastName}
+                placeholder={'Last name'}
+                id="lastName"
+              />
+            </fieldset>
+          </div>
 
-        <Input
-          type={'number'}
-          title={'Age:'}
-          name={'age'}
-          aria-label={'Age'}
-          aria-required="true"
-          onChange={e => this.handleAge(e)}
-          value={this.state.age}
-          placeholder={'Age'}
-          id="age"
-        />
+          <RadioButtonGroup
+            title={'Please state your gender:'}
+            name={'gender'}
+            onChange={e => this.handleGenderOptions(e)}
+            type={'radio'}
+            options={this.state.genderOptions}
+            selectedOption={this.state.gender}
+            id="selectGender"
+          />
 
-        <input type="submit" value="Submit" />
-        <button id="clearButton" onClick={this.handleClearForm}>
-          Clear form
-        </button>
-      </form>
+          <Input
+            type={'number'}
+            title={'Age:'}
+            name={'age'}
+            aria-label={'Age'}
+            aria-required="true"
+            onChange={e => this.handleAge(e)}
+            value={this.state.age}
+            placeholder={'Age'}
+            id="age"
+          />
+
+          <input type="submit" value="Submit" />
+          <button id="clearButton" onClick={this.handleClearForm}>
+            Clear form
+          </button>
+        </form>
+      </div>
     );
   }
 }
