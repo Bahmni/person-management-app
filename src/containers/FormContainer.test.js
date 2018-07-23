@@ -43,12 +43,6 @@ describe('FormContainer', () => {
       expect(firstNameInput.props().required).toBe(true);
     });
 
-    it('clears the firstName value when the clear button is clicked', () => {
-      wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
-
-      expect(firstNameInput.props().value).toEqual('');
-    });
-
     describe('and then submits the form', () => {
       let submitRequest;
       beforeEach(() => {
@@ -92,11 +86,6 @@ describe('FormContainer', () => {
 
     it('should update the state property gender', () => {
       expect(wrapper.state().gender).toEqual(exampleGenderSelected);
-    });
-
-    it('clears the gender value when the clear button is clicked', () => {
-      wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
-      expect(wrapper.state('gender')).toBe('');
     });
   }); // end of gender options describe
 
