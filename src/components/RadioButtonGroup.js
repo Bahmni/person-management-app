@@ -2,11 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RadioButtonGroup = props => {
-  const { title, name, type, options, selectedOption, onChange } = props;
+  const {
+    title,
+    name,
+    type,
+    options,
+    selectedOption,
+    onChange,
+    required
+  } = props;
 
   return (
     <div className="form-input">
-      <label htmlFor={name}>{title}</label>
+      <label htmlFor={name}>
+        {title}
+        {required ? '*' : null}
+      </label>
       <div>
         {options.map(option => {
           return (

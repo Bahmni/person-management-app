@@ -116,7 +116,7 @@ class FormContainer extends Component {
               <div className="flex-container-row">
                 <Input
                   type={'text'}
-                  title={'First name: '}
+                  title={'First name '}
                   name={'firstName'}
                   aria-label={'First name'}
                   aria-required="true"
@@ -128,7 +128,7 @@ class FormContainer extends Component {
 
                 <Input
                   type={'text'}
-                  title={'Middle name: '}
+                  title={'Middle name '}
                   name={'middleName'}
                   aria-label={'Middle name'}
                   aria-required="true"
@@ -139,13 +139,14 @@ class FormContainer extends Component {
 
                 <Input
                   type={'text'}
-                  title={'Last name: '}
+                  title={'Last name '}
                   name={'lastName'}
                   aria-label={'Last name'}
                   aria-required="true"
                   onChange={e => this.handleLastName(e)}
                   value={this.state.lastName}
                   id="lastName"
+                  required
                 />
               </div>
             </fieldset>
@@ -157,18 +158,19 @@ class FormContainer extends Component {
               <div className="flex-container-row">
                 <Input
                   type={'date'}
-                  title={'Date of Birth: '}
+                  title={'Date of Birth '}
                   name={'birthdate'}
                   aria-label={'Date of Birth'}
                   aria-required="true"
                   onChange={e => this.handlebirthdate(e)}
                   value={this.state.birthdate}
                   id="birthdate"
+                  required
                 />
 
                 <Input
                   type={'number'}
-                  title={'Age: '}
+                  title={'Age '}
                   name={'age'}
                   aria-label={'Age'}
                   aria-required="true"
@@ -185,13 +187,14 @@ class FormContainer extends Component {
               <legend>Gender</legend>
               <div className="flex-container-row">
                 <RadioButtonGroup
-                  title={'Please state your gender:'}
+                  title={'Gender'}
                   name={'gender'}
                   onChange={e => this.handleGenderOptions(e)}
                   type={'radio'}
                   options={this.state.genderOptions}
                   selectedOption={this.state.gender}
                   id="selectGender"
+                  required
                 />
               </div>
             </fieldset>
