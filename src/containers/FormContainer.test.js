@@ -13,15 +13,6 @@ describe('FormContainer', () => {
     wrapper = shallow(<FormContainer />);
   });
 
-  it('renders "Signup" with logo', () => {
-    const signup = (
-      <h5>
-        <img src={logo} alt="logo" /> Sign Up Form
-      </h5>
-    );
-    expect(wrapper.contains(signup)).toEqual(true);
-  });
-
   it('renders three <Input /> components', () => {
     expect(wrapper.find(Input).length).toEqual(4);
   });
@@ -30,33 +21,33 @@ describe('FormContainer', () => {
     expect(wrapper.find(SelectFromList).length).toEqual(1);
   });
 
-  it('renders givenName input', () => {
-    expect(wrapper.find('#givenName').length).toEqual(1);
+  it('renders firstName input', () => {
+    expect(wrapper.find('#firstName').length).toEqual(1);
   });
 
-  describe('the user populates given name input', () => {
-    const exampleGivenName = 'Max';
-    let givenNameInput;
+  describe('the user populates first name input', () => {
+    const exampleFirstName = 'Max';
+    let firstNameInput;
 
     beforeEach(() => {
-      givenNameInput = wrapper.find('Input').first();
-      givenNameInput.simulate('change', {
-        target: { value: exampleGivenName }
+      firstNameInput = wrapper.find('Input').first();
+      firstNameInput.simulate('change', {
+        target: { value: exampleFirstName }
       });
     });
 
-    it('should update the state property givenName', () => {
-      expect(wrapper.state().givenName).toEqual(exampleGivenName);
+    it('should update the state property firstName', () => {
+      expect(wrapper.state().firstName).toEqual(exampleFirstName);
     });
 
-    it('requires Given name input', () => {
-      expect(givenNameInput.props().required).toBe(true);
+    it('requires First name input', () => {
+      expect(firstNameInput.props().required).toBe(true);
     });
 
-    it('clears the givenName value when the clear button is clicked', () => {
+    it('clears the firstName value when the clear button is clicked', () => {
       wrapper.find('#clearButton').simulate('click', { preventDefault() {} });
 
-      expect(givenNameInput.props().value).toEqual('');
+      expect(firstNameInput.props().value).toEqual('');
     });
 
     describe('and then submits the form', () => {
@@ -64,18 +55,18 @@ describe('FormContainer', () => {
       beforeEach(() => {
         const form = wrapper.find('form');
         submitRequest = sinon.stub(FormContainer.prototype, 'submitRequest');
-        wrapper.state.givenName = 'Max';
+        wrapper.state.firstName = 'Max';
         form.simulate('submit', {
           preventDefault: () => {}
         });
       });
-      it('should reset Given Name to default value', () => {
-        expect(wrapper.state().givenName).toEqual('');
+      it('should reset First Name to default value', () => {
+        expect(wrapper.state().firstName).toEqual('');
         expect(
           submitRequest.calledWith({
             names: [
               {
-                givenName: 'Max',
+                firstName: 'Max',
                 familyName: ''
               }
             ],
@@ -85,7 +76,7 @@ describe('FormContainer', () => {
         ).toBe(true);
       });
     }); // end of submit describe
-  }); // end of givenName describe
+  }); // end of firstName describe
 
   describe('the user selects value from gender options', () => {
     const exampleGenderSelected = 'Female';
