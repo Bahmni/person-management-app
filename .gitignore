@@ -9,7 +9,6 @@
 
 # misc
 .DS_Store
--.env
 -tmp.js
 .env.local
 .env.development.local

@@ -9,11 +9,15 @@ const Input = props => {
     value,
     onChange,
     placeholder,
+    required,
     ...other // rest
   } = props; // object desctructuring
   return (
     <div className="form-input">
-      <label htmlFor={name}>{title}</label>
+      <label htmlFor={name}>
+        {title}
+        {required ? '*' : null}
+      </label>
       <input
         name={name}
         type={type}
