@@ -14,18 +14,22 @@ const Input = props => {
   } = props; // object desctructuring
   return (
     <div className="form-input">
-      <label className={required ? 'required' : null} htmlFor={name}>
-        {title}
-      </label>
-      <input
-        name={name}
-        type={type}
-        value={value}
-        aria-label={placeholder}
-        onChange={onChange}
-        required={required}
-        {...other} //object spread
-      />
+      <div>
+        <label className={required ? 'required' : null} htmlFor={name}>
+          {title}
+        </label>
+      </div>
+      <div>
+        <input
+          name={name}
+          type={type}
+          value={value}
+          aria-label={placeholder}
+          onChange={onChange}
+          required={required}
+          {...other} //object spread
+        />
+      </div>
     </div>
   );
 };

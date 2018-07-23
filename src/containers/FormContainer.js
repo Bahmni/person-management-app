@@ -148,6 +148,7 @@ class FormContainer extends Component {
                   required={true}
                 />
               </div>
+              <hr />
             </fieldset>
           </div>
 
@@ -178,6 +179,7 @@ class FormContainer extends Component {
                   id="age"
                 />
               </div>
+              <hr />
             </fieldset>
           </div>
 
@@ -196,10 +198,11 @@ class FormContainer extends Component {
                   required={true}
                 />
               </div>
+              <hr />
             </fieldset>
           </div>
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Register" />
         </form>
       </div>
     );
