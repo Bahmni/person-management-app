@@ -187,8 +187,8 @@ class FormContainer extends Component {
               <div className="flex-container-row">
                 <Input
                   type={'number'}
-                  title={'Years '}
-                  name={'age'}
+                  title={'Years '} //This is so the screen UI is Years
+                  name={'age'} //The Bahmni Person API works with age
                   aria-label={'Years'}
                   aria-required="true"
                   onChange={e => this.handleAge(e)}
