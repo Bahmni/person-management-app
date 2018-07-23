@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
-import logo from './logo.png';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -11,7 +10,7 @@ class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      givenName: '',
+      firstName: '',
       middleName: '',
       lastName: '',
       genderOptions: ['Male', 'Female', 'Other'],
@@ -24,9 +23,9 @@ class FormContainer extends Component {
   }
 
   // handle inputs with real-time console logging
-  handleGivenName(e) {
-    this.setState({ givenName: e.target.value }, () =>
-      console.log('Given Name:', this.state.givenName)
+  handleFirstName(e) {
+    this.setState({ firstName: e.target.value }, () =>
+      console.log('First Name:', this.state.firstName)
     );
   }
 
@@ -55,7 +54,7 @@ class FormContainer extends Component {
   handleClearForm(e) {
     e.preventDefault();
     this.setState({
-      givenName: '',
+      firstName: '',
       middleName: '',
       lastName: '',
       gender: '',
@@ -69,7 +68,7 @@ class FormContainer extends Component {
     const formPayload = {
       names: [
         {
-          givenName: this.state.givenName + this.state.middleName,
+          firstName: this.state.firstName + this.state.middleName,
           familyName: this.state.lastName
         }
       ],
@@ -101,10 +100,8 @@ class FormContainer extends Component {
     return (
       <div className="wrapper">
         <form onSubmit={this.handleFormSubmit}>
-          <div>
-            <h5>
-              <img src={logo} alt="logo" /> Sign Up Form
-            </h5>
+          <div className="Header">
+            <h5>Register New Person</h5>
           </div>
           <div>
             <fieldset>
@@ -112,20 +109,20 @@ class FormContainer extends Component {
               <div className="flex-container-row">
                 <Input
                   type={'text'}
-                  title={'Given name: '}
-                  name={'givenName'}
-                  aria-label={'Given name'}
+                  title={'First name: '}
+                  name={'firstName'}
+                  aria-label={'First name'}
                   aria-required="true"
-                  onChange={e => this.handleGivenName(e)}
-                  value={this.state.givenName}
-                  id="givenName"
+                  onChange={e => this.handleFirstName(e)}
+                  value={this.state.firstName}
+                  id="firstName"
                   required
                 />
 
                 <Input
                   type={'text'}
-                  title={'Midle name: '}
-                  name={'midleName'}
+                  title={'Middle name: '}
+                  name={'middleName'}
                   aria-label={'Middle name'}
                   aria-required="true"
                   onChange={e => this.handleMiddleName(e)}
