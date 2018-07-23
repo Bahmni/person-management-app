@@ -14,9 +14,8 @@ const RadioButtonGroup = props => {
 
   return (
     <div className="form-input">
-      <label htmlFor={name}>
+      <label className={required ? 'required' : null} htmlFor={name}>
         {title}
-        {required ? '*' : null}
       </label>
       <div>
         {options.map(option => {
