@@ -16,6 +16,10 @@ fieldset {
   border: 0;
 }
 
+div.Header {
+  background-color: rgb(23, 113, 101);
+  height: 50px;
+}
 div.flex-container-row {
   position: relative;
   margin: 0 auto;

@@ -16,6 +16,8 @@ class FormContainer extends Component {
       genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0,
+      months: 0,
+      days: 0,
       birthdate: ''
     };
 
@@ -46,6 +48,16 @@ class FormContainer extends Component {
       console.log('age', this.state.age)
     );
   }
+  handleMonths(e) {
+    this.setState({ months: e.target.value }, () =>
+      console.log('months', this.state.months)
+    );
+  }
+  handleDays(e) {
+    this.setState({ days: e.target.value }, () =>
+      console.log('days', this.state.days)
+    );
+  }
   handlebirthdate(e) {
     this.setState({ birthdate: e.target.value }, () =>
       console.log('birthdate', this.state.birthdate)
@@ -64,8 +76,10 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
+      birthdate: '',
       age: 0,
-      birthdate: ''
+      months: 0,
+      days: 0
     });
   }
 
@@ -80,6 +94,8 @@ class FormContainer extends Component {
       ],
       gender: this.state.gender,
       age: this.state.age,
+      months: this.state.months,
+      days: this.state.days,
       birthdate: this.state.birthdate + 'T12:00:00.000+0000'
     };
 
@@ -167,16 +183,37 @@ class FormContainer extends Component {
                   id="birthdate"
                   required={true}
                 />
-
+              </div>
+              <div className="flex-container-row">
                 <Input
                   type={'number'}
-                  title={'Age '}
+                  title={'Years '}
                   name={'age'}
-                  aria-label={'Age'}
+                  aria-label={'Years'}
                   aria-required="true"
                   onChange={e => this.handleAge(e)}
                   value={this.state.age}
                   id="age"
+                />
+                <Input
+                  type={'number'}
+                  title={'Months '}
+                  name={'months'}
+                  aria-label={'Months'}
+                  aria-required="true"
+                  onChange={e => this.handleMonths(e)}
+                  value={this.state.months}
+                  id="months"
+                />
+                <Input
+                  type={'number'}
+                  title={'Days '}
+                  name={'days'}
+                  aria-label={'Days'}
+                  aria-required="true"
+                  onChange={e => this.handleDays(e)}
+                  value={this.state.days}
+                  id="days"
                 />
               </div>
               <hr />
@@ -185,7 +222,7 @@ class FormContainer extends Component {
 
           <div>
             <fieldset>
-              <legend>Gender</legend>
+              {/* <legend>Gender</legend> */}
               <div className="flex-container-row">
                 <RadioButtonGroup
                   title={'Gender'}
@@ -201,7 +238,6 @@ class FormContainer extends Component {
               <hr />
             </fieldset>
           </div>
-
           <input type="submit" value="Register" />
         </form>
       </div>

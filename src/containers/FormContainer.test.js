@@ -12,8 +12,8 @@ describe('FormContainer', () => {
     wrapper = shallow(<FormContainer />);
   });
 
-  it('renders five <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(5);
+  it('renders seven <Input /> components', () => {
+    expect(wrapper.find(Input).length).toEqual(7);
   });
 
   it('renders one <SelectFromList /> component', () => {
@@ -66,6 +66,8 @@ describe('FormContainer', () => {
             ],
             gender: '',
             age: 0,
+            months: 0,
+            days: 0,
             birthdate: 'T12:00:00.000+0000'
           })
         ).toBe(true);
@@ -89,7 +91,7 @@ describe('FormContainer', () => {
     });
   }); // end of gender options describe
 
-  it('should change the Age input when the user types or clicks', () => {
+  it('should change the Years input when the user types or clicks', () => {
     wrapper
       .find('#age')
       .simulate('change', { target: { name: 'age', value: '33' } });
