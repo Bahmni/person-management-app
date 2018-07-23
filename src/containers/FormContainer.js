@@ -75,13 +75,13 @@ class FormContainer extends Component {
     const formPayload = {
       names: [
         {
-          firstName: this.state.firstName + ' ' + this.state.middleName,
-          familyName: this.state.lastName
+          familyName: this.state.lastName,
+          firstName: this.state.firstName
         }
       ],
       gender: this.state.gender,
-      age: this.state.age
-      //birthdate: this.state.birthdate
+      age: this.state.age,
+      birthdate: this.state.birthdate
     };
 
     this.submitRequest(formPayload);

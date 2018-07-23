@@ -66,8 +66,8 @@ describe('FormContainer', () => {
           submitRequest.calledWith({
             names: [
               {
-                firstName: 'Max',
-                familyName: ''
+                familyName: '',
+                firstName: 'Max'
               }
             ],
             gender: '',
