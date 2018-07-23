@@ -19,8 +19,7 @@ fieldset {
 
 div.flex-container-row {
   display: flex;
-  flex-direction: row;
-  border: none;
+  /* border: none; */
 }
 
 .form-input {
@@ -48,7 +47,8 @@ input[type='radio'] {
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+input[type='date'] {
   border: 1px solid grey;
   box-shadow: 1px 1px 1px 1px grey inset;
   height: 30px;

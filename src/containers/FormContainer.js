@@ -71,17 +71,16 @@ class FormContainer extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-
     const formPayload = {
       names: [
         {
           familyName: this.state.lastName,
-          firstName: this.state.firstName
+          givenName: this.state.firstName
         }
       ],
       gender: this.state.gender,
       age: this.state.age,
-      birthdate: this.state.birthdate
+      birthdate: this.state.birthdate + 'T12:00:00.000+0000'
     };
 
     this.submitRequest(formPayload);
@@ -92,7 +91,7 @@ class FormContainer extends Component {
     console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
-      body: JSON.stringify(formPayload), // data can be `string` or {object}!
+      body: JSON.stringify(formPayload),
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
@@ -166,17 +165,18 @@ class FormContainer extends Component {
                   value={this.state.birthdate}
                   id="birthdate"
                 />
+
+                <Input
+                  type={'number'}
+                  title={'Age: '}
+                  name={'age'}
+                  aria-label={'Age'}
+                  aria-required="true"
+                  onChange={e => this.handleAge(e)}
+                  value={this.state.age}
+                  id="age"
+                />
               </div>
-              <Input
-                type={'number'}
-                title={'Age: '}
-                name={'age'}
-                aria-label={'Age'}
-                aria-required="true"
-                onChange={e => this.handleAge(e)}
-                value={this.state.age}
-                id="age"
-              />
             </fieldset>
           </div>
 

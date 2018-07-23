@@ -67,12 +67,11 @@ describe('FormContainer', () => {
             names: [
               {
                 familyName: '',
-                firstName: 'Max'
+                givenName: 'Max'
               }
             ],
             gender: '',
-            age: 0,
-            birthdate: ''
+            age: 0
           })
         ).toBe(true);
       });
