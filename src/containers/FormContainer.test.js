@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import FormContainer from './FormContainer';
 import Input from '../components/Input';
-import logo from './logo.png';
 import SelectFromList from '../components/RadioButtonGroup';
 import sinon from 'sinon';
 
@@ -71,7 +70,8 @@ describe('FormContainer', () => {
               }
             ],
             gender: '',
-            age: 0
+            age: 0,
+            birthdate: '2001-01-01T12:00:00.000+0000'
           })
         ).toBe(true);
       });

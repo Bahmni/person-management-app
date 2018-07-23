@@ -16,7 +16,7 @@ class FormContainer extends Component {
       genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0,
-      birthdate: ''
+      birthdate: '2001-01-01'
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
