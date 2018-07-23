@@ -28,6 +28,7 @@ const RadioButtonGroup = props => {
                 value={option}
                 checked={selectedOption.indexOf(option) > -1}
                 type={type}
+                required={required}
               />{' '}
               {option}
             </label>

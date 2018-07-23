@@ -24,6 +24,7 @@ const Input = props => {
         value={value}
         aria-label={placeholder}
         onChange={onChange}
+        required={required}
         {...other} //object spread
       />
     </div>

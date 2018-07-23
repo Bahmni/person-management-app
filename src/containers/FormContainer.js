@@ -16,7 +16,7 @@ class FormContainer extends Component {
       genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0,
-      birthdate: '2001-01-01'
+      birthdate: ''
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -123,7 +123,7 @@ class FormContainer extends Component {
                   onChange={e => this.handleFirstName(e)}
                   value={this.state.firstName}
                   id="firstName"
-                  required
+                  required={true}
                 />
 
                 <Input
@@ -131,7 +131,6 @@ class FormContainer extends Component {
                   title={'Middle name '}
                   name={'middleName'}
                   aria-label={'Middle name'}
-                  aria-required="true"
                   onChange={e => this.handleMiddleName(e)}
                   value={this.state.middleName}
                   id="middleName"
@@ -146,7 +145,7 @@ class FormContainer extends Component {
                   onChange={e => this.handleLastName(e)}
                   value={this.state.lastName}
                   id="lastName"
-                  required
+                  required={true}
                 />
               </div>
             </fieldset>
@@ -165,7 +164,7 @@ class FormContainer extends Component {
                   onChange={e => this.handlebirthdate(e)}
                   value={this.state.birthdate}
                   id="birthdate"
-                  required
+                  required={true}
                 />
 
                 <Input
@@ -194,7 +193,7 @@ class FormContainer extends Component {
                   options={this.state.genderOptions}
                   selectedOption={this.state.gender}
                   id="selectGender"
-                  required
+                  required={true}
                 />
               </div>
             </fieldset>
