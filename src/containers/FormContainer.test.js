@@ -13,8 +13,8 @@ describe('FormContainer', () => {
     wrapper = shallow(<FormContainer />);
   });
 
-  it('renders three <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(4);
+  it('renders five <Input /> components', () => {
+    expect(wrapper.find(Input).length).toEqual(5);
   });
 
   it('renders one <SelectFromList /> component', () => {
@@ -71,7 +71,8 @@ describe('FormContainer', () => {
               }
             ],
             gender: '',
-            age: 0
+            age: 0,
+            birthdate: ''
           })
         ).toBe(true);
       });

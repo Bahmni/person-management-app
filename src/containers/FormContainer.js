@@ -15,7 +15,8 @@ class FormContainer extends Component {
       lastName: '',
       genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
-      age: 0
+      age: 0,
+      birthdate: ''
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -31,7 +32,7 @@ class FormContainer extends Component {
 
   handleMiddleName(e) {
     this.setState({ middleName: e.target.value }, () =>
-      console.log('Middle Name:', this.state.lastName)
+      console.log('Middle Name:', this.state.middleName)
     );
   }
 
@@ -43,6 +44,11 @@ class FormContainer extends Component {
   handleAge(e) {
     this.setState({ age: e.target.value }, () =>
       console.log('age', this.state.age)
+    );
+  }
+  handlebirthdate(e) {
+    this.setState({ birthdate: e.target.value }, () =>
+      console.log('birthdate', this.state.birthdate)
     );
   }
   handleGenderOptions(e) {
@@ -58,7 +64,8 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      age: 0
+      age: 0,
+      birthdate: ''
     });
   }
 
@@ -68,12 +75,13 @@ class FormContainer extends Component {
     const formPayload = {
       names: [
         {
-          firstName: this.state.firstName + this.state.middleName,
+          firstName: this.state.firstName + ' ' + this.state.middleName,
           familyName: this.state.lastName
         }
       ],
       gender: this.state.gender,
       age: this.state.age
+      //birthdate: this.state.birthdate
     };
 
     this.submitRequest(formPayload);
@@ -149,16 +157,26 @@ class FormContainer extends Component {
               <legend>Age</legend>
               <div className="flex-container-row">
                 <Input
-                  type={'number'}
-                  title={'Age: '}
-                  name={'age'}
-                  aria-label={'Age'}
+                  type={'date'}
+                  title={'Date of Birth: '}
+                  name={'birthdate'}
+                  aria-label={'Date of Birth'}
                   aria-required="true"
-                  onChange={e => this.handleAge(e)}
-                  value={this.state.age}
-                  id="age"
+                  onChange={e => this.handlebirthdate(e)}
+                  value={this.state.birthdate}
+                  id="birthdate"
                 />
               </div>
+              <Input
+                type={'number'}
+                title={'Age: '}
+                name={'age'}
+                aria-label={'Age'}
+                aria-required="true"
+                onChange={e => this.handleAge(e)}
+                value={this.state.age}
+                id="age"
+              />
             </fieldset>
           </div>
 
