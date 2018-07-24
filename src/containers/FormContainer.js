@@ -252,7 +252,9 @@ class FormContainer extends Component {
               <hr />
             </fieldset>
           </div>
-          <input type="submit" value="Register" />
+          <div className="submit-button">
+            <input type="submit" value="Register" />
+          </div>
         </form>
       </div>
     );
