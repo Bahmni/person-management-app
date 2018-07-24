@@ -14,7 +14,7 @@ const Input = props => {
   } = props; // object desctructuring
   return (
     <div className="form-input">
-      <div>
+      <div className="input-label">
         <label className={required ? 'required' : null} htmlFor={name}>
           {title}
         </label>
