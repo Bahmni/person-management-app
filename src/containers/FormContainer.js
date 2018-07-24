@@ -203,8 +203,8 @@ class FormContainer extends Component {
                   type="checkbox"
                   checked={this.state.birthdateIsEstimated}
                   onChange={e => this.handleBirthdateIsEstimated(e)}
+                  id="estimated"
                 />
-
                 <Input
                   type={'number'}
                   title={'Years '} //This is so the screen UI is Years

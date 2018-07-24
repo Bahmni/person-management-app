@@ -7,9 +7,10 @@ const SingleCheckbox = props => {
       <div className="input-label">
         <label htmlFor={name}>{title}</label>
       </div>
-      <div>
+      <label className="myCheckbox">
         <input name={name} type={type} onChange={onChange} checked={checked} />
-      </div>
+        <span />
+      </label>
     </div>
   );
 };

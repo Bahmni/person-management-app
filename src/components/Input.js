@@ -19,7 +19,7 @@ const Input = props => {
           {title}
         </label>
       </div>
-      <div>
+      <div className="div-input">
         <input
           name={name}
           type={type}
