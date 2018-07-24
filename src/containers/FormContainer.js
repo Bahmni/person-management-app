@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
+import SingleCheckbox from '../components/SingleCheckbox';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -18,7 +19,8 @@ class FormContainer extends Component {
       age: 0,
       months: 0,
       days: 0,
-      birthdate: ''
+      birthdate: '',
+      birthdateIsEstimated: false
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -63,6 +65,13 @@ class FormContainer extends Component {
       console.log('birthdate', this.state.birthdate)
     );
   }
+
+  handleBirthdateIsEstimated(e) {
+    this.setState({ birthdateIsEstimated: e.target.checked }, () =>
+      console.log('birthdateIsEstimated', this.state.birthdate)
+    );
+  }
+
   handleGenderOptions(e) {
     this.setState({ gender: e.target.value }, () =>
       console.log('gender options', this.state.gender)
@@ -77,6 +86,7 @@ class FormContainer extends Component {
       lastName: '',
       gender: '',
       birthdate: '',
+      birthdateIsEstimated: false,
       age: 0,
       months: 0,
       days: 0
@@ -94,8 +104,6 @@ class FormContainer extends Component {
       ],
       gender: this.state.gender,
       age: this.state.age,
-      months: this.state.months,
-      days: this.state.days,
       birthdate: this.state.birthdate + 'T12:00:00.000+0000'
     };
 
@@ -183,8 +191,14 @@ class FormContainer extends Component {
                   id="birthdate"
                   required={true}
                 />
-              </div>
-              <div className="flex-container-row">
+                <SingleCheckbox
+                  title="Estimated"
+                  name="birthdateIsEstimated"
+                  type="checkbox"
+                  checked={this.state.birthdateIsEstimated}
+                  onChange={e => this.handleBirthdateIsEstimated(e)}
+                />
+
                 <Input
                   type={'number'}
                   title={'Years '} //This is so the screen UI is Years
