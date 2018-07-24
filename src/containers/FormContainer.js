@@ -128,6 +128,12 @@ class FormContainer extends Component {
   }
 
   render() {
+    const { firstName, lastName, gender, birthdate } = this.state;
+    const isEnabled =
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      gender.length > 0 &&
+      birthdate.length > 0;
     return (
       <div className="wrapper">
         <form onSubmit={this.handleFormSubmit}>
@@ -253,7 +259,11 @@ class FormContainer extends Component {
             </fieldset>
           </div>
           <div className="submit-button">
-            <input type="submit" value="Register" />
+            <input
+              disabled={isEnabled ? null : 'disabled'}
+              type="submit"
+              value="Register"
+            />
           </div>
         </form>
       </div>
