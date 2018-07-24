@@ -1,4 +1,4 @@
-html {
+* {
   box-sizing: border-box;
 }
 
@@ -11,7 +11,7 @@ form {
   position: relative;
   padding: 2em;
   margin: 0 auto;
-  width: 70%;
+  width: 80%;
 }
 
 fieldset {
@@ -23,16 +23,17 @@ fieldset {
   height: 50px;
 } */
 div.flex-container-row {
-  /* position: relative; */
   margin: 0 auto;
-  font-weight: normal;
+  /* border: 1px solid black; */
   display: flex;
-  border: 0;
+  flex-wrap: wrap;
 }
 
 .form-input {
-  flex-grow: 1;
+  flex: 1;
+  min-width: 15%;
   padding: 20px 30px 20px 0;
+  /* border: 1px solid black; */
 }
 
 div.submit-button {
@@ -58,12 +59,10 @@ input[type='submit'] {
 }
 
 .myCheckbox span {
-  display: flex;
   width: 30px;
   height: 30px;
   display: block;
   cursor: pointer;
-  margin: 0 auto;
   border-radius: 3px;
   border: 1px solid grey;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
@@ -87,8 +86,11 @@ input[type='date'] {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
   background-color: rgb(249, 249, 249);
   height: 30px;
-  width: 100%;
   font-size: 100%;
+}
+
+input[type='number'] {
+  max-width: 50%;
 }
 
 legend {
@@ -106,4 +108,36 @@ legend {
 
 input:disabled {
   background-color: #9b9b9b;
+}
+
+/* Landscape */
+/* @media only screen 
+  and (min-device-width: 800px) 
+  and (max-device-width: 1280px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) 
+  and (orientation: landscape) {
+} */
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (max-width: 1280px) {
+  .form-input {
+    min-width: 30%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .form-input {
+    min-width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-input {
+    min-width: 90%;
+  }
 }
