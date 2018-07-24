@@ -4,6 +4,7 @@ html {
 
 body {
   font-family: Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
 form {
@@ -22,10 +23,8 @@ fieldset {
   height: 50px;
 } */
 div.flex-container-row {
-  position: relative;
+  /* position: relative; */
   margin: 0 auto;
-  width: 100%;
-  max-width: 85rem;
   font-weight: normal;
   display: flex;
   border: 0;
@@ -33,22 +32,23 @@ div.flex-container-row {
 
 .form-input {
   flex-grow: 1;
-  margin: 1rem 2%;
-  padding: 1.1rem 1.5rem;
+  padding: 20px 30px 20px 0;
 }
 
-button,
+div.submit-button {
+  display: flex;
+}
+
 input[type='submit'] {
-  position: relative;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   font-size: 0.9rem;
   height: 1.4rem;
-  margin: 5px;
   margin-top: 20px;
-  background-color: lightgray;
+  background-color: #0f7165;
   color: white;
-  align-content: flex-end;
+  margin-left: auto;
+  padding: 0 25px;
 }
 
 input[type='radio'] {
@@ -64,10 +64,11 @@ input[type='text'],
 input[type='number'],
 input[type='date'] {
   border: 1px solid grey;
-  box-shadow: 0.5px 0.5px 0.5px 0.5px grey inset;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
   background-color: rgb(249, 249, 249);
   height: 30px;
   width: 100%;
+  font-size: 100%;
 }
 
 legend {
@@ -75,11 +76,10 @@ legend {
 }
 
 .input-label {
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 .required:after {
   content: ' *';
   color: red;
-  font-size: 1.2rem;
 }
