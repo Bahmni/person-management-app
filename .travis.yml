@@ -1,3 +1,10 @@
 language: node_js
  node_js:
    - "stable"
+-# deploy:
+-#   provider: pages
+-#   skip_cleanup: true
+-#   github_token: $githubToken
+-#   local_dir: build
+-#   on:
+-#     branch: master
