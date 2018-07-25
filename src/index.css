@@ -1,10 +1,10 @@
 * {
   box-sizing: border-box;
-}
-
-body {
   font-family: Helvetica, Arial, sans-serif;
   color: #333;
+  background-color: rgb(249, 249, 249);
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 form {
@@ -14,37 +14,101 @@ form {
   width: 80%;
 }
 
+/* removing the border around the fieldset */
 fieldset {
   border: 0;
 }
 
-/* div.Header {
-  background-color: rgb(23, 113, 101);
-  height: 50px;
-} */
+/* outer flex container with Name, Age, Gender sections */
 div.flex-container-row {
-  margin: 0 auto;
-  /* border: 1px solid black; */
   display: flex;
-  flex-wrap: wrap;
 }
-
+/* flex items */
 .form-input {
   flex: 1;
-  min-width: 15%;
-  padding: 20px 30px 20px 0;
-  /* border: 1px solid black; */
+}
+
+/* capitalizing titles of form sections */
+legend {
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-bottom: 1rem;
+}
+
+/* Basic styling of inputs */
+input[type='text'],
+input[type='number'],
+input[type='date'],
+label.labelRadio,
+.myCheckbox span {
+  border: 1px solid grey;
+  border-radius: 3px;
+  height: 2rem;
+  width: 70%;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='date'],
+.myCheckbox span {
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
+}
+
+input[type='number'] {
+  width: 30%;
+}
+
+input[type='date'] {
+  width: 100%;
+}
+
+/* Changing mouse to pointer for clickable inputs */
+input[type='submit'],
+input[type='date'],
+label.labelRadio,
+.myCheckbox span {
+  cursor: pointer;
+}
+
+/* hidding the default checkbox and radio buttons */
+.myCheckbox input,
+input[type='radio'] {
+  position: absolute;
+  left: -9999px;
+}
+/* Custom checkbox */
+.myCheckbox span {
+  width: 30px;
+  display: block;
+  border: 1px solid grey;
+  margin: 0 auto;
+}
+/* Checkbox when it's checked */
+.myCheckbox input:checked + span {
+  background-color: #0f7165;
+  border: none;
+}
+/* Radio buttons flex container */
+div.radioGroup {
+  display: flex;
+  width: 50%;
+}
+
+.labelRadio {
+  border: 1px solid grey;
+  text-align: center;
+  color: #0f7165; /*when selected */
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
 div.submit-button {
   display: flex;
+
 }
 
 input[type='submit'] {
   border: none;
-  cursor: pointer;
   border-radius: 3px;
-  font-size: 0.9rem;
   height: 2rem;
   margin-top: 20px;
   background-color: #0f7165;
@@ -53,120 +117,18 @@ input[type='submit'] {
   padding: 0 45px;
 }
 
-.myCheckbox input {
-  position: absolute;
-  left: -9999px;
-}
-
-.myCheckbox span {
-  width: 30px;
-  height: 30px;
-  display: block;
-  cursor: pointer;
-  border-radius: 3px;
-  border: 1px solid grey;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
-  background-color: rgb(249, 249, 249);
-}
-
-.myCheckbox input:checked + span {
-  background-color: #0f7165;
-  border: none;
-}
-
-input[type='radio'] {
-  cursor: pointer;
-  visibility: hidden;
-  height: 0;
-  width: 0;
-  opacity: 0;
-}
-
-.labelRadio {
-  border: 1px solid grey;
-  border-radius: 3px;
-  height: 48px;
-  width: 254px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #0f7165; /*when selected */
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 41px;
-  text-align: center;
-}
-
-div.radioGroup {
-  display: flex;
-  cursor: pointer;
-  border-radius: 2px;
-  background-color: rgb(249, 249, 249);
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-}
-
-.labelRadio:hover {
-  background-color: rgb(15, 113, 101, 1);
-  color: #ffffff;
-}
-
-input[type='text'],
-input[type='number'],
-input[type='date'] {
-  border: 1px solid grey;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
-  background-color: rgb(249, 249, 249);
-  height: 30px;
-  font-size: 100%;
-}
-
-input[type='number'] {
-  max-width: 50%;
-}
-
-legend {
-  text-transform: uppercase;
-}
-
+/* adding some padding between the input name and input box */
 .input-label {
   padding-bottom: 15px;
 }
 
+/* Adding the asterisk if the field is required */
 .required:after {
   content: ' *';
   color: red;
 }
 
+/* graying out the button if it's diasbled */
 input:disabled {
   background-color: #9b9b9b;
-}
-
-/* Landscape */
-/* @media only screen 
-  and (min-device-width: 800px) 
-  and (max-device-width: 1280px) 
-  and (-webkit-min-device-pixel-ratio: 1.5) 
-  and (orientation: landscape) {
-} */
-
-/* 
-  ##Device = Tablets, Ipads (landscape)
-  ##Screen = B/w 768px to 1024px
-*/
-
-@media (max-width: 1280px) {
-  .form-input {
-    min-width: 30%;
-    max-width: 50%;
-  }
-}
-
-@media (max-width: 1000px) {
-  .form-input {
-    min-width: 50%;
-  }
-}
-
-@media (max-width: 600px) {
-  .form-input {
-    min-width: 90%;
-  }
 }
