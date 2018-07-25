@@ -97,13 +97,17 @@ div.radioGroup {
 .labelRadio {
   border: 1px solid grey;
   text-align: center;
-  color: #0f7165; /*when selected */
+  color: #0f7165;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+.labelRadio:hover {
+  background-color: #0f7165;
+  color: #ffffff;
 }
 
 div.submit-button {
   display: flex;
-
 }
 
 input[type='submit'] {
