@@ -77,6 +77,14 @@ input[type='submit'] {
 input[type='radio'] {
   cursor: pointer;
   margin-right: 8px;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+input[id='gender'] {
+  border: 1px solid grey;
 }
 
 input[type='text'],
