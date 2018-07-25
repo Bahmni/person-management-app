@@ -2,7 +2,7 @@
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   color: #333;
-  background-color: rgb(249, 249, 249);
+  background-color: white;
   font-size: 1rem;
   letter-spacing: 1px;
 }
@@ -42,9 +42,10 @@ input[type='date'],
 label.labelRadio,
 .myCheckbox span {
   border: 1px solid grey;
-  border-radius: 3px;
+  border-radius: 2px;
   height: 2rem;
   width: 70%;
+  background-color: rgba(155, 155, 155, 0.05);
 }
 
 input[type='text'],
@@ -52,6 +53,7 @@ input[type='number'],
 input[type='date'],
 .myCheckbox span {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff, 0 1px 0 #fff;
+  /* box-shadow: inset 0.5px 0.5px 0px 0px rgba(0,0,0,0.5); */
 }
 
 input[type='number'] {
@@ -91,18 +93,16 @@ input[type='radio'] {
 /* Radio buttons flex container */
 div.radioGroup {
   display: flex;
+
   line-height: 30px;
+
   width: 50%;
 }
 
 .labelRadio {
   text-align: center;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-}
 
-.labelRadio:hover {
-  background-color: #0f7165;
-  color: #ffffff;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
 div.submit-button {
