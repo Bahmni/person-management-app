@@ -91,13 +91,12 @@ input[type='radio'] {
 /* Radio buttons flex container */
 div.radioGroup {
   display: flex;
+  line-height: 30px;
   width: 50%;
 }
 
 .labelRadio {
-  border: 1px solid grey;
   text-align: center;
-  color: #0f7165;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
