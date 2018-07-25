@@ -17,10 +17,10 @@ const RadioButtonGroup = props => {
       <label className={required ? 'required' : null} htmlFor={name}>
         {title}
       </label>
-      <div>
+      <div className="radioGroup">
         {options.map(option => {
           return (
-            <label key={option}>
+            <label className="labelRadio" key={option}>
               <input
                 name={name}
                 onChange={onChange}
