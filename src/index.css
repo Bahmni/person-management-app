@@ -103,6 +103,11 @@ div.radioGroup {
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
+.labelRadio:hover {
+  background-color: rgb(15, 113, 101, 1);
+  color: #ffffff;
+}
+
 input[type='text'],
 input[type='number'],
 input[type='date'] {

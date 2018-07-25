@@ -17,22 +17,25 @@ const RadioButtonGroup = props => {
       <label className={required ? 'required' : null} htmlFor={name}>
         {title}
       </label>
-      <div className="radioGroup">
-        {options.map(option => {
-          return (
-            <label className="labelRadio" key={option}>
-              <input
-                name={name}
-                onChange={onChange}
-                value={option}
-                checked={selectedOption.indexOf(option) > -1}
-                type={type}
-                required={required}
-              />{' '}
-              {option}
-            </label>
-          );
-        })}
+      <div>
+        <div className="radioGroup">
+          {options.map(option => {
+            return (
+              <label className="labelRadio" key={option}>
+                <input
+                  className="inputRadio"
+                  name={name}
+                  onChange={onChange}
+                  value={option}
+                  checked={selectedOption.indexOf(option) > -1}
+                  type={type}
+                  required={required}
+                />{' '}
+                {option}
+              </label>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
