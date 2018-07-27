@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SingleCheckbox = props => {
+const Checkbox = props => {
   const { name, title, type, onChange, checked } = props;
   return (
     <div className="form-input">
@@ -15,4 +15,4 @@ const SingleCheckbox = props => {
   );
 };
 
-export default SingleCheckbox;
+export default Checkbox;

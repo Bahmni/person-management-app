@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
-import SingleCheckbox from '../components/SingleCheckbox';
+import Checkbox from '../components/Checkbox';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -197,7 +197,7 @@ class FormContainer extends Component {
                   id="birthdate"
                   required={true}
                 />
-                <SingleCheckbox
+                <Checkbox
                   title="Estimated"
                   name="birthdateIsEstimated"
                   type="checkbox"
