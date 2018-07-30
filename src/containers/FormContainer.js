@@ -202,7 +202,7 @@ class FormContainer extends Component {
                   name="birthdateIsEstimated"
                   checked={this.state.birthdateIsEstimated}
                   onChange={e => this.handleBirthdateIsEstimated(e)}
-                  id="estimated"
+                  id="estimatedDate"
                 />
                 <Input
                   type={'number'}
