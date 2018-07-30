@@ -200,7 +200,6 @@ class FormContainer extends Component {
                 <Checkbox
                   title="Estimated"
                   name="birthdateIsEstimated"
-                  type="checkbox"
                   checked={this.state.birthdateIsEstimated}
                   onChange={e => this.handleBirthdateIsEstimated(e)}
                   id="estimated"
@@ -248,7 +247,6 @@ class FormContainer extends Component {
                   title={'Gender'}
                   name={'gender'}
                   onChange={e => this.handleGenderOptions(e)}
-                  type={'radio'}
                   options={this.state.genderOptions}
                   selectedOption={this.state.gender}
                   id="selectGender"
