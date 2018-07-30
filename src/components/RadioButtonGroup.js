@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RadioButtonGroup = props => {
-  const {
-    title,
-    name,
-    type,
-    options,
-    selectedOption,
-    onChange,
-    required
-  } = props;
+  const { title, name, options, selectedOption, onChange, required } = props;
 
   return (
     <div className="form-input">
@@ -28,8 +20,8 @@ const RadioButtonGroup = props => {
                 onChange={onChange}
                 value={option}
                 checked={selectedOption.indexOf(option) > -1}
-                type={type}
                 required={required}
+                type="radio"
               />{' '}
               {option}
             </label>
@@ -42,7 +34,6 @@ const RadioButtonGroup = props => {
 
 RadioButtonGroup.propTypes = {
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['radio']).isRequired,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   selectedOptions: PropTypes.array,
