@@ -248,7 +248,7 @@ class FormContainer extends Component {
                   name={'gender'}
                   onChange={e => this.handleGenderOptions(e)}
                   options={this.state.genderOptions}
-                  selectedOption={this.state.gender}
+                  checkedOption={this.state.gender}
                   id="selectGender"
                   required={true}
                 />
