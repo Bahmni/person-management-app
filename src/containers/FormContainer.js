@@ -5,6 +5,7 @@ import Checkbox from '../components/Checkbox';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
+const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state and bind
 class FormContainer extends Component {
@@ -14,7 +15,6 @@ class FormContainer extends Component {
       firstName: '',
       middleName: '',
       lastName: '',
-      genderOptions: ['Male', 'Female', 'Other'],
       gender: '',
       age: 0,
       months: 0,
@@ -247,7 +247,7 @@ class FormContainer extends Component {
                   title={'Gender'}
                   name={'gender'}
                   onChange={e => this.handleGenderOptions(e)}
-                  options={this.state.genderOptions}
+                  options={genderOptions}
                   checkedOption={this.state.gender}
                   id="selectGender"
                   required={true}
