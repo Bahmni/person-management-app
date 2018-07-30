@@ -10,6 +10,8 @@ const Input = props => {
     onChange,
     placeholder,
     required,
+    min,
+    max,
     ...other // rest
   } = props; // object desctructuring
   return (
@@ -27,6 +29,8 @@ const Input = props => {
           aria-label={placeholder}
           onChange={onChange}
           required={required}
+          min={min}
+          max={max}
           {...other} //object spread
         />
       </div>
