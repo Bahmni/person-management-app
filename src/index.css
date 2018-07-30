@@ -107,8 +107,8 @@ span.radioButton {
 }
 
 :checked + span.radioButton {
-  background: #0f7165;
-  color: white;
+  background-color: rgba(15, 113, 101, 0.13);
+  color: #0f7165;
   display: inline-block;
   border: none;
   width: 100%;
