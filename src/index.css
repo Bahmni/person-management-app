@@ -49,7 +49,7 @@ label.labelRadio,
   height: 2rem;
   width: 220px;
   background-color: rgba(155, 155, 155, 0.05);
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
 input[type='text'],
