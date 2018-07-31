@@ -157,39 +157,43 @@ class FormContainer extends Component {
             <fieldset>
               <legend>Name</legend>
               <div className="flex-container-row">
-                <Input
-                  type={'text'}
-                  title={'First name '}
-                  name={'firstName'}
-                  aria-label={'First name'}
-                  aria-required="true"
-                  onChange={e => this.handleFirstName(e)}
-                  value={this.state.firstName}
-                  id="firstName"
-                  required={true}
-                />
-
-                <Input
-                  type={'text'}
-                  title={'Middle name '}
-                  name={'middleName'}
-                  aria-label={'Middle name'}
-                  onChange={e => this.handleMiddleName(e)}
-                  value={this.state.middleName}
-                  id="middleName"
-                />
-
-                <Input
-                  type={'text'}
-                  title={'Last name '}
-                  name={'lastName'}
-                  aria-label={'Last name'}
-                  aria-required="true"
-                  onChange={e => this.handleLastName(e)}
-                  value={this.state.lastName}
-                  id="lastName"
-                  required={true}
-                />
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'First name '}
+                    name={'firstName'}
+                    aria-label={'First name'}
+                    aria-required="true"
+                    onChange={e => this.handleFirstName(e)}
+                    value={this.state.firstName}
+                    id="firstName"
+                    required={true}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Middle name '}
+                    name={'middleName'}
+                    aria-label={'Middle name'}
+                    onChange={e => this.handleMiddleName(e)}
+                    value={this.state.middleName}
+                    id="middleName"
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Last name '}
+                    name={'lastName'}
+                    aria-label={'Last name'}
+                    aria-required="true"
+                    onChange={e => this.handleLastName(e)}
+                    value={this.state.lastName}
+                    id="lastName"
+                    required={true}
+                  />
+                </div>
               </div>
               <hr />
             </fieldset>
@@ -199,7 +203,7 @@ class FormContainer extends Component {
             <fieldset>
               <legend>Age</legend>
               <div className="flex-container-row">
-                <div className="form-input two-column">
+                <div className="flex-item2">
                   <Input
                     type={'date'}
                     title={'Date of Birth '}
@@ -219,7 +223,7 @@ class FormContainer extends Component {
                     id="estimatedDate"
                   />
                 </div>
-                <div className="form-input two-column">
+                <div className="flex-item2">
                   <Input
                     type={'number'}
                     title={'Years '} //This is so the screen UI is Years
@@ -266,15 +270,17 @@ class FormContainer extends Component {
             <fieldset>
               {/* <legend>Gender</legend> */}
               <div className="flex-container-row">
-                <RadioButtonGroup
-                  title={'Gender'}
-                  name={'gender'}
-                  onChange={e => this.handleGenderOptions(e)}
-                  options={genderOptions}
-                  checkedOption={this.state.gender}
-                  id="selectGender"
-                  required={true}
-                />
+                <div className="flex-item">
+                  <RadioButtonGroup
+                    title={'Gender'}
+                    name={'gender'}
+                    onChange={e => this.handleGenderOptions(e)}
+                    options={genderOptions}
+                    checkedOption={this.state.gender}
+                    id="selectGender"
+                    required={true}
+                  />
+                </div>
               </div>
               <hr />
             </fieldset>
