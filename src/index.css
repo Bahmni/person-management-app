@@ -20,11 +20,14 @@ fieldset {
 }
 
 /* outer flex container with Name, Age, Gender sections */
-div.flex-container-row {
+div.flex-container-row,
+.two-column {
   display: flex;
+  flex-wrap: wrap;
 }
 /* flex items */
-.form-input {
+.form-input,
+.two-column .form-input {
   flex: 1;
 }
 
@@ -44,8 +47,9 @@ label.labelRadio,
   border: 1px solid grey;
   border-radius: 2px;
   height: 2rem;
-  width: 70%;
+  width: 220px;
   background-color: rgba(155, 155, 155, 0.05);
+  margin-bottom: 10px;
 }
 
 input[type='text'],
@@ -56,11 +60,7 @@ input[type='date'],
 }
 
 input[type='number'] {
-  width: 30%;
-}
-
-input[type='date'] {
-  width: 100%;
+  width: 80px;
 }
 
 /* Changing mouse to pointer for clickable inputs */
@@ -143,4 +143,18 @@ input[type='submit'] {
 /* graying out the button if it's diasbled */
 input:disabled {
   background-color: #9b9b9b;
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (max-width: 1024px) {
+  .form-input {
+    min-width: 50%;
+  }
+  .two-column {
+    min-width: 60%;
+  }
 }

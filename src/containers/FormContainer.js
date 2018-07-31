@@ -199,60 +199,64 @@ class FormContainer extends Component {
             <fieldset>
               <legend>Age</legend>
               <div className="flex-container-row">
-                <Input
-                  type={'date'}
-                  title={'Date of Birth '}
-                  name={'birthdate'}
-                  aria-label={'Date of Birth'}
-                  aria-required="true"
-                  onChange={e => this.handlebirthdate(e)}
-                  value={this.state.birthdate}
-                  id="birthdate"
-                  required={true}
-                />
-                <Checkbox
-                  title="Estimated"
-                  name="birthdateIsEstimated"
-                  checked={this.state.birthdateIsEstimated}
-                  onChange={e => this.handleBirthdateIsEstimated(e)}
-                  id="estimatedDate"
-                />
-                <Input
-                  type={'number'}
-                  title={'Years '} //This is so the screen UI is Years
-                  name={'age'} //The Bahmni Person API works with age
-                  aria-label={'Years'}
-                  aria-required="true"
-                  onChange={this.handleAge}
-                  value={this.state.age}
-                  id="age"
-                  min={0}
-                  max={120}
-                />
-                <Input
-                  type={'number'}
-                  title={'Months '}
-                  name={'months'}
-                  aria-label={'Months'}
-                  aria-required="true"
-                  onChange={e => this.handleMonths(e)}
-                  value={this.state.months}
-                  id="months"
-                  min={1}
-                  max={12}
-                />
-                <Input
-                  type={'number'}
-                  title={'Days '}
-                  name={'days'}
-                  aria-label={'Days'}
-                  aria-required="true"
-                  onChange={e => this.handleDays(e)}
-                  value={this.state.days}
-                  id="days"
-                  min={1}
-                  max={31}
-                />
+                <div className="form-input two-column">
+                  <Input
+                    type={'date'}
+                    title={'Date of Birth '}
+                    name={'birthdate'}
+                    aria-label={'Date of Birth'}
+                    aria-required="true"
+                    onChange={e => this.handlebirthdate(e)}
+                    value={this.state.birthdate}
+                    id="birthdate"
+                    required={true}
+                  />
+                  <Checkbox
+                    title="Estimated"
+                    name="birthdateIsEstimated"
+                    checked={this.state.birthdateIsEstimated}
+                    onChange={e => this.handleBirthdateIsEstimated(e)}
+                    id="estimatedDate"
+                  />
+                </div>
+                <div className="form-input two-column">
+                  <Input
+                    type={'number'}
+                    title={'Years '} //This is so the screen UI is Years
+                    name={'age'} //The Bahmni Person API works with age
+                    aria-label={'Years'}
+                    aria-required="true"
+                    onChange={this.handleAge}
+                    value={this.state.age}
+                    id="age"
+                    min={0}
+                    max={120}
+                  />
+                  <Input
+                    type={'number'}
+                    title={'Months '}
+                    name={'months'}
+                    aria-label={'Months'}
+                    aria-required="true"
+                    onChange={e => this.handleMonths(e)}
+                    value={this.state.months}
+                    id="months"
+                    min={1}
+                    max={12}
+                  />
+                  <Input
+                    type={'number'}
+                    title={'Days '}
+                    name={'days'}
+                    aria-label={'Days'}
+                    aria-required="true"
+                    onChange={e => this.handleDays(e)}
+                    value={this.state.days}
+                    id="days"
+                    min={1}
+                    max={31}
+                  />
+                </div>
               </div>
               <hr />
             </fieldset>
