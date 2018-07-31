@@ -24,6 +24,7 @@ div.flex-container-row,
 .two-column {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 /* flex items */
 .form-input,
@@ -156,6 +157,5 @@ input:disabled {
   }
   .two-column {
     min-width: 60%;
-    justify-content: flex-start;
   }
 }
