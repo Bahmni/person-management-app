@@ -156,5 +156,6 @@ input:disabled {
   }
   .two-column {
     min-width: 60%;
+    justify-content: flex-start;
   }
 }
