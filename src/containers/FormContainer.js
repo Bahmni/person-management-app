@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
+import moment from 'moment';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
+const now = moment().format('YYYY-MM-DD');
+const nowSplit = now.split('-');
 
 // set state and bind
 class FormContainer extends Component {
@@ -51,8 +54,11 @@ class FormContainer extends Component {
     );
   }
   handleMonths(e) {
-    this.setState({ months: e.target.value }, () =>
-      console.log('months', this.state.months)
+    this.setState(
+      {
+        months: e.target.value
+      },
+      () => console.log('months', this.state.months)
     );
   }
   handleDays(e) {
@@ -61,8 +67,14 @@ class FormContainer extends Component {
     );
   }
   handlebirthdate(e) {
-    this.setState({ birthdate: e.target.value }, () =>
-      console.log('birthdate', this.state.birthdate)
+    this.setState(
+      {
+        birthdate: e.target.value,
+        age: nowSplit[0] - e.target.value.split('-')[0],
+        months: nowSplit[1] - e.target.value.split('-')[1],
+        days: nowSplit[2] - e.target.value.split('-')[2]
+      },
+      () => console.log('birthdate', this.state.birthdate)
     );
   }
 
@@ -134,6 +146,7 @@ class FormContainer extends Component {
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
+
     return (
       <div className="wrapper">
         <form onSubmit={this.handleFormSubmit}>
@@ -210,7 +223,7 @@ class FormContainer extends Component {
                   name={'age'} //The Bahmni Person API works with age
                   aria-label={'Years'}
                   aria-required="true"
-                  onChange={e => this.handleAge(e)}
+                  onChange={this.handleAge}
                   value={this.state.age}
                   id="age"
                   min={0}

@@ -88,12 +88,4 @@ describe('FormContainer', () => {
       expect(wrapper.state().gender).toEqual(exampleGenderSelected);
     });
   }); // end of gender options describe
-
-  it('should change the Years input when the user types or clicks', () => {
-    wrapper
-      .find('#age')
-      .simulate('change', { target: { name: 'age', value: '33' } });
-
-    expect(wrapper.state('age')).toEqual('33');
-  });
 }); // end of outer describe
