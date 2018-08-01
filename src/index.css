@@ -85,14 +85,29 @@ input[type='radio'] {
   left: -9999px;
 }
 /* Custom checkbox */
-.myCheckbox span {
+.myCheckbox span.checkbox {
   width: 30px;
   display: block;
   border: 1px solid grey;
   margin: 0 auto;
 }
+
+div.checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#estimated-title {
+  margin: auto;
+  width: 70%;
+}
+
+#hidden-title {
+  opacity: 0;
+}
+
 /* Checkbox when it's checked */
-.myCheckbox input:checked + span {
+.checkbox-container input:checked + span {
   background-color: #0f7165;
   border: none;
 }
