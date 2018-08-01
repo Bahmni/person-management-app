@@ -6,16 +6,21 @@ const Checkbox = props => {
   return (
     <div className="form-input">
       <div className="input-label">
-        <label htmlFor={name}>{title}</label>
+        <label id="hidden-title" htmlFor={name}>
+          {title}
+        </label>
       </div>
       <label className="myCheckbox">
-        <input
-          name={name}
-          type="checkbox"
-          onChange={onChange}
-          checked={checked}
-        />
-        <span />
+        <div className="checkbox-container">
+          <input
+            name={name}
+            type="checkbox"
+            onChange={onChange}
+            checked={checked}
+          />
+          <span className="checkbox" />
+          <p id="estimated-title">{title}</p>
+        </div>
       </label>
     </div>
   );
