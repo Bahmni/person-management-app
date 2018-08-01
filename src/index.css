@@ -23,6 +23,7 @@ fieldset {
 div.flex-container-row {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 /* flex items */
 div.flex-item,
@@ -165,4 +166,26 @@ input[type='submit'] {
 /* graying out the button if it's diasbled */
 input:disabled {
   background-color: #9b9b9b;
+}
+
+@media (max-width: 1080px) {
+  div.flex-item {
+    min-width: 50%;
+  }
+
+  div.flex-item2 {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  div.flex-item {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  form {
+    width: 100%;
+  }
 }
