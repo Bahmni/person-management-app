@@ -7,10 +7,6 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
-const now = moment().format('YYYY-MM-DD');
-const a = moment([2015, 11, 29]);
-const b = moment([2007, 6, 27]);
-const diffDuration = moment.duration(a.diff(b));
 
 // set state and bind
 class FormContainer extends Component {
@@ -103,6 +99,7 @@ class FormContainer extends Component {
   }
 
   handlebirthdate(e) {
+    const diffDuration = moment.duration(moment().diff(e.target.value));
     this.setState(
       {
         birthdate: e.target.value,
