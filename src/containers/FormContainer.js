@@ -7,8 +7,31 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
-// const now = moment().format('YYYY-MM-DD');
+const now = moment().format('YYYY-MM-DD');
 // const nowSplit = now.split('-');
+
+// 1. User inputs the date using date picker
+// var dateNow = moment([2015, 11, 29]);
+// var dateInputtedbyUser = moment([2007, 06, 27]);
+// calculate the difference in Years Months Days
+// var years = a.diff(b, 'year');
+// b.add(years, 'years');
+
+// var months = a.diff(b, 'months');
+// b.add(months, 'months');
+
+// var days = a.diff(b, 'days');
+
+// 2. User inputs the dates using Years Months Days
+// var dateNow = moment([2015, 11, 29]);
+// Years Months Days
+// var dateInputtedbyUser = ?
+
+// const birthDate = moment()
+//                   .subtract(this.state.dateDiff.year, 'years')
+//                   .subtract(this.state.dateDiff.month, 'months')
+//                   .subtract(this.state.dateDiff.day, 'days')
+//                   .format("YYYY-MM-DD")
 
 // set state and bind
 class FormContainer extends Component {
@@ -23,7 +46,12 @@ class FormContainer extends Component {
       months: 0,
       days: 0,
       birthdate: '',
-      birthdateIsEstimated: false
+      birthdateIsEstimated: false,
+      dateDiff: {
+        year: 0,
+        month: 0,
+        day: 0
+      }
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -59,8 +87,18 @@ class FormContainer extends Component {
     );
   }
   handleDays(e) {
-    this.setState({ days: e.target.value }, () =>
-      console.log('days', this.state.days)
+    this.setState(
+      {
+        dateDiff: {
+          day: e.target.value
+        },
+        birthdate: moment()
+          .subtract(this.state.dateDiff.year, 'years')
+          .subtract(this.state.dateDiff.month, 'months')
+          .subtract(e.target.value, 'days')
+          .format('YYYY-MM-DD')
+      },
+      () => console.log('days', this.state.dateDiff.day)
     );
   }
   handlebirthdate(e) {
@@ -252,7 +290,7 @@ class FormContainer extends Component {
                     aria-label={'Days'}
                     aria-required="true"
                     onChange={e => this.handleDays(e)}
-                    value={this.state.days}
+                    value={this.state.dateDiff.day}
                     id="days"
                     min={0}
                     max={31}
