@@ -77,13 +77,34 @@ class FormContainer extends Component {
     );
   }
   handleAge(e) {
-    this.setState({ age: e.target.value }, () =>
-      console.log('age', this.state.age)
+    this.setState(
+      {
+        dateDiff: {
+          year: e.target.value
+        },
+        birthdate: moment()
+          .subtract(e.target.value, 'years')
+          .subtract(this.state.dateDiff.month, 'months')
+          .subtract(this.state.dateDiff.year, 'days')
+          .format('YYYY-MM-DD')
+      },
+      () => console.log('years', this.state.dateDiff.year)
     );
   }
+
   handleMonths(e) {
-    this.setState({ months: e.target.value }, () =>
-      console.log('months', this.state.months)
+    this.setState(
+      {
+        dateDiff: {
+          month: e.target.value
+        },
+        birthdate: moment()
+          .subtract(this.state.dateDiff.year, 'years')
+          .subtract(e.target.value, 'months')
+          .subtract(this.state.dateDiff.day, 'days')
+          .format('YYYY-MM-DD')
+      },
+      () => console.log('month', this.state.dateDiff.month)
     );
   }
   handleDays(e) {
@@ -266,7 +287,7 @@ class FormContainer extends Component {
                     aria-label={'Years'}
                     aria-required="true"
                     onChange={e => this.handleAge(e)}
-                    value={this.state.age}
+                    value={this.state.dateDiff.age}
                     id="age"
                     min={0}
                     max={120}
@@ -278,7 +299,7 @@ class FormContainer extends Component {
                     aria-label={'Months'}
                     aria-required="true"
                     onChange={e => this.handleMonths(e)}
-                    value={this.state.months}
+                    value={this.state.dateDiff.month}
                     id="months"
                     min={0}
                     max={12}
