@@ -8,30 +8,9 @@ import moment from 'moment';
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
 const now = moment().format('YYYY-MM-DD');
-// const nowSplit = now.split('-');
-
-// 1. User inputs the date using date picker
-// var dateNow = moment([2015, 11, 29]);
-// var dateInputtedbyUser = moment([2007, 06, 27]);
-// calculate the difference in Years Months Days
-// var years = a.diff(b, 'year');
-// b.add(years, 'years');
-
-// var months = a.diff(b, 'months');
-// b.add(months, 'months');
-
-// var days = a.diff(b, 'days');
-
-// 2. User inputs the dates using Years Months Days
-// var dateNow = moment([2015, 11, 29]);
-// Years Months Days
-// var dateInputtedbyUser = ?
-
-// const birthDate = moment()
-//                   .subtract(this.state.dateDiff.year, 'years')
-//                   .subtract(this.state.dateDiff.month, 'months')
-//                   .subtract(this.state.dateDiff.day, 'days')
-//                   .format("YYYY-MM-DD")
+const a = moment([2015, 11, 29]);
+const b = moment([2007, 6, 27]);
+const diffDuration = moment.duration(a.diff(b));
 
 // set state and bind
 class FormContainer extends Component {
@@ -122,13 +101,16 @@ class FormContainer extends Component {
       () => console.log('days', this.state.dateDiff.day)
     );
   }
+
   handlebirthdate(e) {
     this.setState(
       {
-        birthdate: e.target.value
-        // age: nowSplit[0] - e.target.value.split('-')[0],
-        // months: nowSplit[1] - e.target.value.split('-')[1],
-        // days: nowSplit[2] - e.target.value.split('-')[2]
+        birthdate: e.target.value,
+        dateDiff: {
+          year: diffDuration.years(),
+          month: diffDuration.months(),
+          day: diffDuration.days()
+        }
       },
       () => console.log('birthdate', this.state.birthdate)
     );
@@ -287,7 +269,7 @@ class FormContainer extends Component {
                     aria-label={'Years'}
                     aria-required="true"
                     onChange={e => this.handleAge(e)}
-                    value={this.state.dateDiff.age}
+                    value={this.state.dateDiff.year}
                     id="age"
                     min={0}
                     max={120}
