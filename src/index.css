@@ -1,17 +1,17 @@
 * {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
-  color: #333;
+  color: #373d3f;
   background-color: white;
   font-size: 1rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
 }
 
 form {
   position: relative;
   padding: 2em;
   margin: 0 auto;
-  width: 80%;
+  width: 60%;
 }
 
 /* removing the border around the fieldset */
@@ -25,25 +25,31 @@ div.flex-container-row {
   flex-wrap: wrap;
   width: 100%;
 }
+
 /* flex items */
-div.flex-item,
-div.flex-item2 {
+div.flex-item {
   flex: 1;
+  min-width: 50%;
 }
 
 div.flex-item2 {
   display: flex;
+  min-width: 100%;
 }
 
 .form-input {
   flex: 1;
 }
 
+#root > div > form > div:nth-child(3) > fieldset > div {
+  width: 80%;
+}
+
 /* capitalizing titles of form sections */
 legend {
   text-transform: uppercase;
   font-weight: 700;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 /* Basic styling of inputs */
@@ -54,8 +60,8 @@ label.labelRadio,
 .myCheckbox span {
   border: 1px solid grey;
   border-radius: 2px;
-  height: 2rem;
-  width: 220px;
+  height: 2.1rem;
+  width: 250px;
   background-color: rgba(155, 155, 155, 0.05);
   margin-bottom: 10px;
 }
@@ -87,7 +93,7 @@ input[type='radio'] {
 }
 /* Custom checkbox */
 .myCheckbox span.checkbox {
-  width: 30px;
+  width: 2.1rem;
   display: block;
   border: 1px solid grey;
   margin: 0 auto;
@@ -169,23 +175,40 @@ input:disabled {
 }
 
 @media (max-width: 1080px) {
-  div.flex-item {
-    min-width: 50%;
-  }
-
-  div.flex-item2 {
-    min-width: 100%;
+  form {
+    width: 70%;
   }
 }
 
-@media (max-width: 700px) {
-  div.flex-item {
-    min-width: 100%;
+@media (max-width: 910px) {
+  form {
+    width: 85%;
+  }
+
+  #root > div > form > div:nth-child(3) > fieldset > div {
+    width: 80%;
+  }
+
+  input[type='text'],
+  label.labelRadio,
+  .myCheckbox span {
+    width: 200px;
+  }
+  input[type='date'] {
+    width: 160px;
   }
 }
 
 @media (max-width: 600px) {
   form {
+    width: 100%;
+  }
+  div.flex-item,
+  div.flex-item2 {
+    min-width: 100%;
+  }
+
+  #root > div > form > div:nth-child(3) > fieldset > div {
     width: 100%;
   }
 }
