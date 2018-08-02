@@ -150,7 +150,6 @@ class FormContainer extends Component {
         }
       ],
       gender: this.state.gender,
-      age: this.state.age,
       birthdate: this.state.birthdate + 'T12:00:00.000+0000'
     };
 

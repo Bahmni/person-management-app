@@ -65,7 +65,6 @@ describe('FormContainer', () => {
               }
             ],
             gender: '',
-            age: 0,
             birthdate: 'T12:00:00.000+0000'
           })
         ).toBe(true);
