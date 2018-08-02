@@ -232,10 +232,9 @@ class FormContainer extends Component {
                   />
                 </div>
               </div>
-              <hr />
             </fieldset>
           </div>
-
+          <hr />
           <div>
             <fieldset>
               <legend>Age</legend>
@@ -299,10 +298,9 @@ class FormContainer extends Component {
                   />
                 </div>
               </div>
-              <hr />
             </fieldset>
           </div>
-
+          <hr />
           <div>
             <fieldset>
               {/* <legend>Gender</legend> */}
@@ -319,9 +317,9 @@ class FormContainer extends Component {
                   />
                 </div>
               </div>
-              <hr />
             </fieldset>
           </div>
+          <hr />
           <div className="submit-button">
             <input
               disabled={isEnabled ? null : 'disabled'}
