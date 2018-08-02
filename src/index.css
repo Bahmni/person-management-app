@@ -127,7 +127,7 @@ div.checkbox-container {
 /* Radio buttons flex container */
 div.radioGroup {
   display: flex;
-  line-height: 30px;
+  line-height: 2.1rem;
   width: 50%;
 }
 
