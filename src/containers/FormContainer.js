@@ -55,12 +55,13 @@ class FormContainer extends Component {
     this.setState(
       {
         dateDiff: {
+          ...this.state.dateDiff,
           year: e.target.value
         },
         birthdate: moment()
           .subtract(e.target.value, 'years')
           .subtract(this.state.dateDiff.month, 'months')
-          .subtract(this.state.dateDiff.year, 'days')
+          .subtract(this.state.dateDiff.day, 'days')
           .format('YYYY-MM-DD')
       },
       () => console.log('years', this.state.dateDiff.year)
@@ -71,6 +72,7 @@ class FormContainer extends Component {
     this.setState(
       {
         dateDiff: {
+          ...this.state.dateDiff,
           month: e.target.value
         },
         birthdate: moment()
@@ -86,6 +88,7 @@ class FormContainer extends Component {
     this.setState(
       {
         dateDiff: {
+          ...this.state.dateDiff,
           day: e.target.value
         },
         birthdate: moment()
@@ -280,7 +283,7 @@ class FormContainer extends Component {
                     value={this.state.dateDiff.month}
                     id="months"
                     min={0}
-                    max={12}
+                    max={11}
                   />
                   <Input
                     type={'number'}
