@@ -53,27 +53,29 @@ class FormContainer extends Component {
     let inputName = e.target.name;
     let inputValue = e.target.value;
 
-    this.setState({
-      dateDiff: {
-        year: inputName === 'year' ? inputValue : this.state.dateDiff.year,
-        month: inputName === 'month' ? inputValue : this.state.dateDiff.month,
-        day: inputName === 'day' ? inputValue : this.state.dateDiff.day
+    this.setState(
+      {
+        dateDiff: {
+          ...this.state.dateDiff,
+          [inputName]: e.target.value
+        },
+        birthdate: moment()
+          .subtract(
+            inputName === 'year' ? inputValue : this.state.dateDiff.year,
+            'years'
+          )
+          .subtract(
+            inputName === 'month' ? inputValue : this.state.dateDiff.month,
+            'months'
+          )
+          .subtract(
+            inputName === 'day' ? inputValue : this.state.dateDiff.day,
+            'days'
+          )
+          .format('YYYY-MM-DD')
       },
-      birthdate: moment()
-        .subtract(
-          inputName === 'year' ? inputValue : this.state.dateDiff.year,
-          'years'
-        )
-        .subtract(
-          inputName === 'month' ? inputValue : this.state.dateDiff.month,
-          'months'
-        )
-        .subtract(
-          inputName === 'day' ? inputValue : this.state.dateDiff.day,
-          'days'
-        )
-        .format('YYYY-MM-DD')
-    });
+      () => console.log('Age', this.state.dateDiff)
+    );
   }
 
   handlebirthdate(e) {
