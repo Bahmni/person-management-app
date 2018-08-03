@@ -11,9 +11,8 @@ const Input = props => {
     placeholder,
     required,
     min,
-    max,
-    ...other // rest
-  } = props; // object desctructuring
+    max
+  } = props;
   return (
     <div className="form-input">
       <div className="input-label">
@@ -31,7 +30,6 @@ const Input = props => {
           required={required}
           min={min}
           max={max}
-          {...other} //object spread
         />
       </div>
     </div>
