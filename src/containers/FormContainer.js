@@ -17,9 +17,6 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      age: 0,
-      months: 0,
-      days: 0,
       birthdate: '',
       birthdateIsEstimated: false,
       dateDiff: {
@@ -51,54 +48,32 @@ class FormContainer extends Component {
       console.log('Last Name:', this.state.lastName)
     );
   }
-  handleAge(e) {
-    this.setState(
-      {
-        dateDiff: {
-          ...this.state.dateDiff,
-          year: e.target.value
-        },
-        birthdate: moment()
-          .subtract(e.target.value, 'years')
-          .subtract(this.state.dateDiff.month, 'months')
-          .subtract(this.state.dateDiff.day, 'days')
-          .format('YYYY-MM-DD')
-      },
-      () => console.log('years', this.state.dateDiff.year)
-    );
-  }
 
-  handleMonths(e) {
-    this.setState(
-      {
-        dateDiff: {
-          ...this.state.dateDiff,
-          month: e.target.value
-        },
-        birthdate: moment()
-          .subtract(this.state.dateDiff.year, 'years')
-          .subtract(e.target.value, 'months')
-          .subtract(this.state.dateDiff.day, 'days')
-          .format('YYYY-MM-DD')
+  fromAgetoDate(e) {
+    let inputName = e.target.name;
+    let inputValue = e.target.value;
+
+    this.setState({
+      dateDiff: {
+        year: inputName === 'year' ? inputValue : this.state.dateDiff.year,
+        month: inputName === 'month' ? inputValue : this.state.dateDiff.month,
+        day: inputName === 'day' ? inputValue : this.state.dateDiff.day
       },
-      () => console.log('month', this.state.dateDiff.month)
-    );
-  }
-  handleDays(e) {
-    this.setState(
-      {
-        dateDiff: {
-          ...this.state.dateDiff,
-          day: e.target.value
-        },
-        birthdate: moment()
-          .subtract(this.state.dateDiff.year, 'years')
-          .subtract(this.state.dateDiff.month, 'months')
-          .subtract(e.target.value, 'days')
-          .format('YYYY-MM-DD')
-      },
-      () => console.log('days', this.state.dateDiff.day)
-    );
+      birthdate: moment()
+        .subtract(
+          inputName === 'year' ? inputValue : this.state.dateDiff.year,
+          'years'
+        )
+        .subtract(
+          inputName === 'month' ? inputValue : this.state.dateDiff.month,
+          'months'
+        )
+        .subtract(
+          inputName === 'day' ? inputValue : this.state.dateDiff.day,
+          'days'
+        )
+        .format('YYYY-MM-DD')
+    });
   }
 
   handlebirthdate(e) {
@@ -136,10 +111,7 @@ class FormContainer extends Component {
       lastName: '',
       gender: '',
       birthdate: '',
-      birthdateIsEstimated: false,
-      age: 0,
-      months: 0,
-      days: 0
+      birthdateIsEstimated: false
     });
   }
 
@@ -263,10 +235,10 @@ class FormContainer extends Component {
                   <Input
                     type={'number'}
                     title={'Years '} //This is so the screen UI is Years
-                    name={'age'} //The Bahmni Person API works with age
+                    name={'year'} //The Bahmni Person API works with age
                     aria-label={'Years'}
                     aria-required="true"
-                    onChange={e => this.handleAge(e)}
+                    onChange={e => this.fromAgetoDate(e)}
                     value={this.state.dateDiff.year}
                     id="age"
                     min={0}
@@ -275,10 +247,10 @@ class FormContainer extends Component {
                   <Input
                     type={'number'}
                     title={'Months '}
-                    name={'months'}
+                    name={'month'}
                     aria-label={'Months'}
                     aria-required="true"
-                    onChange={e => this.handleMonths(e)}
+                    onChange={e => this.fromAgetoDate(e)}
                     value={this.state.dateDiff.month}
                     id="months"
                     min={0}
@@ -287,10 +259,10 @@ class FormContainer extends Component {
                   <Input
                     type={'number'}
                     title={'Days '}
-                    name={'days'}
+                    name={'day'}
                     aria-label={'Days'}
                     aria-required="true"
-                    onChange={e => this.handleDays(e)}
+                    onChange={e => this.fromAgetoDate(e)}
                     value={this.state.dateDiff.day}
                     id="days"
                     min={0}
