@@ -10,15 +10,16 @@ const Checkbox = props => {
           {title}
         </label>
       </div>
-      <label className="myCheckbox">
+      <label>
         <div className="checkbox-container">
           <input
             name={name}
             type="checkbox"
             onChange={onChange}
             checked={checked}
+            id="checkbox"
           />
-          <span className="checkbox" />
+          <label htmlFor="checkbox" />
           <p id="estimated-title">{title}</p>
         </div>
       </label>
