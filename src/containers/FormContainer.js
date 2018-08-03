@@ -102,6 +102,11 @@ class FormContainer extends Component {
 
   handleClearForm(e) {
     e.preventDefault();
+    dateDiff = {
+      year: 0,
+      month: 0,
+      day: 0
+    };
     this.setState({
       firstName: '',
       middleName: '',
