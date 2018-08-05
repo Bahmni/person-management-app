@@ -115,6 +115,11 @@ class FormContainer extends Component {
       birthdate: '',
       birthdateIsEstimated: false
     });
+    dateDiff = {
+      year: 0,
+      month: 0,
+      day: 0
+    };
   }
 
   handleFormSubmit(e) {
