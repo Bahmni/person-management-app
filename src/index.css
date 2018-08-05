@@ -115,14 +115,23 @@ input[type='radio'] {
 
 [type='checkbox']:not(:checked) + label:before,
 [type='checkbox']:checked + label:before {
-  content: '';
+  display: inline-block;
+  background-color: rgba(155, 155, 155, 0.05);
+  height: 14px;
+  width: 14px;
   position: absolute;
-  width: var(--height);
-  height: var(--height);
+  margin-top: -23px;
   border: 1px solid grey;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  background-color: rgba(155, 155, 155, 0.05);
+  line-height: var(--height);
+  content: '';
+  padding: 17px 17px;
+  border: none;
+  block-size: 0px;
+  inline-size: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 
 /* Checkbox when it's checked */
@@ -130,13 +139,17 @@ input[type='radio'] {
 [type='checkbox']:checked + label:after {
   background-color: var(--background-color);
   position: relative;
+  margin-top: -50px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow);
   color: white;
-  font-size: 30px;
   line-height: var(--height);
   content: '✔';
-  padding: 0 5px;
+  padding: 0.55rem 0.75rem;
   border: none;
-  border-radius: var(--border-radius);
+  block-size: 0px;
+  inline-size: 0px;
 }
 
 [type='checkbox']:not(:checked) + label:after {
@@ -145,7 +158,7 @@ input[type='radio'] {
 }
 [type='checkbox']:checked + label:after {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(0);
 }
 
 div.checkbox-container {
@@ -156,6 +169,7 @@ div.checkbox-container {
 #estimated-title {
   margin: auto;
   width: 70%;
+  margin-left: 5px;
 }
 
 #hidden-title {
@@ -234,8 +248,7 @@ input:disabled {
   }
 
   input[type='text'],
-  label.labelRadio,
-  .myCheckbox span {
+  label.labelRadio {
     width: 200px;
   }
   input[type='date'] {
@@ -250,15 +263,6 @@ input:disabled {
   div.flex-item,
   div.flex-item2 {
     min-width: 100%;
-  }
-
-  div.checkbox-container {
-    margin-left: 20px;
-  }
-
-  [type='checkbox']:not(:checked) + label:after,
-  [type='checkbox']:checked + label:after {
-    top: 1px;
   }
 
   #root > div > form > div:nth-child(3) > fieldset > div {

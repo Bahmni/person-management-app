@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Bahmni_PersonMgmt" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Registration_Onepager-Copy-2" transform="translate(-738.000000, -726.000000)" fill-rule="nonzero" stroke="#9B9B9B" stroke-width="4">
+            <g id="Group" transform="translate(738.000000, 726.000000)">
+                <path d="M64,2 L8,2 C4.7045695,2 2,4.7045695 2,8 L2,64 C2,67.2954305 4.7045695,70 8,70 L64,70 C67.2954305,70 70,67.2954305 70,64 L70,8 C70,4.7045695 67.2954305,2 64,2 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>
