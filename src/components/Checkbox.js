@@ -19,7 +19,7 @@ const Checkbox = props => {
             checked={checked}
             id="checkbox"
           />
-          <label htmlFor="checkbox" />
+          <label className="labelCheckbox" htmlFor="checkbox" />
           <p id="estimated-title">{title}</p>
         </div>
       </label>
