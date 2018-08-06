@@ -1,7 +1,7 @@
 /* CSS variables */
 :root {
   --background-color: #0f7165;
-  --border-radius: 2px;
+  --border-radius: 3px;
   --height: 2.1rem;
   --box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff,
     0 1px 0 #fff;
@@ -19,7 +19,7 @@
 form {
   position: relative;
   padding: 2em;
-  margin: 0 auto;
+  margin-left: 2rem;
   width: 60%;
 }
 
@@ -75,7 +75,7 @@ input[type='text'],
 input[type='number'],
 input[type='date'],
 label.labelRadio {
-  border: 1px solid grey;
+  border: 1.2px solid #9b9b9b;
   border-radius: var(--border-radius);
   height: var(--height);
   width: 250px;
@@ -96,80 +96,40 @@ input[type='number'] {
 /* Changing mouse to pointer for clickable inputs */
 input[type='submit'],
 input[type='date'],
-label.labelRadio {
+label.labelRadio,
+input[type='checkbox'] + label span,
+input[type='checkbox']:checked + label span {
   cursor: pointer;
 }
 
 /* hidding the default checkbox and radio buttons */
-[type='checkbox']:not(:checked),
-[type='checkbox']:checked,
+[type='checkbox'],
 input[type='radio'] {
   position: absolute;
   left: -9999px;
 }
-[type='checkbox']:not(:checked) + label,
-[type='checkbox']:checked + label {
-  position: relative;
-  cursor: pointer;
-}
 
-[type='checkbox']:not(:checked) + label:before,
-[type='checkbox']:checked + label:before {
+input[type='checkbox'] + label span {
   display: inline-block;
-  background-color: rgba(155, 155, 155, 0.05);
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  margin-top: -23px;
-  border: 1px solid grey;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  line-height: var(--height);
-  content: '';
-  padding: 17px 17px;
-  border: none;
-  block-size: 0px;
-  inline-size: 0px;
-  right: 0px;
-  bottom: 0px;
+  vertical-align: middle;
+  margin: 0 10px;
+  width: var(--height);
+  height: var(--height);
+  background: url('./components/checkbox_unchecked.svg') 0px center no-repeat;
 }
 
-/* Checkbox when it's checked */
-[type='checkbox']:not(:checked) + label:after,
-[type='checkbox']:checked + label:after {
-  background-color: var(--background-color);
-  position: relative;
-  margin-top: -50px;
-  border: 1px solid grey;
-  border-radius: 4px;
-  box-shadow: var(--box-shadow);
-  color: white;
-  line-height: var(--height);
-  content: '✔';
-  padding: 0.55rem 0.75rem;
-  border: none;
-  block-size: 0px;
-  inline-size: 0px;
+input[type='checkbox']:checked + label span {
+  background: url('./components/checkbox_checked.svg') 0px center no-repeat;
 }
 
-[type='checkbox']:not(:checked) + label:after {
-  opacity: 0;
-  transform: scale(0);
-}
-[type='checkbox']:checked + label:after {
-  opacity: 1;
-  transform: scale(0);
+#estimatedTitle {
+  display: inline-block;
+  margin: auto 0;
 }
 
 div.checkbox-container {
   display: flex;
   justify-content: flex-start;
-}
-
-#estimated-title {
-  margin: auto;
-  width: 70%;
-  margin-left: 5px;
 }
 
 #hidden-title {
@@ -259,6 +219,7 @@ input:disabled {
 @media (max-width: 600px) {
   form {
     width: 100%;
+    margin-left: 0px;
   }
   div.flex-item,
   div.flex-item2 {
