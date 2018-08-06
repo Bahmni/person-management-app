@@ -25,9 +25,6 @@ class FormContainer extends Component {
       birthdate: '',
       birthdateIsEstimated: false
     };
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
   }
 
   // handle inputs with real-time console logging
@@ -165,7 +162,7 @@ class FormContainer extends Component {
 
     return (
       <div className="wrapper">
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={e => this.handleFormSubmit(e)}>
           <div className="Header">
             <h5>Register New Person</h5>
           </div>
