@@ -7,11 +7,6 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
-let dateDiff = {
-  year: 0,
-  month: 0,
-  day: 0
-};
 
 // set state and bind
 class FormContainer extends Component {
@@ -22,7 +17,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: '',
+      birthdate: moment(),
       birthdateIsEstimated: false
     };
   }
@@ -47,41 +42,80 @@ class FormContainer extends Component {
   }
 
   fromAgetoDate(e) {
-    let inputName = e.target.name;
-    let inputValue = e.target.value;
-
-    dateDiff = {
-      ...dateDiff,
-      [inputName]: e.target.value
+    const momentName = e.target.name + 's';
+    const inputValue = e.target.value;
+    // dateDiff = {
+    //   ...dateDiff,
+    //   [inputName]: e.target.value
+    // };
+    const momentAddArg = {
+      year: 'years',
+      month: 'months',
+      day: 'days'
     };
 
     this.setState(
       {
         birthdate: moment()
-          .subtract(inputName === 'year' ? inputValue : dateDiff.year, 'years')
           .subtract(
-            inputName === 'month' ? inputValue : dateDiff.month,
+            momentName === 'year' ? inputValue : momentAddArg.year,
+            'years'
+          )
+          .subtract(
+            momentName === 'month' ? inputValue : momentAddArg.month,
             'months'
           )
-          .subtract(inputName === 'day' ? inputValue : dateDiff.day, 'days')
+          .subtract(
+            momentName === 'day' ? inputValue : momentAddArg.day,
+            'days'
+          )
           .format('YYYY-MM-DD')
+
+        //Ivo code...
+        // setState will trigger the render() function
+        // https://reactjs.org/docs/react-component.html#setstate
+        // this.setState((prevState, props) => {
+        // const prevBirthdate = prevState.birthdate // 2018-08-02
+        // const { prevYears, prevMonths, prevDays } = toAge(prevState.birthdate);
+
+        // only works for changes in days currently
+        // you might find a way to make this code work for the 3
+        // inputs years, months, days so you only have one onChange handler
+        // fromAgetoDate(), if not just make 3 separate handlers
+        // example cases
+        // if user increases days input from 5 to 6 = 6 - 5 = 1
+        // if user decreases days input from 6 to 5 = 5 - 6 = -1
+        // moment says add(-1) == subtract(1)
+        // moment says subtract(-1) == add(1)
+        // const diff = inputValue - prevDays;
+        // const birthdate = prevState
+        // .add(diff, momentAddArg[inputName])
+        // .format('YYYY-MM-DD')
+        // return {birthdate};
+        // }
+        // }
       },
-      () => console.log('Age', dateDiff)
+      () => console.log(momentName, inputValue)
     );
   }
 
-  handlebirthdate(e) {
+  // helps to calculate the age from the birthdate
+  // used in the render function for the years, months, days value prop
+  // used to calculate the prev years, months, days in the onChange handler of
+  // the years, months, days inputs
+  toAge(e) {
     const diffDuration = moment.duration(moment().diff(e.target.value));
-    dateDiff = {
+    const age = {
       year: diffDuration.years(),
       month: diffDuration.months(),
       day: diffDuration.days()
     };
-    this.setState(
-      {
-        birthdate: e.target.value
-      },
-      () => console.log('birthdate', this.state.birthdate)
+    return age;
+  }
+
+  handlebirthdate(e) {
+    this.setState({ birthdate: e.target.value }, () =>
+      console.log('birthdate', this.state.birthdate)
     );
   }
 
@@ -99,11 +133,6 @@ class FormContainer extends Component {
 
   handleClearForm(e) {
     e.preventDefault();
-    dateDiff = {
-      year: 0,
-      month: 0,
-      day: 0
-    };
     this.setState({
       firstName: '',
       middleName: '',
@@ -112,11 +141,11 @@ class FormContainer extends Component {
       birthdate: '',
       birthdateIsEstimated: false
     });
-    dateDiff = {
-      year: 0,
-      month: 0,
-      day: 0
-    };
+    // dateDiff = {
+    //   year: 0,
+    //   month: 0,
+    //   day: 0
+    // };
   }
 
   handleFormSubmit(e) {
@@ -243,7 +272,9 @@ class FormContainer extends Component {
                     aria-label={'Years'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.year}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .years()}
                     id="age"
                     min={0}
                     max={120}
@@ -255,7 +286,9 @@ class FormContainer extends Component {
                     aria-label={'Months'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.month}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .months()}
                     id="months"
                     min={0}
                     max={11}
@@ -267,7 +300,9 @@ class FormContainer extends Component {
                     aria-label={'Days'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.day}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .days()}
                     id="days"
                     min={0}
                     max={31}
