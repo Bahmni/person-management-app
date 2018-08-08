@@ -282,6 +282,7 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
+              <legend id="display-none">Gender</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
                   <RadioButtonGroup
