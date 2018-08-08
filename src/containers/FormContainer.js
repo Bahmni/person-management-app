@@ -56,7 +56,7 @@ class FormContainer extends Component {
       console.log('Last Name:', this.state.lastName)
     );
   }
-  // calculating years, months, days from date input
+  // calculating years, months, days from date input and back
   fromAgetoDate(e) {
     // input name: years, months or days
     let inputName = e.target.name;
@@ -64,16 +64,16 @@ class FormContainer extends Component {
     let inputValue = e.target.value;
 
     // mapping the values with the momentsjs required format
-    const getMomentArg = {
+    const getMomentFormat = {
       year: 'years',
       month: 'months',
       day: 'days'
     };
     // takes two dates (now and current birthdate input) and calculates
     // the difference between them in years, months and days
-    function toAge(date) {
+    function toAge(userDateInput) {
       let a = moment();
-      let b = moment(date);
+      let b = moment(userDateInput);
       const diffDuration = moment.duration(a.diff(b));
       const age = {
         year: diffDuration.years(),
@@ -92,7 +92,7 @@ class FormContainer extends Component {
 
       return {
         birthdate: moment(prevBirthdate)
-          .subtract(diff, getMomentArg[inputName])
+          .subtract(diff, getMomentFormat[inputName])
           .format('YYYY-MM-DD')
       };
     });
