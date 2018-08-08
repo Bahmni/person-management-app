@@ -6,14 +6,10 @@ import moment from 'moment';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
-const genderOptions = ['Male', 'Female', 'Other'];
-let dateDiff = {
-  year: 0,
-  month: 0,
-  day: 0
-};
 
-// set state and bind
+const genderOptions = ['Male', 'Female', 'Other'];
+
+// set state
 class FormContainer extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +18,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: '',
+      birthdate: moment(),
       birthdateIsEstimated: false
     };
   }
@@ -40,43 +36,7 @@ class FormContainer extends Component {
     );
   }
 
-  handleLastName(e) {
-    this.setState({ lastName: e.target.value }, () =>
-      console.log('Last Name:', this.state.lastName)
-    );
-  }
-
-  fromAgetoDate(e) {
-    let inputName = e.target.name;
-    let inputValue = e.target.value;
-
-    dateDiff = {
-      ...dateDiff,
-      [inputName]: e.target.value
-    };
-
-    this.setState(
-      {
-        birthdate: moment()
-          .subtract(inputName === 'year' ? inputValue : dateDiff.year, 'years')
-          .subtract(
-            inputName === 'month' ? inputValue : dateDiff.month,
-            'months'
-          )
-          .subtract(inputName === 'day' ? inputValue : dateDiff.day, 'days')
-          .format('YYYY-MM-DD')
-      },
-      () => console.log('Age', dateDiff)
-    );
-  }
-
   handlebirthdate(e) {
-    const diffDuration = moment.duration(moment().diff(e.target.value));
-    dateDiff = {
-      year: diffDuration.years(),
-      month: diffDuration.months(),
-      day: diffDuration.days()
-    };
     this.setState(
       {
         birthdate: e.target.value
@@ -91,6 +51,53 @@ class FormContainer extends Component {
     );
   }
 
+  handleLastName(e) {
+    this.setState({ lastName: e.target.value }, () =>
+      console.log('Last Name:', this.state.lastName)
+    );
+  }
+  // calculating years, months, days from date input
+  fromAgetoDate(e) {
+    // input name: years, months or days
+    let inputName = e.target.name;
+    // the user input for the years or months or days
+    let inputValue = e.target.value;
+
+    // mapping the values with the momentsjs required format
+    const getMomentArg = {
+      year: 'years',
+      month: 'months',
+      day: 'days'
+    };
+    // takes two dates (now and current birthdate input) and calculates
+    // the difference between them in years, months and days
+    function toAge(date) {
+      let a = moment();
+      let b = moment(date);
+      const diffDuration = moment.duration(a.diff(b));
+      const age = {
+        year: diffDuration.years(),
+        month: diffDuration.months(),
+        day: diffDuration.days()
+      };
+      return age;
+    }
+    this.setState(prevState => {
+      const prevBirthdate = prevState.birthdate;
+
+      // we avoid destructuring in this case, so that we can use the toAgeObject value,
+      // based on the inputName (and avoid checking what the inputName was).
+      const toAgeObject = toAge(prevBirthdate);
+      let diff = inputValue - toAgeObject[inputName];
+
+      return {
+        birthdate: moment(prevBirthdate)
+          .subtract(diff, getMomentArg[inputName])
+          .format('YYYY-MM-DD')
+      };
+    });
+  } // end of fromAgetoDate
+
   handleGenderOptions(e) {
     this.setState({ gender: e.target.value }, () =>
       console.log('gender options', this.state.gender)
@@ -99,11 +106,6 @@ class FormContainer extends Component {
 
   handleClearForm(e) {
     e.preventDefault();
-    dateDiff = {
-      year: 0,
-      month: 0,
-      day: 0
-    };
     this.setState({
       firstName: '',
       middleName: '',
@@ -112,11 +114,6 @@ class FormContainer extends Component {
       birthdate: '',
       birthdateIsEstimated: false
     });
-    dateDiff = {
-      year: 0,
-      month: 0,
-      day: 0
-    };
   }
 
   handleFormSubmit(e) {
@@ -238,12 +235,14 @@ class FormContainer extends Component {
                 <div className="flex-item2">
                   <Input
                     type={'number'}
-                    title={'Years '} //This is so the screen UI is Years
-                    name={'year'} //The Bahmni Person API works with age
+                    title={'Years '}
+                    name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.year}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .years()}
                     id="age"
                     min={0}
                     max={120}
@@ -255,10 +254,12 @@ class FormContainer extends Component {
                     aria-label={'Months'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.month}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .months()}
                     id="months"
                     min={0}
-                    max={11}
+                    max={12}
                   />
                   <Input
                     type={'number'}
@@ -267,7 +268,9 @@ class FormContainer extends Component {
                     aria-label={'Days'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
-                    value={dateDiff.day}
+                    value={moment
+                      .duration(moment().diff(this.state.birthdate))
+                      .days()}
                     id="days"
                     min={0}
                     max={31}
@@ -279,7 +282,6 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              {/* <legend>Gender</legend> */}
               <div className="flex-container-row">
                 <div className="flex-item">
                   <RadioButtonGroup
