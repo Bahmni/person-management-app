@@ -71,10 +71,10 @@ class FormContainer extends Component {
     };
     // takes two dates (now and current birthdate input) and calculates
     // the difference between them in years, months and days
-    function toAge(userDateInput) {
-      let a = moment();
-      let b = moment(userDateInput);
-      const diffDuration = moment.duration(a.diff(b));
+    function toAge(date) {
+      let now = moment();
+      let userPickedDate = moment(date);
+      const diffDuration = moment.duration(now.diff(userPickedDate));
       const age = {
         year: diffDuration.years(),
         month: diffDuration.months(),
@@ -82,11 +82,12 @@ class FormContainer extends Component {
       };
       return age;
     }
+
     this.setState(prevState => {
       const prevBirthdate = prevState.birthdate;
 
-      // we avoid destructuring in this case, so that we can use the toAgeObject value,
-      // based on the inputName (and avoid checking what the inputName was).
+      // we avoid destructuring in this case, so that we can use the
+      // toAgeObject.inputName value
       const toAgeObject = toAge(prevBirthdate);
       let diff = inputValue - toAgeObject[inputName];
 

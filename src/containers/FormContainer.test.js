@@ -42,34 +42,6 @@ describe('FormContainer', () => {
     it('requires First name input', () => {
       expect(firstNameInput.props().required).toBe(true);
     });
-
-    describe('and then submits the form', () => {
-      let submitRequest;
-      beforeEach(() => {
-        const form = wrapper.find('form');
-        submitRequest = sinon.stub(FormContainer.prototype, 'submitRequest');
-        wrapper.state.firstName = 'Max';
-        form.simulate('submit', {
-          preventDefault: () => {}
-        });
-      });
-      it('should reset First Name to default value', () => {
-        expect(wrapper.state().firstName).toEqual('');
-        expect(wrapper.state().birthdate).toEqual('');
-        expect(
-          submitRequest.calledWith({
-            names: [
-              {
-                familyName: '',
-                givenName: 'Max'
-              }
-            ],
-            gender: '',
-            birthdate: 'T12:00:00.000+0000'
-          })
-        ).toBe(true);
-      });
-    }); // end of submit describe
   }); // end of firstName describe
 
   describe('the user selects value from gender options', () => {
