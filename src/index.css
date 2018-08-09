@@ -132,7 +132,8 @@ div.checkbox-container {
   justify-content: flex-start;
 }
 
-#hidden-title {
+#hidden-title,
+#display-none {
   opacity: 0;
 }
 
@@ -151,6 +152,7 @@ div.radioGroup {
 
 span.radioButton {
   background-color: rgba(155, 155, 155, 0.05);
+  color: #2e3436;
 }
 
 :checked + span.radioButton {

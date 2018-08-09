@@ -6,9 +6,10 @@ import moment from 'moment';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
+
 const genderOptions = ['Male', 'Female', 'Other'];
 
-// set state and bind
+// set state
 class FormContainer extends Component {
   constructor(props) {
     super(props);
@@ -34,88 +35,13 @@ class FormContainer extends Component {
       console.log('Middle Name:', this.state.middleName)
     );
   }
-
-  handleLastName(e) {
-    this.setState({ lastName: e.target.value }, () =>
-      console.log('Last Name:', this.state.lastName)
-    );
-  }
-
-  fromAgetoDate(e) {
-    const momentName = e.target.name + 's';
-    const inputValue = e.target.value;
-    // dateDiff = {
-    //   ...dateDiff,
-    //   [inputName]: e.target.value
-    // };
-    const momentAddArg = {
-      year: 'years',
-      month: 'months',
-      day: 'days'
-    };
-
+  
+  handlebirthdate(e) {
     this.setState(
       {
-        birthdate: moment()
-          .subtract(
-            momentName === 'year' ? inputValue : momentAddArg.year,
-            'years'
-          )
-          .subtract(
-            momentName === 'month' ? inputValue : momentAddArg.month,
-            'months'
-          )
-          .subtract(
-            momentName === 'day' ? inputValue : momentAddArg.day,
-            'days'
-          )
-          .format('YYYY-MM-DD')
-
-        //Ivo code...
-        // setState will trigger the render() function
-        // https://reactjs.org/docs/react-component.html#setstate
-        // this.setState((prevState, props) => {
-        // const prevBirthdate = prevState.birthdate // 2018-08-02
-        // const { prevYears, prevMonths, prevDays } = toAge(prevState.birthdate);
-
-        // only works for changes in days currently
-        // you might find a way to make this code work for the 3
-        // inputs years, months, days so you only have one onChange handler
-        // fromAgetoDate(), if not just make 3 separate handlers
-        // example cases
-        // if user increases days input from 5 to 6 = 6 - 5 = 1
-        // if user decreases days input from 6 to 5 = 5 - 6 = -1
-        // moment says add(-1) == subtract(1)
-        // moment says subtract(-1) == add(1)
-        // const diff = inputValue - prevDays;
-        // const birthdate = prevState
-        // .add(diff, momentAddArg[inputName])
-        // .format('YYYY-MM-DD')
-        // return {birthdate};
-        // }
-        // }
+        birthdate: e.target.value
       },
-      () => console.log(momentName, inputValue)
-    );
-  }
-
-  // helps to calculate the age from the birthdate
-  // used in the render function for the years, months, days value prop
-  // used to calculate the prev years, months, days in the onChange handler of
-  // the years, months, days inputs
-  toAge(e) {
-    const diffDuration = moment.duration(moment().diff(e.target.value));
-    const age = {
-      year: diffDuration.years(),
-      month: diffDuration.months(),
-      day: diffDuration.days()
-    };
-    return age;
-  }
-
-  handlebirthdate(e) {
-    this.setState({ birthdate: e.target.value }, () =>
-      console.log('birthdate', this.state.birthdate)
+      () => console.log('birthdate', this.state.birthdate)
     );
   }
 
@@ -124,6 +50,54 @@ class FormContainer extends Component {
       console.log('birthdateIsEstimated', this.state.birthdate)
     );
   }
+
+  handleLastName(e) {
+    this.setState({ lastName: e.target.value }, () =>
+      console.log('Last Name:', this.state.lastName)
+    );
+  }
+  // calculating years, months, days from date input and back
+  fromAgetoDate(e) {
+    // input name: years, months or days
+    let inputName = e.target.name;
+    // the user input for the years or months or days
+    let inputValue = e.target.value;
+
+    // mapping the values with the momentsjs required format
+    const getMomentFormat = {
+      year: 'years',
+      month: 'months',
+      day: 'days'
+    };
+    // takes two dates (now and current birthdate input) and calculates
+    // the difference between them in years, months and days
+    function toAge(date) {
+      let now = moment();
+      let userPickedDate = moment(date);
+      const diffDuration = moment.duration(now.diff(userPickedDate));
+      const age = {
+        year: diffDuration.years(),
+        month: diffDuration.months(),
+        day: diffDuration.days()
+      };
+      return age;
+    }
+
+    this.setState(prevState => {
+      const prevBirthdate = prevState.birthdate;
+
+      // we avoid destructuring in this case, so that we can use the
+      // toAgeObject.inputName value
+      const toAgeObject = toAge(prevBirthdate);
+      let diff = inputValue - toAgeObject[inputName];
+
+      return {
+        birthdate: moment(prevBirthdate)
+          .subtract(diff, getMomentFormat[inputName])
+          .format('YYYY-MM-DD')
+      };
+    });
+  } // end of fromAgetoDate
 
   handleGenderOptions(e) {
     this.setState({ gender: e.target.value }, () =>
@@ -141,11 +115,6 @@ class FormContainer extends Component {
       birthdate: '',
       birthdateIsEstimated: false
     });
-    // dateDiff = {
-    //   year: 0,
-    //   month: 0,
-    //   day: 0
-    // };
   }
 
   handleFormSubmit(e) {
@@ -267,8 +236,8 @@ class FormContainer extends Component {
                 <div className="flex-item2">
                   <Input
                     type={'number'}
-                    title={'Years '} //This is so the screen UI is Years
-                    name={'year'} //The Bahmni Person API works with age
+                    title={'Years '}
+                    name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
                     onChange={e => this.fromAgetoDate(e)}
@@ -291,7 +260,7 @@ class FormContainer extends Component {
                       .months()}
                     id="months"
                     min={0}
-                    max={11}
+                    max={12}
                   />
                   <Input
                     type={'number'}
@@ -314,7 +283,7 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              {/* <legend>Gender</legend> */}
+              <legend id="display-none">Gender</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
                   <RadioButtonGroup
