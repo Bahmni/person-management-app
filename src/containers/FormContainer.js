@@ -35,7 +35,13 @@ class FormContainer extends Component {
       console.log('Middle Name:', this.state.middleName)
     );
   }
-
+  
+  handlebirthdate(e) {
+    this.setState(
+      {
+        birthdate: e.target.value
+      },
+      () => console.log('birthdate', this.state.birthdate)
     );
   }
 
