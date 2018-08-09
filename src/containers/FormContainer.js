@@ -35,7 +35,7 @@ class FormContainer extends Component {
       console.log('Middle Name:', this.state.middleName)
     );
   }
-  
+
   handlebirthdate(e) {
     this.setState(
       {
@@ -112,7 +112,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: '',
+      birthdate: moment(),
       birthdateIsEstimated: false
     });
   }
@@ -223,6 +223,7 @@ class FormContainer extends Component {
                     onChange={e => this.handlebirthdate(e)}
                     value={this.state.birthdate}
                     id="birthdate"
+                    max={moment().format('YYYY-MM-DD')}
                     required={true}
                   />
                   <Checkbox
