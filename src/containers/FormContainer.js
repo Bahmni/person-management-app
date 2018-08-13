@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
+import Modal from '../components/Modal/Modal';
 import moment from 'moment';
 
 // Bahmni person API URL
@@ -19,7 +20,8 @@ class FormContainer extends Component {
       lastName: '',
       gender: '',
       birthdate: moment(),
-      birthdateIsEstimated: false
+      birthdateIsEstimated: false,
+      show: false
     };
   }
 
@@ -88,6 +90,7 @@ class FormContainer extends Component {
 
       // we avoid destructuring in this case, so that we can use the
       // toAgeObject.inputName value
+
       const toAgeObject = toAge(prevBirthdate);
       let diff = inputValue - toAgeObject[inputName];
 
@@ -104,6 +107,12 @@ class FormContainer extends Component {
       console.log('gender options', this.state.gender)
     );
   }
+
+  showModal = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
 
   handleClearForm(e) {
     e.preventDefault();
@@ -131,7 +140,7 @@ class FormContainer extends Component {
     };
 
     this.submitRequest(formPayload);
-    this.handleClearForm(e);
+    // this.handleClearForm(e);
   }
 
   submitRequest(formPayload) {
@@ -145,9 +154,26 @@ class FormContainer extends Component {
       },
       credentials: 'include'
     })
-      .then(res => res.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => console.log('Success:', response));
+      .then(response => {
+        if (response.ok) {
+          console.log('BANANA is okay');
+          return response.json();
+        } else {
+          // issue with the response
+          console.log('BANANA is not okay');
+          return Promise.reject({
+            status: response.status,
+            statusText: response.statusText
+          });
+        }
+      })
+      // issue with the request
+      .then(response => console.log('Success:', response))
+      .catch(error => console.error('Error:', error));
+
+    // .then(res => res.json())
+    // .catch(error => console.error("Error:", error))
+    // .then(response => console.log("Success:", response));
   }
 
   render() {
@@ -306,8 +332,14 @@ class FormContainer extends Component {
               disabled={isEnabled ? null : 'disabled'}
               type="submit"
               value="Register"
+              onClick={this.showModal}
             />
           </div>
+
+          <Modal show={this.state.show} onClose={this.showModal}>
+            An error occurred while trying to register this person. Please try
+            again.
+          </Modal>
         </form>
       </div>
     );
