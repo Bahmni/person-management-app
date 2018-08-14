@@ -19,7 +19,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: moment(),
+      birthdate: moment().format('YYYY-MM-DD'),
       birthdateIsEstimated: false,
       show: false
     };
@@ -97,6 +97,7 @@ class FormContainer extends Component {
       return {
         birthdate: moment(prevBirthdate)
           .subtract(diff, getMomentFormat[inputName])
+          .subtract(1, 'days')
           .format('YYYY-MM-DD')
       };
     });
