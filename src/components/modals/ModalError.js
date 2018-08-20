@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Modal.css';
+import './ModalError.css';
+
 
 class Modal extends Component {
   onClose = e => {
