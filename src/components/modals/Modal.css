@@ -11,6 +11,18 @@
   position: relative;
 }
 
+.modalSuccess {
+  background-color: white;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
+  color: black;
+  font-size: 1.2rem;
+  border-radius: 3px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+}
 .backdrop {
   position: fixed;
   top: 0;
