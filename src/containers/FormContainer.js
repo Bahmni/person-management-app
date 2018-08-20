@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
-import Modal from '../components/modal/Modal';
+import ModalError from '../components/modals/ModalError';
 import moment from 'moment';
-import ModalSuccess from '../components/modal/ModalSuccess';
+import ModalSuccess from '../components/modals/ModalSuccess';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -190,17 +190,17 @@ class FormContainer extends Component {
 
     if (isError) {
       modal = (
-        <Modal show={this.state.show} onClose={this.showModal}>
+        <ModalError show={this.state.show} onClose={this.showModal}>
           An error occurred while trying to register this person. Please try
           again.
-        </Modal>
+        </ModalError>
       );
     }
     if (!isError) {
       modal = (
-        <Modal show={this.state.show} onClose={this.showModal}>
+        <ModalSuccess show={this.state.show} onClose={this.showModal}>
           success
-        </Modal>
+        </ModalSuccess>
       );
     }
     return (
@@ -354,7 +354,7 @@ class FormContainer extends Component {
             />
           </div>
           {modal}
-          {modalSuccess}
+          {/* {modalSuccess} */}
         </form>
       </div>
     );
