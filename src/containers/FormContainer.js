@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
-import Modal from '../components/Modal/Modal';
+import Modal from '../components/modal/Modal';
 import moment from 'moment';
 
 // Bahmni person API URL
