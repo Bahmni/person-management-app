@@ -187,8 +187,8 @@ class FormContainer extends Component {
       lastName,
       gender,
       birthdate,
-      isError,
-      show
+      isError
+      // show
     } = this.state;
 
     let modal = null;
