@@ -1,0 +1,45 @@
+.modal {
+  background-color: rgba(217, 89, 88, 1);
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
+  font-size: 1.2rem;
+  border-radius: 3px;
+  height: 487px;
+  width: 1228px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+  opacity: 0.65;
+}
+
+.modalSuccess {
+  background-color: white;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
+  color: black;
+  font-size: 1.2rem;
+  border-radius: 3px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(47, 47, 47, 1);
+  padding: 50px;
+  opacity: 0.7;
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  height: 2rem;
+  padding: 0 45px;
+  border-radius: 3px;
+}
