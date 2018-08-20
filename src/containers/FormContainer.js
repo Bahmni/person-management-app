@@ -21,7 +21,9 @@ class FormContainer extends Component {
       gender: '',
       birthdate: moment().format('YYYY-MM-DD'),
       birthdateIsEstimated: false,
-      show: false
+      show: false,
+      isLoading: false,
+      isError: false
     };
   }
 
@@ -145,6 +147,7 @@ class FormContainer extends Component {
   }
 
   submitRequest(formPayload) {
+    this.setState({ isLoading: true });
     console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
@@ -157,11 +160,11 @@ class FormContainer extends Component {
     })
       .then(response => {
         if (response.ok) {
-          console.log('BANANA is okay');
+          console.log('response is okay');
           return response.json();
         } else {
           // issue with the response
-          console.log('BANANA is not okay');
+          console.log('response is not okay');
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -169,22 +172,49 @@ class FormContainer extends Component {
         }
       })
       // issue with the request
-      .then(response => console.log('Success:', response))
-      .catch(error => console.error('Error:', error));
+      .then(response =>
+        this.setState({ isLoading: false, show: true }, () =>
+          console.log('Success:', response)
+        )
+      )
 
-    // .then(res => res.json())
-    // .catch(error => console.error("Error:", error))
-    // .then(response => console.log("Success:", response));
+      .catch(error =>
+        this.setState({ isError: true, isLoading: false, show: true }, () =>
+          console.error('Error:', error)
+        )
+      );
   }
 
   render() {
-    const { firstName, lastName, gender, birthdate } = this.state;
+    const {
+      firstName,
+      lastName,
+      gender,
+      birthdate,
+      isError,
+      isLoading,
+      show
+    } = this.state;
+
+    let modal = null;
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
 
+    if (isLoading) {
+      return <p>Loading ...</p>;
+    }
+
+    if (isError) {
+      modal = (
+        <Modal show={this.state.show} onClose={this.showModal}>
+          An error occurred while trying to register this person. Please try
+          again.
+        </Modal>
+      );
+    }
     return (
       <div className="wrapper">
         <form onSubmit={e => this.handleFormSubmit(e)}>
@@ -333,14 +363,9 @@ class FormContainer extends Component {
               disabled={isEnabled ? null : 'disabled'}
               type="submit"
               value="Register"
-              onClick={this.showModal}
             />
           </div>
-
-          <Modal show={this.state.show} onClose={this.showModal}>
-            An error occurred while trying to register this person. Please try
-            again.
-          </Modal>
+          {modal}
         </form>
       </div>
     );
