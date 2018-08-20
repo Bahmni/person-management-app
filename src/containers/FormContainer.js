@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
-import Modal from '../components/Modal/Modal';
+import Modal from '../components/modals/ModalError';
 import moment from 'moment';
 
 // Bahmni person API URL
@@ -22,7 +22,6 @@ class FormContainer extends Component {
       birthdate: moment().format('YYYY-MM-DD'),
       birthdateIsEstimated: false,
       show: false,
-      isLoading: false,
       isError: false
     };
   }
@@ -147,7 +146,6 @@ class FormContainer extends Component {
   }
 
   submitRequest(formPayload) {
-    this.setState({ isLoading: true });
     console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
@@ -173,13 +171,11 @@ class FormContainer extends Component {
       })
       // issue with the request
       .then(response =>
-        this.setState({ isLoading: false, show: true }, () =>
-          console.log('Success:', response)
-        )
+        this.setState({ show: true }, () => console.log('Success:', response))
       )
 
       .catch(error =>
-        this.setState({ isError: true, isLoading: false, show: true }, () =>
+        this.setState({ isError: true, show: true }, () =>
           console.error('Error:', error)
         )
       );
@@ -191,9 +187,8 @@ class FormContainer extends Component {
       lastName,
       gender,
       birthdate,
-      isError,
-      isLoading,
-      show
+      isError
+      // show
     } = this.state;
 
     let modal = null;
@@ -202,10 +197,6 @@ class FormContainer extends Component {
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
-
-    if (isLoading) {
-      return <p>Loading ...</p>;
-    }
 
     if (isError) {
       modal = (
