@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
-import Modal from '../components/Modal/Modal';
+import Modal from '../components/modal/Modal';
 import moment from 'moment';
+import ModalSuccess from '../components/modal/ModalSuccess';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -29,36 +30,25 @@ class FormContainer extends Component {
 
   // handle inputs with real-time console logging
   handleFirstName(e) {
-    this.setState({ firstName: e.target.value }, () =>
-      console.log('First Name:', this.state.firstName)
-    );
+    this.setState({ firstName: e.target.value });
   }
 
   handleMiddleName(e) {
-    this.setState({ middleName: e.target.value }, () =>
-      console.log('Middle Name:', this.state.middleName)
-    );
+    this.setState({ middleName: e.target.value });
   }
 
   handlebirthdate(e) {
-    this.setState(
-      {
-        birthdate: e.target.value
-      },
-      () => console.log('birthdate', this.state.birthdate)
-    );
+    this.setState({
+      birthdate: e.target.value
+    });
   }
 
   handleBirthdateIsEstimated(e) {
-    this.setState({ birthdateIsEstimated: e.target.checked }, () =>
-      console.log('birthdateIsEstimated', this.state.birthdate)
-    );
+    this.setState({ birthdateIsEstimated: e.target.checked });
   }
 
   handleLastName(e) {
-    this.setState({ lastName: e.target.value }, () =>
-      console.log('Last Name:', this.state.lastName)
-    );
+    this.setState({ lastName: e.target.value });
   }
   // calculating years, months, days from date input and back
   fromAgetoDate(e) {
@@ -106,9 +96,7 @@ class FormContainer extends Component {
   } // end of fromAgetoDate
 
   handleGenderOptions(e) {
-    this.setState({ gender: e.target.value }, () =>
-      console.log('gender options', this.state.gender)
-    );
+    this.setState({ gender: e.target.value });
   }
 
   showModal = () => {
@@ -160,11 +148,9 @@ class FormContainer extends Component {
     })
       .then(response => {
         if (response.ok) {
-          console.log('response is okay');
           return response.json();
         } else {
           // issue with the response
-          console.log('response is not okay');
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -172,16 +158,10 @@ class FormContainer extends Component {
         }
       })
       // issue with the request
-      .then(response =>
-        this.setState({ isLoading: false, show: true }, () =>
-          console.log('Success:', response)
-        )
-      )
+      .then(response => this.setState({ isLoading: false, show: true }))
 
       .catch(error =>
-        this.setState({ isError: true, isLoading: false, show: true }, () =>
-          console.error('Error:', error)
-        )
+        this.setState({ isError: true, isLoading: false, show: true })
       );
   }
 
@@ -197,21 +177,29 @@ class FormContainer extends Component {
     } = this.state;
 
     let modal = null;
+    let modalSuccess = null;
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
 
-    if (isLoading) {
-      return <p>Loading ...</p>;
-    }
+    // if (isLoading) {
+    //   return <p>Loading ...</p>;
+    // }
 
     if (isError) {
       modal = (
         <Modal show={this.state.show} onClose={this.showModal}>
           An error occurred while trying to register this person. Please try
           again.
+        </Modal>
+      );
+    }
+    if (!isError) {
+      modal = (
+        <Modal show={this.state.show} onClose={this.showModal}>
+          success
         </Modal>
       );
     }
@@ -366,6 +354,7 @@ class FormContainer extends Component {
             />
           </div>
           {modal}
+          {modalSuccess}
         </form>
       </div>
     );
