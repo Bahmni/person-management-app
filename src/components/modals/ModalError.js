@@ -23,7 +23,7 @@ class ModalError extends Component {
 }
 
 ModalError.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 };
 
 export default ModalError;
