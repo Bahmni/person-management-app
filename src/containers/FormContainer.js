@@ -6,7 +6,6 @@ import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
 
-
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
@@ -20,7 +19,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: moment(),
+      birthdate: '',
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -145,7 +144,6 @@ class FormContainer extends Component {
       credentials: 'include'
     })
       .then(response => {
-
         if (response.status === 201) {
           return response.json();
         } else {
@@ -184,8 +182,6 @@ class FormContainer extends Component {
 
     let modal = null;
 
-
-
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
@@ -201,12 +197,10 @@ class FormContainer extends Component {
       );
     }
 
-
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
           {firstName} {lastName} was added.
-
         </ModalSuccess>
       );
     }

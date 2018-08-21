@@ -2,24 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './ModalError.css';
 
-
 class ModalError extends Component {
-
-  onClose = e => {
-    this.props.onClose && this.props.onClose(e);
-  };
+  handleClick(e) {
+    this.props.onClose(e);
+  }
   render() {
     return (
       <div className="backdrop">
         <div className="modalError">
           {this.props.children}
           <div>
-            <button
-              className="footer"
-              onClick={e => {
-                this.onClose(e);
-              }}
-            >
+            <button className="footer" onClick={e => this.handleClick(e)}>
               OK
             </button>
           </div>
