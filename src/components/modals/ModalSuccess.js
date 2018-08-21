@@ -35,6 +35,7 @@ class ModalSuccess extends Component {
         }}
       >
         <div className="modalSuccess">{this.props.children}</div>
+
       </div>
     );
   }
@@ -43,5 +44,6 @@ class ModalSuccess extends Component {
 ModalSuccess.propTypes = {
   onClose: PropTypes.func.isRequired
 };
+
 
 export default ModalSuccess;

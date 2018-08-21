@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './ModalError.css';
 
+
 class ModalError extends Component {
+
   onClose = e => {
     this.props.onClose && this.props.onClose(e);
   };

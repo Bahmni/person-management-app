@@ -4,7 +4,9 @@ import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
 import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
+
 import moment from 'moment';
+import ModalSuccess from '../components/modals/ModalSuccess';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
@@ -15,11 +17,11 @@ class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: 'Joan',
+      firstName: '',
       middleName: '',
-      lastName: 'Doe',
-      gender: 'Female',
-      birthdate: '2001-01-01',
+      lastName: '',
+      gender: '',
+      birthdate: moment(),
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -144,11 +146,13 @@ class FormContainer extends Component {
       credentials: 'include'
     })
       .then(response => {
+
         if (response.status === 201) {
           return response.json();
         } else {
           // issue with the response
           this.setState({ isError: true, show: true });
+
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -181,6 +185,8 @@ class FormContainer extends Component {
 
     let modal = null;
 
+
+
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
@@ -196,10 +202,12 @@ class FormContainer extends Component {
       );
     }
 
+
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
           {firstName} {lastName} was added.
+
         </ModalSuccess>
       );
     }
@@ -355,6 +363,7 @@ class FormContainer extends Component {
             />
           </div>
           {modal}
+          {/* {modalSuccess} */}
         </form>
       </div>
     );
