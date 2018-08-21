@@ -4,9 +4,8 @@ import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
 import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
-
 import moment from 'moment';
-import ModalSuccess from '../components/modals/ModalSuccess';
+
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
