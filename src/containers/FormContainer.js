@@ -3,12 +3,12 @@ import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
 import ModalError from '../components/modals/ModalError';
-import moment from 'moment';
 import ModalSuccess from '../components/modals/ModalSuccess';
+import moment from 'moment';
+
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
-
 const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state
@@ -20,7 +20,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: moment().format('YYYY-MM-DD'),
+      birthdate: moment(),
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -104,15 +104,16 @@ class FormContainer extends Component {
     });
   };
 
-  handleClearForm(e) {
-    e.preventDefault();
+  handleClearForm() {
     this.setState({
       firstName: '',
       middleName: '',
       lastName: '',
       gender: '',
       birthdate: moment(),
-      birthdateIsEstimated: false
+      birthdateIsEstimated: false,
+      show: false,
+      isError: false
     });
   }
 
@@ -130,11 +131,10 @@ class FormContainer extends Component {
     };
 
     this.submitRequest(formPayload);
-    // this.handleClearForm(e);
+    // this.handleClearForm();
   }
 
   submitRequest(formPayload) {
-    console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(formPayload),
@@ -145,10 +145,13 @@ class FormContainer extends Component {
       credentials: 'include'
     })
       .then(response => {
-        if (response.ok) {
+
+        if (response.status === 201) {
           return response.json();
         } else {
           // issue with the response
+          this.setState({ isError: true, show: true });
+
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -157,7 +160,9 @@ class FormContainer extends Component {
       })
       // issue with the request
       .then(response =>
-        this.setState({ show: true }, () => console.log('Success:', response))
+        this.setState({ isError: false, show: true }, () =>
+          console.log(response)
+        )
       )
 
       .catch(error =>
@@ -173,19 +178,21 @@ class FormContainer extends Component {
       lastName,
       gender,
       birthdate,
-      isError
-      // show
+      isError,
+      show
     } = this.state;
 
     let modal = null;
-    let modalSuccess = null;
+
+
+
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
 
-    if (isError) {
+    if (isError && show) {
       modal = (
         <ModalError show={this.state.show} onClose={this.showModal}>
           An error occurred while trying to register this person. Please try
@@ -193,13 +200,17 @@ class FormContainer extends Component {
         </ModalError>
       );
     }
-    if (!isError) {
+
+
+    if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
-          success
+          {firstName} {lastName} was added.
+
         </ModalSuccess>
       );
     }
+
     return (
       <div className="wrapper">
         <form onSubmit={e => this.handleFormSubmit(e)}>

@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import './ModalError.css';
 
 
-class Modal extends Component {
+class ModalError extends Component {
+
   onClose = e => {
     this.props.onClose && this.props.onClose(e);
   };
   render() {
-    if (!this.props.show) {
-      return null;
-    }
     return (
       <div className="backdrop">
-        <div className="modal">
+        <div className="modalError">
           {this.props.children}
           <div>
             <button
@@ -31,8 +29,8 @@ class Modal extends Component {
   }
 }
 
-Modal.propTypes = {
+ModalError.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-export default Modal;
+export default ModalError;
