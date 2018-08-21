@@ -8,7 +8,6 @@ import moment from 'moment';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
-
 const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state
@@ -16,11 +15,11 @@ class FormContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
+      firstName: 'Joan',
       middleName: '',
-      lastName: '',
-      gender: '',
-      birthdate: moment(),
+      lastName: 'Doe',
+      gender: 'Female',
+      birthdate: '2001-01-01',
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -104,8 +103,7 @@ class FormContainer extends Component {
     });
   };
 
-  handleClearForm(e) {
-    e.preventDefault();
+  handleClearForm() {
     this.setState({
       firstName: '',
       middleName: '',
@@ -132,7 +130,7 @@ class FormContainer extends Component {
     };
 
     this.submitRequest(formPayload);
-    // this.handleClearForm(e);
+    // this.handleClearForm();
   }
 
   submitRequest(formPayload) {
@@ -150,8 +148,7 @@ class FormContainer extends Component {
           return response.json();
         } else {
           // issue with the response
-
-          this.setState({ isError: true });
+          this.setState({ isError: true, show: true });
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
