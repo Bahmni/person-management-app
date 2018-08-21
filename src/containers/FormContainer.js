@@ -19,7 +19,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: '',
+      birthdate: moment(),
       birthdateIsEstimated: false,
       show: false,
       isError: false
