@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Input from '../components/Input';
 import RadioButtonGroup from '../components/RadioButtonGroup';
 import Checkbox from '../components/Checkbox';
-import Modal from '../components/modals/ModalError';
+import ModalError from '../components/modals/ModalError';
+import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
 
 // Bahmni person API URL
@@ -19,7 +20,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: moment().format('YYYY-MM-DD'),
+      birthdate: moment(),
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -28,36 +29,25 @@ class FormContainer extends Component {
 
   // handle inputs with real-time console logging
   handleFirstName(e) {
-    this.setState({ firstName: e.target.value }, () =>
-      console.log('First Name:', this.state.firstName)
-    );
+    this.setState({ firstName: e.target.value });
   }
 
   handleMiddleName(e) {
-    this.setState({ middleName: e.target.value }, () =>
-      console.log('Middle Name:', this.state.middleName)
-    );
+    this.setState({ middleName: e.target.value });
   }
 
   handlebirthdate(e) {
-    this.setState(
-      {
-        birthdate: e.target.value
-      },
-      () => console.log('birthdate', this.state.birthdate)
-    );
+    this.setState({
+      birthdate: e.target.value
+    });
   }
 
   handleBirthdateIsEstimated(e) {
-    this.setState({ birthdateIsEstimated: e.target.checked }, () =>
-      console.log('birthdateIsEstimated', this.state.birthdate)
-    );
+    this.setState({ birthdateIsEstimated: e.target.checked });
   }
 
   handleLastName(e) {
-    this.setState({ lastName: e.target.value }, () =>
-      console.log('Last Name:', this.state.lastName)
-    );
+    this.setState({ lastName: e.target.value });
   }
   // calculating years, months, days from date input and back
   fromAgetoDate(e) {
@@ -105,9 +95,7 @@ class FormContainer extends Component {
   } // end of fromAgetoDate
 
   handleGenderOptions(e) {
-    this.setState({ gender: e.target.value }, () =>
-      console.log('gender options', this.state.gender)
-    );
+    this.setState({ gender: e.target.value });
   }
 
   showModal = () => {
@@ -124,7 +112,9 @@ class FormContainer extends Component {
       lastName: '',
       gender: '',
       birthdate: moment(),
-      birthdateIsEstimated: false
+      birthdateIsEstimated: false,
+      show: false,
+      isError: false
     });
   }
 
@@ -146,7 +136,6 @@ class FormContainer extends Component {
   }
 
   submitRequest(formPayload) {
-    console.log('Send this in a POST request:', formPayload);
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(formPayload),
@@ -157,12 +146,12 @@ class FormContainer extends Component {
       credentials: 'include'
     })
       .then(response => {
-        if (response.ok) {
-          console.log('response is okay');
+        if (response.status === 201) {
           return response.json();
         } else {
           // issue with the response
-          console.log('response is not okay');
+
+          this.setState({ isError: true });
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -171,7 +160,9 @@ class FormContainer extends Component {
       })
       // issue with the request
       .then(response =>
-        this.setState({ show: true }, () => console.log('Success:', response))
+        this.setState({ isError: false, show: true }, () =>
+          console.log(response)
+        )
       )
 
       .catch(error =>
@@ -187,25 +178,35 @@ class FormContainer extends Component {
       lastName,
       gender,
       birthdate,
-      isError
-      // show
+      isError,
+      show
     } = this.state;
 
     let modal = null;
+
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0;
 
-    if (isError) {
+    if (isError && show) {
       modal = (
-        <Modal show={this.state.show} onClose={this.showModal}>
+        <ModalError show={this.state.show} onClose={this.showModal}>
           An error occurred while trying to register this person. Please try
           again.
-        </Modal>
+        </ModalError>
       );
     }
+
+    if (!isError && show) {
+      modal = (
+        <ModalSuccess show={this.state.show} onClose={this.showModal}>
+          {firstName} {lastName} was added.
+        </ModalSuccess>
+      );
+    }
+
     return (
       <div className="wrapper">
         <form onSubmit={e => this.handleFormSubmit(e)}>
