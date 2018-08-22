@@ -11,7 +11,7 @@
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   color: #373d3f;
-  background-color: white;
+  /* background-color: white; */
   font-size: 1rem;
   letter-spacing: 0.7px;
 }

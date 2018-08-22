@@ -10,8 +10,9 @@ class ModalError extends Component {
     return (
       <div className="backdrop">
         <div className="modalError">
-          {this.props.children}
-          <div>
+          <div className="modalRight">
+            {this.props.children[0]}
+            {this.props.children[1]}
             <button className="footer" onClick={e => this.onClose(e)}>
               OK
             </button>
