@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import './ModalError.css';
 
 class ModalError extends Component {
-  handleClick(e) {
-    this.props.onClose(e);
-  }
+  onClose = e => {
+    this.props.onClose && this.props.onClose(e);
+  };
   render() {
     return (
       <div className="backdrop">
         <div className="modalError">
           {this.props.children}
           <div>
-            <button className="footer" onClick={e => this.handleClick(e)}>
+            <button className="footer" onClick={e => this.onClose(e)}>
               OK
             </button>
           </div>
@@ -21,9 +21,5 @@ class ModalError extends Component {
     );
   }
 }
-
-ModalError.propTypes = {
-  onClick: PropTypes.func.isRequired
-};
 
 export default ModalError;
