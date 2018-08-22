@@ -202,8 +202,9 @@ class FormContainer extends Component {
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
+
           {displayInput} was added.
-        </ModalSuccess>
+
       );
     }
 
