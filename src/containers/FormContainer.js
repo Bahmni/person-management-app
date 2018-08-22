@@ -6,10 +6,10 @@ import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
 
-
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
+let displayInput;
 
 // set state
 class FormContainer extends Component {
@@ -20,7 +20,7 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: moment(),
+      birthdate: '',
       birthdateIsEstimated: false,
       show: false,
       isError: false
@@ -131,7 +131,6 @@ class FormContainer extends Component {
     };
 
     this.submitRequest(formPayload);
-    // this.handleClearForm();
   }
 
   submitRequest(formPayload) {
@@ -145,8 +144,9 @@ class FormContainer extends Component {
       credentials: 'include'
     })
       .then(response => {
-
         if (response.status === 201) {
+          displayInput = this.state.firstName + ' ' + this.state.lastName;
+          this.handleClearForm();
           return response.json();
         } else {
           // issue with the response
@@ -184,8 +184,6 @@ class FormContainer extends Component {
 
     let modal = null;
 
-
-
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
@@ -201,12 +199,10 @@ class FormContainer extends Component {
       );
     }
 
-
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
-          {firstName} {lastName} was added.
-
+          {displayInput} was added.
         </ModalSuccess>
       );
     }
