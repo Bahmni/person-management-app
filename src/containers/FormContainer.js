@@ -9,6 +9,7 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
+let displayInput;
 
 // set state
 class FormContainer extends Component {
@@ -130,7 +131,6 @@ class FormContainer extends Component {
     };
 
     this.submitRequest(formPayload);
-    // this.handleClearForm();
   }
 
   submitRequest(formPayload) {
@@ -145,6 +145,8 @@ class FormContainer extends Component {
     })
       .then(response => {
         if (response.status === 201) {
+          displayInput = this.state.firstName + ' ' + this.state.lastName;
+          this.handleClearForm();
           return response.json();
         } else {
           // issue with the response
@@ -200,7 +202,7 @@ class FormContainer extends Component {
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
-          {firstName} {lastName} was added.
+          {displayInput} was added.
         </ModalSuccess>
       );
     }
@@ -356,7 +358,6 @@ class FormContainer extends Component {
             />
           </div>
           {modal}
-          {/* {modalSuccess} */}
         </form>
       </div>
     );
