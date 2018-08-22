@@ -11,6 +11,13 @@
   position: relative;
 }
 
+/* .modalLeft {
+  padding: 0px 0px 150px 0px;
+  background-image: url(placeHolder.jpg);
+  background-repeat: no-repeat;
+  margin-top: -130px;
+} */
+
 .backdrop {
   position: fixed;
   top: 0;
