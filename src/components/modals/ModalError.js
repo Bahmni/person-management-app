@@ -6,6 +6,9 @@ class ModalError extends Component {
   onClose = e => {
     this.props.onClose && this.props.onClose(e);
   };
+
+  // const { title, paragraph } = props;
+
   render() {
     return (
       <div className="backdrop">
@@ -17,6 +20,7 @@ class ModalError extends Component {
               OK
             </button>
           </div>
+          <div className="modalLeft" />
         </div>
       </div>
     );
