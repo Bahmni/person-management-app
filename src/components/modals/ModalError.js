@@ -7,8 +7,6 @@ class ModalError extends Component {
     this.props.onClose && this.props.onClose(e);
   };
 
-  // const { title, paragraph } = props;
-
   render() {
     return (
       <div className="backdrop">
