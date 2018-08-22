@@ -1,49 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './ModalSuccess.css';
+import ModalError from './ModalError';
 
 class ModalSuccess extends Component {
-  onClose = e => {
-    this.props.onClose && this.props.onClose(e);
-  };
-
-  componentDidMount() {
-    document.addEventListener('click', this.handleOutsideClick, false);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick, false);
+  handleClick(e) {
+    this.props.onClose(e);
   }
 
   handleOutsideClick(e) {
-    if (this.node.contains(e.target)) {
-      return;
-    } else {
-      this.onClose();
-      document.removeEventListener('click', this.handleOutsideClick, false);
+    if (!this.node.contains(e.target)) {
+      this.handleClick(e);
     }
   }
-
   render() {
     return (
-      <div
-        ref={node => {
-          this.node = node;
-        }}
-        className="backdrop"
-        onClick={e => {
-          this.onClose(e);
-        }}
-      >
-        <div className="modalSuccess">{this.props.children}</div>
-
+      <div className="backdrop" onClick={e => this.handleOutsideClick(e)}>
+        <div className="modalSuccess" ref={node => (this.node = node)}>
+          {this.props.children}
+        </div>
       </div>
     );
   }
 }
 
-ModalSuccess.propTypes = {
-  onClose: PropTypes.func.isRequired
+ModalError.propTypes = {
+  onClick: PropTypes.func.isRequired
 };
-
 
 export default ModalSuccess;
