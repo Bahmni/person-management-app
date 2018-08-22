@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140px" height="140px" viewBox="0 0 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Bahmni_PersonMgmt" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.497823661">
+        <g id="Registration_SuccessMessage" transform="translate(-514.000000, -520.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group-4" transform="translate(346.000000, 411.000000)">
+                <g id="baseline-check_circle_outline-24px" transform="translate(168.000000, 109.000000)">
+                    <path d="M101.834843,39.3442257 L56.1286089,85.0504593 L31.2294619,60.2206693 L21.4501312,70 L56.1286089,104.678478 L111.614173,49.1929134 L101.834843,39.3442257 Z M70,0.643044619 C31.7149606,0.643044619 0.643044619,31.7149606 0.643044619,70 C0.643044619,108.285039 31.7149606,139.356955 70,139.356955 C108.285039,139.356955 139.356955,108.285039 139.356955,70 C139.356955,31.7149606 108.285039,0.643044619 70,0.643044619 Z M70,125.485564 C39.3442257,125.485564 14.5144357,100.655774 14.5144357,70 C14.5144357,39.3442257 39.3442257,14.5144357 70,14.5144357 C100.655774,14.5144357 125.485564,39.3442257 125.485564,70 C125.485564,100.655774 100.655774,125.485564 70,125.485564 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
