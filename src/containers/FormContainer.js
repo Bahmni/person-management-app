@@ -358,7 +358,6 @@ class FormContainer extends Component {
             />
           </div>
           {modal}
-          {/* {modalSuccess} */}
         </form>
       </div>
     );
