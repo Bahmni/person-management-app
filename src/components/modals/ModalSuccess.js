@@ -18,7 +18,7 @@ class ModalSuccess extends Component {
         <div className="modalSuccess" ref={node => (this.node = node)}>
           {this.props.children}
         </div>
-        <div className="modalLeft" />
+        <div className="modalSuccessLeft" />
       </div>
     );
   }

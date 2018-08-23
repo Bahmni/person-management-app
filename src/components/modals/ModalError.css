@@ -14,13 +14,13 @@
   transform: translate(-50%, -50%);
 }
 
-.modalRight {
+.modalErrorRight {
   line-height: 1.8rem;
   padding: 0px 0px 20px 150px;
   margin-top: -30px;
 }
 
-.modalLeft {
+.modalErrorLeft {
   padding: 0px 0px 150px 0px;
   background-image: url(Attention_icon.svg);
   background-repeat: no-repeat;

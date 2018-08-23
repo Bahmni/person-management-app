@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './ModalError.css';
 
 class ModalError extends Component {
-
   handleClick(e) {
     this.props.onClose(e);
   }
@@ -18,7 +17,7 @@ class ModalError extends Component {
               OK
             </button>
           </div>
-          <div className="modalLeft" />
+          <div className="modalErrorLeft" />
         </div>
       </div>
     );
