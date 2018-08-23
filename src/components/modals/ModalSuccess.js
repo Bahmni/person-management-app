@@ -12,10 +12,6 @@ class ModalSuccess extends Component {
     }
   }
 
-  setTimeout = () => {
-    this.modalTimeout = setTimeout(this.timeOut, this.state.modalTimeout);
-  };
-
   render() {
     return (
       <div className="backdrop" onClick={e => this.handleOutsideClick(e)}>
