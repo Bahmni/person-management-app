@@ -205,6 +205,9 @@ class FormContainer extends Component {
           {displayInput} was added.
         </ModalSuccess>
       );
+      setTimeout(() => {
+        this.setState({ show: false });
+      }, 4000);
     }
 
     return (
