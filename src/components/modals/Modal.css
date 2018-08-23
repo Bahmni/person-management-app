@@ -1,0 +1,76 @@
+div.modal {
+  display: flex;
+  align-items: center;
+  top: 60px;
+  color: white;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
+  border-radius: 3px;
+  min-height: 180px;
+  max-width: 550px;
+  max-height: 230px;
+  margin: 0 auto;
+  position: relative;
+}
+
+div.modalLeft {
+  position: relative;
+  left: 50px;
+  width: 35%;
+  height: 70px;
+  background-repeat: no-repeat;
+}
+
+div.modalRight {
+  width: 65%;
+  padding: 10px;
+}
+
+div.modalRight,
+div.modalRight > p {
+  background-color: transparent;
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1.7;
+}
+
+div.modalRight > p:nth-child(1) {
+  letter-spacing: 0.8px;
+  font-weight: 400;
+}
+
+div.modalRight > p:nth-child(2) {
+  font-weight: 100;
+  margin-top: -20px;
+  padding-bottom: 20px;
+  letter-spacing: 0;
+}
+
+div.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(47, 47, 47, 0.7);
+  padding: 50px;
+}
+
+@media (max-width: 700px) {
+  div.modal {
+    top: 20px;
+    max-height: 520px;
+    max-width: 400px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  div.modalRight > p {
+    font-size: 1.1rem;
+  }
+  div.modalLeft {
+    min-height: 60px;
+    left: 0;
+    top: 10px;
+    margin-bottom: 10px;
+  }
+}

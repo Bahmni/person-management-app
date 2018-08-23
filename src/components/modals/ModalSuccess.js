@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './ModalSuccess.css';
+import './Modal.css';
 
 class ModalSuccess extends Component {
   handleClick(e) {
@@ -15,13 +17,20 @@ class ModalSuccess extends Component {
   render() {
     return (
       <div className="backdrop" onClick={e => this.handleOutsideClick(e)}>
-        <div className="modalSuccess" ref={node => (this.node = node)}>
-          {this.props.children}
+        <div className="modal modalSuccess" ref={node => (this.node = node)}>
+          <div className="modalLeft modalLeftSuccess" />
+          <div className="modalRight">
+            {this.props.children[0]}
+            {this.props.children[1]}
+          </div>
         </div>
-        <div className="modalSuccessLeft" />
       </div>
     );
   }
 }
+
+ModalSuccess.propTypes = {
+  onClick: PropTypes.func
+};
 
 export default ModalSuccess;

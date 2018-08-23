@@ -159,11 +159,7 @@ class FormContainer extends Component {
         }
       })
       // issue with the request
-      .then(response =>
-        this.setState({ isError: false, show: true }, () =>
-          console.log(response)
-        )
-      )
+      .then(response => this.setState({ isError: false, show: true }))
 
       .catch(error =>
         this.setState({ isError: true, show: true }, () =>
@@ -204,7 +200,8 @@ class FormContainer extends Component {
     if (!isError && show) {
       modal = (
         <ModalSuccess show={this.state.show} onClose={this.showModal}>
-          {displayInput} was added.
+          <p>{displayInput}</p>
+          <p>was added.</p>
         </ModalSuccess>
       );
       setTimeout(() => {
