@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './ModalSuccess.css';
-import ModalError from './ModalError';
 
 class ModalSuccess extends Component {
   handleClick(e) {
@@ -23,9 +21,5 @@ class ModalSuccess extends Component {
     );
   }
 }
-
-ModalError.propTypes = {
-  onClick: PropTypes.func.isRequired
-};
 
 export default ModalSuccess;
