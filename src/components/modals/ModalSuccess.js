@@ -11,12 +11,18 @@ class ModalSuccess extends Component {
       this.handleClick(e);
     }
   }
+
+  setTimeout = () => {
+    this.modalTimeout = setTimeout(this.timeOut, this.state.modalTimeout);
+  };
+
   render() {
     return (
       <div className="backdrop" onClick={e => this.handleOutsideClick(e)}>
         <div className="modalSuccess" ref={node => (this.node = node)}>
           {this.props.children}
         </div>
+        <div className="modalLeft" />
       </div>
     );
   }

@@ -193,8 +193,10 @@ class FormContainer extends Component {
     if (isError && show) {
       modal = (
         <ModalError show={this.state.show} onClose={this.showModal}>
-          An error occurred while trying to register this person. Please try
-          again.
+          <p className="paraOne">
+            An error occurred while trying to register this person.
+          </p>
+          <p className="paraTwo">Please try again. </p>
         </ModalError>
       );
     }

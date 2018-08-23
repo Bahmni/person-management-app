@@ -11,6 +11,12 @@
   position: relative;
 }
 
+.modalLeft {
+  padding: 0px 0px 150px 0px;
+  background-image: url(Check_successful_icon.svg);
+  background-repeat: no-repeat;
+}
+
 .backdrop {
   position: fixed;
   top: 0;
