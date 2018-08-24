@@ -30,7 +30,9 @@ class ModalSuccess extends Component {
 }
 
 ModalSuccess.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  text: PropTypes.array.isRequired,
+  lastCreatedPerson: PropTypes.string.isRequired
 };
 
 export default ModalSuccess;
