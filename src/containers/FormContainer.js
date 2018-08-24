@@ -199,11 +199,9 @@ class FormContainer extends Component {
             onClose={this.showModal}
             text={this.sucessModalText}
             lastCreatedPerson={this.state.lastCreatedPerson}
+            show={this.state.show}
           />
         );
-        setTimeout(() => {
-          this.setState({ show: false });
-        }, 4000);
       }
     }
 
