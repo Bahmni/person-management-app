@@ -180,25 +180,25 @@ class FormContainer extends Component {
       gender.length > 0 &&
       birthdate.length > 0;
 
-    if (isError && show) {
-      modal = (
-        <ModalError onClose={this.showModal}>
-          <p>An error occurred while trying to register this person.</p>
-          <p>Please try again. </p>
-        </ModalError>
-      );
-    }
-
-    if (!isError && show) {
-      modal = (
-        <ModalSuccess onClose={this.showModal}>
-          <p>{displayInput}</p>
-          <p>was added.</p>
-        </ModalSuccess>
-      );
-      setTimeout(() => {
-        this.setState({ show: false });
-      }, 4000);
+    if (show) {
+      if (isError) {
+        modal = (
+          <ModalError onClose={this.showModal}>
+            <p>An error occurred while trying to register this person.</p>
+            <p>Please try again. </p>
+          </ModalError>
+        );
+      } else {
+        modal = (
+          <ModalSuccess onClose={this.showModal}>
+            <p>{displayInput}</p>
+            <p>was added.</p>
+          </ModalSuccess>
+        );
+        setTimeout(() => {
+          this.setState({ show: false });
+        }, 4000);
+      }
     }
 
     return (
