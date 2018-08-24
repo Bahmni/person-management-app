@@ -4,8 +4,21 @@ import './ModalSuccess.css';
 import './Modal.css';
 
 class ModalSuccess extends Component {
+  // set timeout, default setting is 4 seconds
+  timeout = 4000;
+  componentDidMount() {
+    this.timer = setTimeout(() => {
+      this.props.onClose();
+    }, this.timeout);
+  }
+
+  componentWillUnMount() {
+    clearTimeout(this.timer);
+  }
+
   handleClick(e) {
     this.props.onClose(e);
+    clearTimeout(this.timer);
   }
 
   handleOutsideClick(e) {
@@ -13,7 +26,6 @@ class ModalSuccess extends Component {
       this.handleClick(e);
     }
   }
-
   render() {
     return (
       <div className="backdrop" onClick={e => this.handleOutsideClick(e)}>
