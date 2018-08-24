@@ -4,9 +4,9 @@ import './ModalError.css';
 import './Modal.css';
 
 class ModalError extends Component {
-  onClose = e => {
-    this.props.onClose && this.props.onClose(e);
-  };
+  handleClick(e) {
+    this.props.onClose(e);
+  }
 
   render() {
     return (
@@ -16,7 +16,7 @@ class ModalError extends Component {
           <div className="modalRight">
             {this.props.children[0]}
             {this.props.children[1]}
-            <button onClick={e => this.onClose(e)}>OK</button>
+            <button onClick={e => this.handleClick(e)}>OK</button>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@ class ModalError extends Component {
 }
 
 ModalError.propTypes = {
-  onClick: PropTypes.func
+  onClose: PropTypes.func.isRequired
 };
 
 export default ModalError;

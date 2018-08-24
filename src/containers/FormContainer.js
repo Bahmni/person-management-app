@@ -79,9 +79,6 @@ class FormContainer extends Component {
     this.setState(prevState => {
       const prevBirthdate = prevState.birthdate;
 
-      // we avoid destructuring in this case, so that we can use the
-      // toAgeObject.inputName value
-
       const toAgeObject = toAge(prevBirthdate);
       let diff = inputValue - toAgeObject[inputName];
 
@@ -92,7 +89,7 @@ class FormContainer extends Component {
           .format('YYYY-MM-DD')
       };
     });
-  } // end of fromAgetoDate
+  }
 
   handleGenderOptions(e) {
     this.setState({ gender: e.target.value });
@@ -112,7 +109,6 @@ class FormContainer extends Component {
       gender: '',
       birthdate: moment(),
       birthdateIsEstimated: false,
-      show: false,
       isError: false
     });
   }
@@ -150,8 +146,6 @@ class FormContainer extends Component {
           return response.json();
         } else {
           // issue with the response
-          this.setState({ isError: true, show: true });
-
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
@@ -159,7 +153,7 @@ class FormContainer extends Component {
         }
       })
       // issue with the request
-      .then(response => this.setState({ isError: false, show: true }))
+      .then(response => this.setState({ show: true }))
 
       .catch(error =>
         this.setState({ isError: true, show: true }, () =>
@@ -188,18 +182,16 @@ class FormContainer extends Component {
 
     if (isError && show) {
       modal = (
-        <ModalError show={this.state.show} onClose={this.showModal}>
-          <p className="paraOne">
-            An error occurred while trying to register this person.
-          </p>
-          <p className="paraTwo">Please try again. </p>
+        <ModalError onClose={this.showModal}>
+          <p>An error occurred while trying to register this person.</p>
+          <p>Please try again. </p>
         </ModalError>
       );
     }
 
     if (!isError && show) {
       modal = (
-        <ModalSuccess show={this.state.show} onClose={this.showModal}>
+        <ModalSuccess onClose={this.showModal}>
           <p>{displayInput}</p>
           <p>was added.</p>
         </ModalSuccess>
