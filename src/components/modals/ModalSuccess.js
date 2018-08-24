@@ -30,7 +30,7 @@ class ModalSuccess extends Component {
 }
 
 ModalSuccess.propTypes = {
-  onClick: PropTypes.func
+  onClose: PropTypes.func.isRequired
 };
 
 export default ModalSuccess;
