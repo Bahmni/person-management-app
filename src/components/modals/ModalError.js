@@ -14,8 +14,7 @@ class ModalError extends Component {
         <div className="modal modalError">
           <div className="modalLeft modalLeftError" />
           <div className="modalRight">
-            {this.props.children[0]}
-            {this.props.children[1]}
+            {this.props.text.map((t, index) => <p key={index}>{t}</p>)}
             <button onClick={e => this.handleClick(e)}>OK</button>
           </div>
         </div>

@@ -9,8 +9,6 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
-let displayInput;
-
 // set state
 class FormContainer extends Component {
   constructor(props) {
@@ -23,7 +21,8 @@ class FormContainer extends Component {
       birthdate: moment(),
       birthdateIsEstimated: false,
       show: false,
-      isError: false
+      isError: false,
+      lastCreatedPerson: ''
     };
   }
 
@@ -141,7 +140,9 @@ class FormContainer extends Component {
     })
       .then(response => {
         if (response.status === 201) {
-          displayInput = this.state.firstName + ' ' + this.state.lastName;
+          this.setState({
+            lastCreatedPerson: this.state.firstName + ' ' + this.state.lastName
+          });
           this.handleClearForm();
           return response.json();
         } else {
@@ -161,6 +162,13 @@ class FormContainer extends Component {
         )
       );
   }
+
+  errorModalText = [
+    'An error occurred while trying to register this person.',
+    'Please try again.'
+  ];
+
+  sucessModalText = ['was added.'];
 
   render() {
     const {
@@ -183,17 +191,15 @@ class FormContainer extends Component {
     if (show) {
       if (isError) {
         modal = (
-          <ModalError onClose={this.showModal}>
-            <p>An error occurred while trying to register this person.</p>
-            <p>Please try again. </p>
-          </ModalError>
+          <ModalError onClose={this.showModal} text={this.errorModalText} />
         );
       } else {
         modal = (
-          <ModalSuccess onClose={this.showModal}>
-            <p>{displayInput}</p>
-            <p>was added.</p>
-          </ModalSuccess>
+          <ModalSuccess
+            onClose={this.showModal}
+            text={this.sucessModalText}
+            lastCreatedPerson={this.state.lastCreatedPerson}
+          />
         );
         setTimeout(() => {
           this.setState({ show: false });

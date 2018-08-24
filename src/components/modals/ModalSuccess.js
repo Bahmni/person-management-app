@@ -20,8 +20,8 @@ class ModalSuccess extends Component {
         <div className="modal modalSuccess" ref={node => (this.node = node)}>
           <div className="modalLeft modalLeftSuccess" />
           <div className="modalRight">
-            {this.props.children[0]}
-            {this.props.children[1]}
+            <p>{this.props.lastCreatedPerson}</p>
+            {this.props.text.map((t, index) => <p key={index}>{t}</p>)}
           </div>
         </div>
       </div>
