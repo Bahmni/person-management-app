@@ -94,9 +94,9 @@ class FormContainer extends Component {
     this.setState({ gender: e.target.value });
   }
 
-  showModal = () => {
+  hideModal = () => {
     this.setState({
-      show: !this.state.show
+      show: false
     });
   };
 
@@ -191,12 +191,12 @@ class FormContainer extends Component {
     if (show) {
       if (isError) {
         modal = (
-          <ModalError onClose={this.showModal} text={this.errorModalText} />
+          <ModalError onClose={this.hideModal} text={this.errorModalText} />
         );
       } else {
         modal = (
           <ModalSuccess
-            onClose={this.showModal}
+            onClose={this.hideModal}
             text={this.sucessModalText}
             lastCreatedPerson={this.state.lastCreatedPerson}
             show={this.state.show}
