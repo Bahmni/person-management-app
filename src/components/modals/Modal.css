@@ -1,6 +1,7 @@
 div.modal {
   display: flex;
   align-items: center;
+  justify-content: center;
   top: 60px;
   color: white;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
@@ -12,12 +13,8 @@ div.modal {
   position: relative;
 }
 
-div.modalLeft {
-  position: relative;
-  left: 50px;
-  width: 35%;
-  height: 70px;
-  background-repeat: no-repeat;
+svg {
+  width: 30%;
 }
 
 div.modalRight {
@@ -43,6 +40,16 @@ div.modalRight > p:nth-child(2) {
   margin-top: -20px;
   padding-bottom: 20px;
   letter-spacing: 0;
+}
+
+div.modalRight > button {
+  position: relative;
+  width: 160px;
+  border-radius: 2px;
+  border: none;
+  height: 2rem;
+  bottom: 20px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
 div.backdrop {
