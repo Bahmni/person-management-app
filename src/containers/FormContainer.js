@@ -9,6 +9,7 @@ import moment from 'moment';
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
+
 // set state
 class FormContainer extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class FormContainer extends Component {
       birthdateIsEstimated: false,
       show: false,
       isError: false,
+      isLoading: false,
       lastCreatedPerson: ''
     };
   }
@@ -129,6 +131,7 @@ class FormContainer extends Component {
   }
 
   submitRequest(formPayload) {
+    this.setState({ isLoading: true });
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(formPayload),
@@ -141,7 +144,8 @@ class FormContainer extends Component {
       .then(response => {
         if (response.status === 201) {
           this.setState({
-            lastCreatedPerson: this.state.firstName + ' ' + this.state.lastName
+            lastCreatedPerson: this.state.firstName + ' ' + this.state.lastName,
+            isLoading: false
           });
           this.handleClearForm();
           return response.json();
@@ -157,7 +161,7 @@ class FormContainer extends Component {
       .then(response => this.setState({ show: true }))
 
       .catch(error =>
-        this.setState({ isError: true, show: true }, () =>
+        this.setState({ isError: true, show: true, isLoading: false }, () =>
           console.error('Error:', error)
         )
       );
@@ -177,6 +181,7 @@ class FormContainer extends Component {
       gender,
       birthdate,
       isError,
+      isLoading,
       show
     } = this.state;
 
@@ -186,7 +191,8 @@ class FormContainer extends Component {
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
-      birthdate.length > 0;
+      birthdate.length > 0 &&
+      !this.state.isLoading;
 
     if (show) {
       if (isError) {
@@ -348,11 +354,17 @@ class FormContainer extends Component {
           </div>
           <hr />
           <div className="submit-button">
-            <input
-              disabled={isEnabled ? null : 'disabled'}
-              type="submit"
-              value="Register"
-            />
+            {isLoading ? (
+              <button>
+                <div className="spinner" />
+              </button>
+            ) : (
+              <input
+                disabled={isEnabled ? null : 'disabled'}
+                type="submit"
+                value="Register"
+              />
+            )}
           </div>
           {modal}
         </form>

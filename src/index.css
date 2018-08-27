@@ -165,7 +165,8 @@ div.submit-button {
   display: flex;
 }
 
-input[type='submit'] {
+input[type='submit'],
+.submit-button button {
   border: none;
   border-radius: var(--border-radius);
   height: var(--height);
@@ -176,18 +177,38 @@ input[type='submit'] {
   padding: 0 45px;
 }
 
-/* adding some padding between the input name and input box */
+.submit-button button {
+  background-color: #9b9b9b;
+  width: 155px;
+}
+
+.spinner {
+  position: relative;
+  border-radius: 50%;
+  border-top: 2px solid rgba(236, 240, 241, 1);
+  border-right: 2px solid rgba(236, 240, 241, 0.8);
+  border-bottom: 2px solid transparent;
+  animation: spinner 0.8s linear infinite;
+  height: 1.8rem;
+  width: 1.8rem;
+  margin: 0 auto;
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .input-label {
   padding-bottom: 15px;
 }
 
-/* Adding the asterisk if the field is required */
 .required:after {
   content: ' *';
   color: red;
 }
 
-/* graying out the button if it's diasbled */
 input:disabled {
   background-color: #9b9b9b;
 }
