@@ -30,7 +30,6 @@ class ModalSuccess extends Component {
           ref={node => (this.node = node)}
         >
           <Icon icon="success" />
-
           <div className="modalRight">
             <p>{this.props.lastCreatedPerson}</p>
             {this.props.text.map((t, index) => <p key={index}>{t}</p>)}
