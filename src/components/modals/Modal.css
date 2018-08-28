@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   top: 3rem;
   color: white;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.68);
   border-radius: 3px;
   min-height: 180px;
   max-width: 550px;
-  max-height: 230px;
+  max-height: 240px;
   margin: 0 auto;
   position: relative;
 }
@@ -16,7 +17,6 @@
 svg {
   width: 30%;
   position: relative;
-  bottom: 1.2rem;
 }
 
 .modalRight {
@@ -28,12 +28,12 @@ svg {
 .modalRight > p {
   background-color: transparent;
   color: white;
-  font-size: 1.4rem;
-  line-height: 1.7;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 .modalRight > p:nth-child(1) {
-  letter-spacing: 0.8px;
+  letter-spacing: 0.7px;
   font-weight: 400;
 }
 
@@ -41,17 +41,18 @@ svg {
   font-weight: 100;
   align-items: center;
   margin-top: -1.3rem;
-  padding-bottom: 1.3rem;
   letter-spacing: 0;
 }
 
-.modalRight > button {
+button {
   position: relative;
   width: 10rem;
+  height: 2rem;
+  bottom: 1rem;
+  right: 9px;
   border-radius: 2px;
   border: none;
-  height: 2rem;
-  bottom: 1.5rem;
+  margin-bottom: 1rem;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
@@ -68,13 +69,13 @@ svg {
 @media (max-width: 700px) {
   .modal {
     top: 1.5rem;
-    max-height: 450px;
-    max-width: 250px;
+    max-height: 440px;
+    max-width: 260px;
     flex-direction: column;
   }
 
   .modalRight > p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-align: center;
   }
 
@@ -85,13 +86,13 @@ svg {
     letter-spacing: 0;
   }
 
-  .modalRight > button {
+  button {
     width: 8rem;
-    display: block;
-    margin: 0 auto;
+    right: 0;
   }
   svg {
     width: 100%;
     top: 0.5rem;
+    right: 10px;
   }
 }
