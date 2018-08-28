@@ -17,6 +17,8 @@ class ModalError extends Component {
           <Icon icon="attention" />
           <div className="modalRight">
             {this.props.text.map((t, index) => <p key={index}>{t}</p>)}
+          </div>
+          <div className="modalButton">
             <button onClick={e => this.handleClick(e)}>OK</button>
           </div>
         </div>
