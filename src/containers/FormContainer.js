@@ -211,9 +211,9 @@ class FormContainer extends Component {
     }
 
     return (
-      <div className="wrapper">
+      <div>
         <form onSubmit={e => this.handleFormSubmit(e)}>
-          <div className="Header">
+          <div>
             <h5>Register New Person</h5>
           </div>
           <div>
