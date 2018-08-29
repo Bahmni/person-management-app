@@ -124,7 +124,8 @@ class FormContainer extends Component {
         }
       ],
       gender: this.state.gender,
-      birthdate: this.state.birthdate + 'T12:00:00.000+0000'
+      birthdate: this.state.birthdate + 'T12:00:00.000+0000',
+      birthdateEstimated: this.state.birthdateIsEstimated
     };
 
     this.submitRequest(formPayload);
