@@ -215,9 +215,6 @@ class FormContainer extends Component {
       <div>
         <form onSubmit={e => this.handleFormSubmit(e)}>
           <div>
-            <h5>Register New Person</h5>
-          </div>
-          <div>
             <fieldset>
               <legend>Name</legend>
               <div className="flex-container-row">
