@@ -3,8 +3,8 @@
   --background-color: #0f7165;
   --border-radius: 3px;
   --height: 2.1rem;
-  --box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.39), 0 -1px 1px #fff,
-    0 1px 0 #fff;
+  --box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 0 rgba(0, 0, 0, 0.07) inset;
 }
 
 * {
@@ -19,7 +19,7 @@
 form {
   position: relative;
   margin-left: 2rem;
-  width: 60%;
+  width: 55%;
 }
 
 hr {
@@ -77,15 +77,18 @@ label.labelRadio {
   border: 1.2px solid #9b9b9b;
   border-radius: var(--border-radius);
   height: var(--height);
-  width: 250px;
-  background-color: rgba(155, 155, 155, 0.05);
+  width: 220px;
+  background-color: rgba(250, 250, 250, 0.5);
   margin-bottom: 0.8rem;
+  outline: 0 none;
 }
 
 input[type='text'],
 input[type='number'],
 input[type='date'] {
   box-shadow: var(--box-shadow);
+
+  box-shadow: inset 0 1px 4px hsla(0, 0, 0, 0.2);
 }
 
 input[type='number'] {
@@ -174,6 +177,8 @@ input[type='submit'],
   background-color: var(--background-color);
   color: white;
   margin-left: auto;
+  margin-bottom: 50px;
+  margin-right: 1rem;
   padding: 0 45px;
 }
 
