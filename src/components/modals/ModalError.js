@@ -19,7 +19,9 @@ class ModalError extends Component {
             {this.props.text.map((t, index) => <p key={index}>{t}</p>)}
           </div>
           <div className="modalButton">
-            <button onClick={e => this.handleClick(e)}>OK</button>
+            <button className="errorButton" onClick={e => this.handleClick(e)}>
+              OK
+            </button>
           </div>
         </div>
       </div>

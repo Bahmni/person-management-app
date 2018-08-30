@@ -8,7 +8,7 @@ const Icon = props => (
 );
 
 Icon.propTypes = {
-  icon: PropTypes.string.isRequired
+  data: PropTypes.string.isRequired
 };
 
 export default Icon;

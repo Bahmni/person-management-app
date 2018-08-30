@@ -13,6 +13,7 @@
   color: #373d3f;
   font-size: 1rem;
   letter-spacing: 0.7px;
+  margin: 0;
 }
 
 form {
@@ -170,7 +171,6 @@ input[type='submit'],
   border: none;
   border-radius: var(--border-radius);
   height: var(--height);
-  margin-top: 1rem;
   background-color: var(--background-color);
   color: white;
   margin-left: auto;
