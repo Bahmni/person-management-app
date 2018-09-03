@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import FormContainer from './FormContainer';
 import Input from '../components/Input';
 import SelectFromList from '../components/RadioButtonGroup';
-import sinon from 'sinon';
 
 describe('FormContainer', () => {
   let wrapper;
@@ -29,14 +28,14 @@ describe('FormContainer', () => {
     let firstNameInput;
 
     beforeEach(() => {
-      firstNameInput = wrapper.find('Input').first();
+      firstNameInput = wrapper.find('#firstName');
       firstNameInput.simulate('change', {
-        target: { value: exampleFirstName }
+        target: { value: exampleFirstName, name: 'firstName' }
       });
     });
 
     it('should update the state property firstName', () => {
-      expect(wrapper.state().firstName).toEqual(exampleFirstName);
+      expect(wrapper.state().person.firstName).toEqual(exampleFirstName);
     });
 
     it('requires First name input', () => {
@@ -51,12 +50,12 @@ describe('FormContainer', () => {
     beforeEach(() => {
       selectGender = wrapper.find('#selectGender');
       selectGender.simulate('change', {
-        target: { name: 'genderList', value: exampleGenderSelected }
+        target: { name: 'gender', value: exampleGenderSelected }
       });
     });
 
     it('should update the state property gender', () => {
-      expect(wrapper.state().gender).toEqual(exampleGenderSelected);
+      expect(wrapper.state().person.gender).toEqual(exampleGenderSelected);
     });
   }); // end of gender options describe
 }); // end of outer describe

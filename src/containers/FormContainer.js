@@ -12,46 +12,35 @@ const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state
 class FormContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
+    person: {
       firstName: '',
       middleName: '',
       lastName: '',
       gender: '',
       birthdate: moment(),
-      birthdateIsEstimated: false,
-      show: false,
-      isError: false,
-      isLoading: false,
-      lastCreatedPerson: ''
-    };
-  }
+      birthdateEstimated: false
+    },
+    show: false,
+    isError: false,
+    isLoading: false,
+    lastCreatedPerson: ''
+  };
 
-  // handle inputs with real-time console logging
-  handleFirstName(e) {
-    this.setState({ firstName: e.target.value });
-  }
+  handleChange = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.value;
+    this.setState({ person });
+  };
 
-  handleMiddleName(e) {
-    this.setState({ middleName: e.target.value });
-  }
+  handleBirthdateEstimated = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.checked;
+    this.setState({ person });
+  };
 
-  handlebirthdate(e) {
-    this.setState({
-      birthdate: e.target.value
-    });
-  }
-
-  handleBirthdateIsEstimated(e) {
-    this.setState({ birthdateIsEstimated: e.target.checked });
-  }
-
-  handleLastName(e) {
-    this.setState({ lastName: e.target.value });
-  }
   // calculating years, months, days from date input and back
-  fromAgetoDate(e) {
+  fromAgetoDate = e => {
     // input name: years, months or days
     let inputName = e.target.name;
     // the user input for the years or months or days
@@ -78,23 +67,22 @@ class FormContainer extends Component {
     }
 
     this.setState(prevState => {
-      const prevBirthdate = prevState.birthdate;
+      const prevBirthdate = prevState.person.birthdate;
 
       const toAgeObject = toAge(prevBirthdate);
       let diff = inputValue - toAgeObject[inputName];
 
+      const person = { ...this.state.person };
+      person.birthdate = moment(prevBirthdate)
+        .subtract(diff, getMomentFormat[inputName])
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD');
+
       return {
-        birthdate: moment(prevBirthdate)
-          .subtract(diff, getMomentFormat[inputName])
-          .subtract(1, 'days')
-          .format('YYYY-MM-DD')
+        person: person
       };
     });
-  }
-
-  handleGenderOptions(e) {
-    this.setState({ gender: e.target.value });
-  }
+  };
 
   hideModal = () => {
     this.setState({
@@ -104,32 +92,34 @@ class FormContainer extends Component {
 
   handleClearForm() {
     this.setState({
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      gender: '',
-      birthdate: moment(),
-      birthdateIsEstimated: false,
+      person: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        gender: '',
+        birthdate: moment(),
+        birthdateEstimated: false
+      },
       isError: false
     });
   }
 
-  handleFormSubmit(e) {
+  handleFormSubmit = e => {
     e.preventDefault();
     const formPayload = {
       names: [
         {
-          familyName: this.state.lastName,
-          givenName: this.state.firstName
+          familyName: this.state.person.lastName,
+          givenName: this.state.person.firstName
         }
       ],
-      gender: this.state.gender,
-      birthdate: this.state.birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated: this.state.birthdateIsEstimated
+      gender: this.state.person.gender,
+      birthdate: this.state.person.birthdate + 'T12:00:00.000+0000',
+      birthdateEstimated: this.state.person.birthdateEstimated
     };
 
     this.submitRequest(formPayload);
-  }
+  };
 
   submitRequest(formPayload) {
     this.setState({ isLoading: true });
@@ -145,22 +135,20 @@ class FormContainer extends Component {
       .then(response => {
         if (response.status === 201) {
           this.setState({
-            lastCreatedPerson: this.state.firstName + ' ' + this.state.lastName,
+            lastCreatedPerson:
+              this.state.person.firstName + ' ' + this.state.person.lastName,
             isLoading: false
           });
           this.handleClearForm();
           return response.json();
         } else {
-          // issue with the response
           return Promise.reject({
             status: response.status,
             statusText: response.statusText
           });
         }
       })
-      // issue with the request
       .then(response => this.setState({ show: true }))
-
       .catch(error =>
         this.setState({ isError: true, show: true, isLoading: false }, () =>
           console.error('Error:', error)
@@ -178,13 +166,13 @@ class FormContainer extends Component {
   render() {
     const {
       firstName,
+      middleName,
       lastName,
       gender,
       birthdate,
-      isError,
-      isLoading,
-      show
-    } = this.state;
+      birthdateEstimated
+    } = this.state.person;
+    const { isError, isLoading, show, lastCreatedPerson } = this.state;
 
     let modal = null;
 
@@ -205,7 +193,7 @@ class FormContainer extends Component {
           <ModalSuccess
             onClose={this.hideModal}
             text={this.sucessModalText}
-            lastCreatedPerson={this.state.lastCreatedPerson}
+            lastCreatedPerson={lastCreatedPerson}
           />
         );
       }
@@ -213,7 +201,7 @@ class FormContainer extends Component {
 
     return (
       <div>
-        <form onSubmit={e => this.handleFormSubmit(e)}>
+        <form onSubmit={this.handleFormSubmit}>
           <div>
             <fieldset>
               <legend>Name</legend>
@@ -225,8 +213,8 @@ class FormContainer extends Component {
                     name={'firstName'}
                     aria-label={'First name'}
                     aria-required="true"
-                    onChange={e => this.handleFirstName(e)}
-                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                    value={firstName}
                     id="firstName"
                     required={true}
                   />
@@ -237,8 +225,8 @@ class FormContainer extends Component {
                     title={'Middle name '}
                     name={'middleName'}
                     aria-label={'Middle name'}
-                    onChange={e => this.handleMiddleName(e)}
-                    value={this.state.middleName}
+                    onChange={this.handleChange}
+                    value={middleName}
                     id="middleName"
                   />
                 </div>
@@ -249,8 +237,8 @@ class FormContainer extends Component {
                     name={'lastName'}
                     aria-label={'Last name'}
                     aria-required="true"
-                    onChange={e => this.handleLastName(e)}
-                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                    value={lastName}
                     id="lastName"
                     required={true}
                   />
@@ -270,17 +258,17 @@ class FormContainer extends Component {
                     name={'birthdate'}
                     aria-label={'Date of Birth'}
                     aria-required="true"
-                    onChange={e => this.handlebirthdate(e)}
-                    value={this.state.birthdate}
+                    onChange={this.handleChange}
+                    value={birthdate}
                     id="birthdate"
                     max={moment().format('YYYY-MM-DD')}
                     required={true}
                   />
                   <Checkbox
                     title="Estimated"
-                    name="birthdateIsEstimated"
-                    checked={this.state.birthdateIsEstimated}
-                    onChange={e => this.handleBirthdateIsEstimated(e)}
+                    name="birthdateEstimated"
+                    checked={birthdateEstimated}
+                    onChange={this.handleBirthdateEstimated}
                     id="estimatedDate"
                   />
                 </div>
@@ -291,10 +279,8 @@ class FormContainer extends Component {
                     name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
-                    onChange={e => this.fromAgetoDate(e)}
-                    value={moment
-                      .duration(moment().diff(this.state.birthdate))
-                      .years()}
+                    onChange={this.fromAgetoDate}
+                    value={moment.duration(moment().diff(birthdate)).years()}
                     id="age"
                     min={0}
                     max={120}
@@ -305,10 +291,8 @@ class FormContainer extends Component {
                     name={'month'}
                     aria-label={'Months'}
                     aria-required="true"
-                    onChange={e => this.fromAgetoDate(e)}
-                    value={moment
-                      .duration(moment().diff(this.state.birthdate))
-                      .months()}
+                    onChange={this.fromAgetoDate}
+                    value={moment.duration(moment().diff(birthdate)).months()}
                     id="months"
                     min={0}
                     max={12}
@@ -319,10 +303,8 @@ class FormContainer extends Component {
                     name={'day'}
                     aria-label={'Days'}
                     aria-required="true"
-                    onChange={e => this.fromAgetoDate(e)}
-                    value={moment
-                      .duration(moment().diff(this.state.birthdate))
-                      .days()}
+                    onChange={this.fromAgetoDate}
+                    value={moment.duration(moment().diff(birthdate)).days()}
                     id="days"
                     min={0}
                     max={31}
@@ -340,9 +322,9 @@ class FormContainer extends Component {
                   <RadioButtonGroup
                     title={'Gender'}
                     name={'gender'}
-                    onChange={e => this.handleGenderOptions(e)}
+                    onChange={this.handleChange}
                     options={genderOptions}
-                    checkedOption={this.state.gender}
+                    checkedOption={gender}
                     id="selectGender"
                     required={true}
                   />
