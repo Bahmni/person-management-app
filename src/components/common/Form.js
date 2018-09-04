@@ -13,6 +13,12 @@ class Form extends Component {
     this.setState({ person });
   };
 
+  handleCheckbox = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.checked;
+    this.setState({ person });
+  };
+
   hideModal = () => {
     this.setState({
       submitForm: { ...this.state.submitForm, show: false }

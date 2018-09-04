@@ -30,12 +30,6 @@ class FormContainer extends Form {
     }
   };
 
-  handleBirthdateEstimated = ({ target: input }) => {
-    const person = { ...this.state.person };
-    person[input.name] = input.checked;
-    this.setState({ person });
-  };
-
   handleClearForm() {
     this.setState({
       person: {
@@ -247,7 +241,7 @@ class FormContainer extends Form {
                     title="Estimated"
                     name="birthdateEstimated"
                     checked={birthdateEstimated}
-                    onChange={this.handleBirthdateEstimated}
+                    onChange={this.handleCheckbox}
                     id="estimatedDate"
                   />
                 </div>
