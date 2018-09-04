@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Modal.css';
-import Icon from './Icon';
+import Icon from '../common/Icon';
 
 class ModalSuccess extends Component {
   // set timeout, default setting is 4 seconds

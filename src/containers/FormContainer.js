@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import Input from '../components/Input';
-import RadioButtonGroup from '../components/RadioButtonGroup';
-import Checkbox from '../components/Checkbox';
+import React from 'react';
+import Form from '../components/common/Form';
+import Input from '../components/common/Input';
+import RadioButtonGroup from '../components/common/RadioButtonGroup';
+import Checkbox from '../components/common/Checkbox';
 import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
@@ -11,7 +12,7 @@ const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state
-class FormContainer extends Component {
+class FormContainer extends Form {
   state = {
     person: {
       firstName: '',
@@ -21,73 +22,18 @@ class FormContainer extends Component {
       birthdate: moment(),
       birthdateEstimated: false
     },
-    show: false,
-    isError: false,
-    isLoading: false,
-    lastCreatedPerson: ''
-  };
-
-  handleChange = ({ target: input }) => {
-    const person = { ...this.state.person };
-    person[input.name] = input.value;
-    this.setState({ person });
+    submitForm: {
+      show: false,
+      isError: false,
+      isLoading: false,
+      lastCreatedPerson: ''
+    }
   };
 
   handleBirthdateEstimated = ({ target: input }) => {
     const person = { ...this.state.person };
     person[input.name] = input.checked;
     this.setState({ person });
-  };
-
-  // calculating years, months, days from date input and back
-  fromAgetoDate = e => {
-    // input name: years, months or days
-    let inputName = e.target.name;
-    // the user input for the years or months or days
-    let inputValue = e.target.value;
-
-    // mapping the values with the momentsjs required format
-    const getMomentFormat = {
-      year: 'years',
-      month: 'months',
-      day: 'days'
-    };
-    // takes two dates (now and current birthdate input) and calculates
-    // the difference between them in years, months and days
-    function toAge(date) {
-      let now = moment();
-      let userPickedDate = moment(date);
-      const diffDuration = moment.duration(now.diff(userPickedDate));
-      const age = {
-        year: diffDuration.years(),
-        month: diffDuration.months(),
-        day: diffDuration.days()
-      };
-      return age;
-    }
-
-    this.setState(prevState => {
-      const prevBirthdate = prevState.person.birthdate;
-
-      const toAgeObject = toAge(prevBirthdate);
-      let diff = inputValue - toAgeObject[inputName];
-
-      const person = { ...this.state.person };
-      person.birthdate = moment(prevBirthdate)
-        .subtract(diff, getMomentFormat[inputName])
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
-
-      return {
-        person: person
-      };
-    });
-  };
-
-  hideModal = () => {
-    this.setState({
-      show: false
-    });
   };
 
   handleClearForm() {
@@ -100,29 +46,43 @@ class FormContainer extends Component {
         birthdate: moment(),
         birthdateEstimated: false
       },
-      isError: false
+      submitForm: {
+        ...this.state.submitForm,
+        isError: false
+      }
     });
   }
 
   handleFormSubmit = e => {
     e.preventDefault();
+
+    const {
+      firstName,
+      lastName,
+      gender,
+      birthdate,
+      birthdateEstimated
+    } = this.state.person;
+
     const formPayload = {
       names: [
         {
-          familyName: this.state.person.lastName,
-          givenName: this.state.person.firstName
+          familyName: lastName,
+          givenName: firstName
         }
       ],
-      gender: this.state.person.gender,
-      birthdate: this.state.person.birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated: this.state.person.birthdateEstimated
+      gender: gender,
+      birthdate: birthdate + 'T12:00:00.000+0000',
+      birthdateEstimated: birthdateEstimated
     };
 
     this.submitRequest(formPayload);
   };
 
   submitRequest(formPayload) {
-    this.setState({ isLoading: true });
+    this.setState({
+      submitForm: { ...this.state.submitForm, isLoading: true }
+    });
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(formPayload),
@@ -135,9 +95,12 @@ class FormContainer extends Component {
       .then(response => {
         if (response.status === 201) {
           this.setState({
-            lastCreatedPerson:
-              this.state.person.firstName + ' ' + this.state.person.lastName,
-            isLoading: false
+            submitForm: {
+              ...this.state.submitForm,
+              lastCreatedPerson:
+                this.state.person.firstName + ' ' + this.state.person.lastName,
+              isLoading: false
+            }
           });
           this.handleClearForm();
           return response.json();
@@ -148,10 +111,20 @@ class FormContainer extends Component {
           });
         }
       })
-      .then(response => this.setState({ show: true }))
+      .then(response =>
+        this.setState({ submitForm: { ...this.state.submitForm, show: true } })
+      )
       .catch(error =>
-        this.setState({ isError: true, show: true, isLoading: false }, () =>
-          console.error('Error:', error)
+        this.setState(
+          {
+            submitForm: {
+              ...this.state.submitForm,
+              isError: true,
+              show: true,
+              isLoading: false
+            }
+          },
+          () => console.error('Error:', error)
         )
       );
   }
@@ -172,7 +145,13 @@ class FormContainer extends Component {
       birthdate,
       birthdateEstimated
     } = this.state.person;
-    const { isError, isLoading, show, lastCreatedPerson } = this.state;
+
+    const {
+      isError,
+      isLoading,
+      show,
+      lastCreatedPerson
+    } = this.state.submitForm;
 
     let modal = null;
 
@@ -181,7 +160,7 @@ class FormContainer extends Component {
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0 &&
-      !this.state.isLoading;
+      !isLoading;
 
     if (show) {
       if (isError) {

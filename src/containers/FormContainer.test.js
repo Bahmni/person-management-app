@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import FormContainer from './FormContainer';
-import Input from '../components/Input';
-import SelectFromList from '../components/RadioButtonGroup';
+import Input from '../components/common/Input';
+import SelectFromList from '../components/common/RadioButtonGroup';
 
 describe('FormContainer', () => {
   let wrapper;
