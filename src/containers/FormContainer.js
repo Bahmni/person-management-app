@@ -1,5 +1,4 @@
-import React from 'react';
-import Form from '../components/common/Form';
+import React, { Component } from 'react';
 import Input from '../components/common/Input';
 import RadioButtonGroup from '../components/common/RadioButtonGroup';
 import Checkbox from '../components/common/Checkbox';
@@ -12,7 +11,7 @@ const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
 
 // set state
-class FormContainer extends Form {
+class FormContainer extends Component {
   state = {
     person: {
       firstName: '',
@@ -22,12 +21,72 @@ class FormContainer extends Form {
       birthdate: moment(),
       birthdateEstimated: false
     },
-    submitForm: {
-      show: false,
-      isError: false,
-      isLoading: false,
-      lastCreatedPerson: ''
+    showModal: false,
+    isRequestError: false,
+    isRequestLoading: false,
+    lastCreatedPerson: ''
+  };
+
+  handleChange = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.value;
+    this.setState({ person });
+  };
+
+  handleCheckbox = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.checked;
+    this.setState({ person });
+  };
+
+  hideModal = () => {
+    this.setState({
+      showModal: false
+    });
+  };
+
+  fromAgetoDate = e => {
+    // input name: years, months or days
+    let inputName = e.target.name;
+    // the user input for the years or months or days
+    let inputValue = e.target.value;
+
+    // mapping the values with the momentsjs required format
+    const getMomentFormat = {
+      year: 'years',
+      month: 'months',
+      day: 'days'
+    };
+    // takes two dates (now and current birthdate input) and calculates
+    // the difference between them in years, months and days
+    function toAge(date) {
+      let now = moment();
+      let userPickedDate = moment(date);
+      const diffDuration = moment.duration(now.diff(userPickedDate));
+      const age = {
+        year: diffDuration.years(),
+        month: diffDuration.months(),
+        day: diffDuration.days()
+      };
+      return age;
     }
+
+    this.setState(prevState => {
+      const prevBirthdate = prevState.person.birthdate;
+
+      const toAgeObject = toAge(prevBirthdate);
+      let diff = inputValue - toAgeObject[inputName];
+
+      const person = { ...this.state.person };
+      person.birthdate = moment(prevBirthdate)
+        .subtract(diff, getMomentFormat[inputName])
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD');
+
+      return {
+        person
+      };
+    });
   };
 
   handleClearForm() {
@@ -40,10 +99,7 @@ class FormContainer extends Form {
         birthdate: moment(),
         birthdateEstimated: false
       },
-      submitForm: {
-        ...this.state.submitForm,
-        isError: false
-      }
+      isRequestError: false
     });
   }
 
@@ -65,17 +121,18 @@ class FormContainer extends Form {
           givenName: firstName
         }
       ],
-      gender: gender,
+      gender,
       birthdate: birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated: birthdateEstimated
+      birthdateEstimated
     };
 
     this.submitRequest(formPayload);
   };
 
   submitRequest(formPayload) {
+    const { firstName, lastName } = this.state.person;
     this.setState({
-      submitForm: { ...this.state.submitForm, isLoading: true }
+      isRequestLoading: true
     });
     fetch(url, {
       method: 'POST',
@@ -89,12 +146,9 @@ class FormContainer extends Form {
       .then(response => {
         if (response.status === 201) {
           this.setState({
-            submitForm: {
-              ...this.state.submitForm,
-              lastCreatedPerson:
-                this.state.person.firstName + ' ' + this.state.person.lastName,
-              isLoading: false
-            }
+            ...this.state.submitForm,
+            lastCreatedPerson: firstName + ' ' + lastName,
+            isRequestLoading: false
           });
           this.handleClearForm();
           return response.json();
@@ -106,17 +160,16 @@ class FormContainer extends Form {
         }
       })
       .then(response =>
-        this.setState({ submitForm: { ...this.state.submitForm, show: true } })
+        this.setState({
+          showModal: true
+        })
       )
       .catch(error =>
         this.setState(
           {
-            submitForm: {
-              ...this.state.submitForm,
-              isError: true,
-              show: true,
-              isLoading: false
-            }
+            isRequestError: true,
+            showModal: true,
+            isRequestLoading: false
           },
           () => console.error('Error:', error)
         )
@@ -141,23 +194,23 @@ class FormContainer extends Form {
     } = this.state.person;
 
     const {
-      isError,
-      isLoading,
-      show,
+      isRequestError,
+      isRequestLoading,
+      showModal,
       lastCreatedPerson
-    } = this.state.submitForm;
-
-    let modal = null;
+    } = this.state;
 
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       gender.length > 0 &&
       birthdate.length > 0 &&
-      !isLoading;
+      !isRequestLoading;
 
-    if (show) {
-      if (isError) {
+    let modal = null;
+
+    if (showModal) {
+      if (isRequestError) {
         modal = (
           <ModalError onClose={this.hideModal} text={this.errorModalText} />
         );
@@ -307,7 +360,7 @@ class FormContainer extends Form {
           </div>
           <hr />
           <div className="submit-button">
-            {isLoading ? (
+            {isRequestLoading ? (
               <button>
                 <div className="spinner" />
               </button>
