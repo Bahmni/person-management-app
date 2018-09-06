@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 import RadioButtonGroup from '../components/common/RadioButtonGroup';
 import Checkbox from '../components/common/Checkbox';
@@ -227,6 +228,7 @@ class FormContainer extends Component {
 
     return (
       <div>
+        <Navbar title="Register New Person" />
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <fieldset>

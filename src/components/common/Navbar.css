@@ -1,0 +1,34 @@
+.navbar {
+  background-color: var(--background-color);
+  color: white;
+  height: 70px;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding-left: 3rem;
+  box-shadow: 0px 1px 6px #999;
+}
+
+.navbarWrapper {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-decoration: none;
+}
+.navbarHeader {
+  color: white;
+}
+
+.backLinkSVG {
+  position: relative;
+  background: url('../../components/Arrow_Back.svg') no-repeat;
+  height: 50px;
+  width: 50px;
+  top: 15px;
+}
+
+@media (max-width: 600px) {
+  .navbarHeader {
+    padding-left: 1rem;
+  }
+}

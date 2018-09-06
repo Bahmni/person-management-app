@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 
 class PersonDashboard extends Component {
@@ -43,6 +45,7 @@ class PersonDashboard extends Component {
 
     return (
       <div>
+        <Navbar title="Person Management" />
         <hr />
         <div>
           <fieldset>
@@ -91,11 +94,12 @@ class PersonDashboard extends Component {
             <hr />
           </div>
           <div />
-          <button
-            className="addPerson-button"
-            id="addPersonButton"
-            onClick={e => this.handleClick(e)}
-          />
+          <Link to="/person/new" className="addPersonLink">
+            <div className="addPerson">
+              <div className="addPersonSvg" />
+              <p>Register new person</p>
+            </div>
+          </Link>
         </div>
       </div>
     );
