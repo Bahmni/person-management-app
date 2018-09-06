@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
 import Input from '../components/common/Input';
 
-const url = process.env.REACT_APP_URL;
-
 class PersonDashboard extends Component {
   state = {
     person: {
       firstName: '',
       lastName: ''
     },
+    data: [],
     isRequestLoading: false
   };
 
-  //   handleSearch = e => {
-  //     e.preventDefault();
+  handleChange = ({ target: input }) => {
+    const person = { ...this.state.person };
+    person[input.name] = input.value;
+    this.setState({ person });
+  };
 
-  //     fetch(url, {
-  //       method: "GET",
-  //       body: JSON.stringify(searchPayload),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json"
-  //       },
-  //       credentials: "include"}
+  handleSearch() {
+    const url = process.env.REACT_APP_URL;
+    const searchPerson = this.state.person.firstName;
+    const q = '?q=' + searchPerson;
+    const fullUrl = url + q;
+    const customData = '&v=custom%3Adisplay%2Cbirthdate%2Cgender%2Cattributes';
+    const fullUrlCustom = fullUrl + customData;
 
-  //   handleClick = e => {
-
-  //   }
+    // this.setState({
+    //   isRequestLoading: true
+    // });
+    fetch(fullUrlCustom, {
+      method: 'GET',
+      credentials: 'include'
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      });
+  }
 
   render() {
     const { isRequestLoading } = this.state;
@@ -46,7 +56,7 @@ class PersonDashboard extends Component {
                   aria-label={'First name'}
                   aria-required="true"
                   onChange={this.handleChange}
-                  value={this.props.firstName}
+                  value={this.state.person.firstName}
                   id="firstName"
                   required={true}
                 />
@@ -59,7 +69,7 @@ class PersonDashboard extends Component {
                   aria-label={'Last name'}
                   aria-required="true"
                   onChange={this.handleChange}
-                  value={this.props.lastName}
+                  value={this.state.person.lastName}
                   id="lastName"
                   required={true}
                 />
