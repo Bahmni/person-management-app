@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 
 const url = process.env.REACT_APP_URL;
@@ -34,6 +35,7 @@ class PersonDashboard extends Component {
 
     return (
       <div>
+        <Navbar title="Person Management" />
         <hr />
         <div>
           <fieldset>
