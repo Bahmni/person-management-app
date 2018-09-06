@@ -7,6 +7,23 @@
     0 1px 0 rgba(0, 0, 0, 0.07) inset;
 }
 
+.addPerson-button,
+#addPersonButton {
+  background: url('./components/Add_Person.svg') no-repeat;
+  background-color: var(--background-color);
+  width: 100px;
+  height: 100px;
+  margin: 0 0 0 50px;
+}
+
+.searchPerson-button {
+  background: url('./components/Search_Icon.svg') no-repeat;
+  background-color: var(--background-color);
+  width: 100px;
+  height: 100px;
+  margin: 0 0 0 50px;
+}
+
 * {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;

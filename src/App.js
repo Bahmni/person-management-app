@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import './index.css';
 import PersonDashboard from './containers/PersonDashboard';
-import NotFound from './containers/NotFound';
 
 class App extends Component {
   render() {
@@ -14,7 +13,7 @@ class App extends Component {
         <Switch>
           <Route path="/person/new" exact component={FormContainer} />
           <Route path="/search" exact component={PersonDashboard} />
-          <Route path="/" component={NotFound} />
+          <Route path="/" component={PersonDashboard} />
         </Switch>
       </div>
     );
