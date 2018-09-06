@@ -6,11 +6,16 @@ import Input from '../components/common/Input';
 class PersonDashboard extends Component {
   state = {
     person: {
-      firstName: '',
-      lastName: ''
+      name: ''
     },
     data: [],
     isRequestLoading: false
+  };
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.handleSearch();
+    }
   };
 
   handleChange = ({ target: input }) => {
@@ -21,15 +26,12 @@ class PersonDashboard extends Component {
 
   handleSearch() {
     const url = process.env.REACT_APP_URL;
-    const searchPerson = this.state.person.firstName;
+    const searchPerson = this.state.person.name;
     const q = '?q=' + searchPerson;
     const fullUrl = url + q;
     const customData = '&v=custom%3Adisplay%2Cbirthdate%2Cgender%2Cattributes';
     const fullUrlCustom = fullUrl + customData;
 
-    // this.setState({
-    //   isRequestLoading: true
-    // });
     fetch(fullUrlCustom, {
       method: 'GET',
       credentials: 'include'
@@ -44,36 +46,23 @@ class PersonDashboard extends Component {
     const { isRequestLoading } = this.state;
 
     return (
-      <div>
+      <div onKeyPress={this.handleKeyPress}>
         <Navbar title="Person Management" />
         <hr />
         <div>
           <fieldset>
-            <legend>Name</legend>
+            <legend />
             <div className="flex-container-row">
               <div className="flex-item">
                 <Input
                   type={'text'}
-                  title={'First name '}
-                  name={'firstName'}
-                  aria-label={'First name'}
+                  title={'Name '}
+                  name={'name'}
+                  aria-label={'Name'}
                   aria-required="true"
                   onChange={this.handleChange}
-                  value={this.state.person.firstName}
-                  id="firstName"
-                  required={true}
-                />
-              </div>
-              <div className="flex-item">
-                <Input
-                  type={'text'}
-                  title={'Last name '}
-                  name={'lastName'}
-                  aria-label={'Last name'}
-                  aria-required="true"
-                  onChange={this.handleChange}
-                  value={this.state.person.lastName}
-                  id="lastName"
+                  value={this.state.name}
+                  id="name"
                   required={true}
                 />
               </div>
@@ -93,13 +82,13 @@ class PersonDashboard extends Component {
             )}
             <hr />
           </div>
-          <div />
+          {/* <div />
           <Link to="/person/new" className="addPersonLink">
             <div className="addPerson">
               <div className="addPersonSvg" />
               <p>Register new person</p>
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     );
