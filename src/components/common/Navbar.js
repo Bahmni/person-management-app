@@ -7,16 +7,12 @@ const NavBar = props => {
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
-        <span className="backLinkSVG" />
-        <li>
-          <NavLink to="/search">
-            <h3 className="navbarHeader" />
-            {title}
-          </NavLink>
+        <li className="navbarLink">
+          <NavLink to="/search">{title}</NavLink>
         </li>
-        <li>
+        <li className="navbarIcon">
           <NavLink to="/person/new" className="addPersonLink">
-            <p>Register new person</p>
+            <p className="navbarText">Register New Person </p>
           </NavLink>
         </li>
       </ul>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 
@@ -48,12 +47,12 @@ class PersonDashboard extends Component {
     return (
       <div onKeyPress={this.handleKeyPress}>
         <Navbar title="Person Management" />
-        <hr />
         <div>
-          <fieldset>
+          <fieldset className="formGroup">
             <legend />
             <div className="flex-container-row">
-              <div className="flex-item">
+              <div className="search-item">
+                <span className="padding" />
                 <Input
                   type={'text'}
                   title={'Name '}
@@ -66,29 +65,22 @@ class PersonDashboard extends Component {
                   required={true}
                 />
               </div>
+              <div className="search-button">
+                {isRequestLoading ? (
+                  <button>
+                    <div className="spinner" />
+                  </button>
+                ) : (
+                  <button
+                    className="searchPerson-button"
+                    onClick={e => this.handleSearch(e)}
+                  >
+                    <p className="buttonText">Search</p>
+                  </button>
+                )}
+              </div>
             </div>
           </fieldset>
-
-          <div className="search-button">
-            {isRequestLoading ? (
-              <button>
-                <div className="spinner" />
-              </button>
-            ) : (
-              <button
-                className="searchPerson-button"
-                onClick={e => this.handleSearch(e)}
-              />
-            )}
-            <hr />
-          </div>
-          {/* <div />
-          <Link to="/person/new" className="addPersonLink">
-            <div className="addPerson">
-              <div className="addPersonSvg" />
-              <p>Register new person</p>
-            </div>
-          </Link> */}
         </div>
       </div>
     );
