@@ -228,7 +228,7 @@ class FormContainer extends Component {
 
     return (
       <div>
-        <Navbar title="Register New Person" />
+        <Navbar title="back" />
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <fieldset>

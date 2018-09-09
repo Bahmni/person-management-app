@@ -19,8 +19,26 @@
   color: white;
 }
 
-.backLinkSVG {
+.navbarLink {
+  padding-left: 1.5rem;
+  list-style: none;
+}
+
+.navbarIcon {
+  list-style: none;
   position: relative;
+  background: url('../../components/Add_Person.svg') no-repeat;
+  height: 50px;
+  width: 50px;
+  top: 0px;
+  left: 20px;
+}
+
+.navbarText {
+  padding-left: 4rem;
+}
+
+.backLinkSVG {
   background: url('../../components/Arrow_Back.svg') no-repeat;
   height: 50px;
   width: 50px;
