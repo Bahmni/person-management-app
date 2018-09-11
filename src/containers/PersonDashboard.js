@@ -46,7 +46,7 @@ class PersonDashboard extends Component {
 
     return (
       <div onKeyPress={this.handleKeyPress}>
-        <Navbar title="Person Management" />
+        <Navbar title=" " />
         <div>
           <fieldset className="formGroup">
             <legend />
