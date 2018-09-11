@@ -7,14 +7,13 @@ const NavBar = props => {
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
-        <a href="/search">
-          <li className="backLinkSVG" />
-        </a>
-        {/* <li className="navbarLink">
-          <NavLink to="/search">{title}</NavLink>
-        </li> */}
+        <li className="backLinkSVG">
+          <NavLink to="/search">
+            <p className="navbarText">{title}</p>
+          </NavLink>
+        </li>
         <li className="navbarIcon">
-          <NavLink to="/person/new" className="addPersonLink">
+          <NavLink to="/person/new">
             <p className="navbarText">Register New Person </p>
           </NavLink>
         </li>
