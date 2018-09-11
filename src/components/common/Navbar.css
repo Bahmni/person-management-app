@@ -4,16 +4,16 @@
   height: 70px;
   width: 100%;
   margin-bottom: 2rem;
-  padding-left: 3rem;
+  padding-left: 0px;
   box-shadow: 0px 1px 6px #999;
 }
 
 .navbarWrapper {
   height: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   text-decoration: none;
+  padding-left: 20px;
 }
 .navbarHeader {
   color: white;
@@ -40,9 +40,10 @@
 
 .backLinkSVG {
   background: url('../../components/Arrow_Back.svg') no-repeat;
-  height: 50px;
-  width: 50px;
-  top: 15px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 @media (max-width: 600px) {
