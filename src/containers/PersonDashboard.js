@@ -47,9 +47,9 @@ class PersonDashboard extends Component {
     return (
       <div onKeyPress={this.handleKeyPress}>
         <Navbar title=" " />
-        <div>
-          <fieldset className="formGroup">
-            <legend />
+        <div className="searchForm">
+          <legend>Search</legend>
+          <div className="formGroup">
             <div className="flex-container-row">
               <div className="search-item">
                 <span className="padding" />
@@ -80,7 +80,7 @@ class PersonDashboard extends Component {
                 )}
               </div>
             </div>
-          </fieldset>
+          </div>
         </div>
       </div>
     );
