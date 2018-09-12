@@ -36,6 +36,8 @@
 
 .navbarText {
   padding-left: 4rem;
+  color: white;
+  font-weight: 100;
 }
 
 .backLinkSVG {
