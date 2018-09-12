@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
+import Search from './Search';
 
 class PersonDashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.search = new Search(process.env.REACT_APP_URL);
+  }
+
   state = {
     person: {
       name: ''
@@ -24,12 +30,14 @@ class PersonDashboard extends Component {
   };
 
   handleSearch() {
-    const url = process.env.REACT_APP_URL;
     const searchPerson = this.state.person.name;
     const q = '?q=' + searchPerson;
     const fullUrl = url + q;
+
     const customData = '&v=custom%3Adisplay%2Cbirthdate%2Cgender%2Cattributes';
     const fullUrlCustom = fullUrl + customData;
+
+    return search.query(q + customData);
 
     fetch(fullUrlCustom, {
       method: 'GET',
