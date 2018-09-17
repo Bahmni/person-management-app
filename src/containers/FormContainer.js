@@ -6,6 +6,7 @@ import Checkbox from '../components/common/Checkbox';
 import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
+import './FormContainer.css';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;

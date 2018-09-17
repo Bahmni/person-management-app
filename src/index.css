@@ -7,52 +7,6 @@
     0 1px 0 rgba(0, 0, 0, 0.07) inset;
 }
 
-.formGroup {
-  border-radius: var(--border-radius);
-  border: 1.2px solid #9b9b9b;
-  margin: 10px 30px 0px 0px;
-}
-.search-button {
-  padding-left: 40px;
-}
-
-.searchIcon {
-  flex: 0 0 20px;
-}
-
-.searchButtonText {
-  flex-grow: 2;
-  color: white;
-  width: 100px;
-  text-align: left;
-  padding-left: 20px;
-  padding-top: 3px;
-}
-.searchPerson-button {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-items: left;
-  background-color: var(--background-color);
-  width: 200px;
-  height: 33px;
-  margin: 33px 0 40px 0px;
-  border: 0px 0 0 0px;
-  border-radius: var(--border-radius);
-  padding-left: 20px;
-  border: 1.2px solid #9b9b9b;
-}
-
-.search-item {
-  margin: 0px 0 0px 40px;
-}
-
-.searchForm {
-  position: relative;
-  margin-left: 4rem;
-}
-
 * {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
@@ -64,7 +18,7 @@
 
 form {
   position: relative;
-  margin-left: 2rem;
+  margin-left: 4rem;
   width: 55%;
 }
 
@@ -79,34 +33,6 @@ hr {
 /* removing the border around the fieldset */
 fieldset {
   border: 0;
-}
-
-/* outer flex container with Name, Age, Gender sections */
-.flex-container-row {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  padding-top: 10px;
-}
-
-/* flex items */
-.flex-item {
-  flex: 1;
-  min-width: 50%;
-}
-
-.flex-item2 {
-  display: flex;
-  min-width: 100%;
-}
-
-.form-input {
-  flex: 1;
-}
-
-/* the row with years months and days */
-#root > div > form > div:nth-child(3) > fieldset > div {
-  width: 80%;
 }
 
 /* capitalizing titles of form sections */
@@ -171,51 +97,6 @@ input[type='checkbox']:checked + label span {
   background: url('./components/checkbox_checked.svg') 0px center no-repeat;
 }
 
-#estimatedTitle {
-  display: inline-block;
-  margin: auto 0;
-}
-
-.checkbox-container {
-  display: flex;
-  justify-content: flex-start;
-}
-
-#hidden-title,
-#display-none {
-  opacity: 0;
-}
-
-/* Radio buttons flex container */
-.radioGroup {
-  display: flex;
-  line-height: var(--height);
-  width: 50%;
-}
-
-.labelRadio {
-  text-align: center;
-  position: relative;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-}
-
-.radioButton {
-  background-color: rgba(155, 155, 155, 0.05);
-  color: #2e3436;
-}
-
-:checked + span.radioButton {
-  background-color: rgba(15, 113, 101, 0.13);
-  color: var(--background-color);
-  display: inline-block;
-  border: none;
-  width: 100%;
-}
-
-.submit-button {
-  display: flex;
-}
-
 input[type='submit'],
 .submit-button button {
   border: none;
@@ -252,15 +133,6 @@ input[type='submit'],
   }
 }
 
-.input-label {
-  padding-bottom: 15px;
-}
-
-.required:after {
-  content: ' *';
-  color: red;
-}
-
 input:disabled {
   background-color: #9b9b9b;
 }
@@ -276,10 +148,6 @@ input:disabled {
     width: 85%;
   }
 
-  #root > div > form > div:nth-child(3) > fieldset > div {
-    width: 80%;
-  }
-
   input[type='text'],
   label.labelRadio {
     width: 200px;
@@ -293,13 +161,5 @@ input:disabled {
   form {
     width: 100%;
     margin-left: 0px;
-  }
-  .flex-item,
-  .flex-item2 {
-    min-width: 100%;
-  }
-
-  #root > div > form > div:nth-child(3) > fieldset > div {
-    width: 100%;
   }
 }
