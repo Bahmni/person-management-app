@@ -13,7 +13,7 @@ const NavBar = props => {
           </NavLink>
         </li>
         <li className="navbarIcon">
-          <NavLink to="/person/new">
+          <NavLink to="/person/new" className="navbarTextLink">
             <p className="navbarText">Register New Person </p>
           </NavLink>
         </li>

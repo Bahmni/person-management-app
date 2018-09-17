@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
+import './PersonDashboard.css';
 
 class PersonDashboard extends Component {
   state = {
