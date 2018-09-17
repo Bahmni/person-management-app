@@ -12,27 +12,35 @@
   border: 1.2px solid #9b9b9b;
   margin: 10px 30px 0px 0px;
 }
-
-.searchIcon {
-  margin: 0 0 0 -100px;
+.search-button {
+  padding-left: 40px;
 }
 
-.buttonText {
+.searchIcon {
+  flex: 0 0 20px;
+}
+
+.searchButtonText {
+  flex-grow: 2;
   color: white;
   width: 100px;
   text-align: left;
-  padding-left: 10px;
-  margin-bottom: 50px;
+  padding-left: 20px;
+  padding-top: 3px;
 }
 .searchPerson-button {
-  /* background: url('./components/Search_Icon.svg') no-repeat; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: left;
   background-color: var(--background-color);
   width: 200px;
   height: 33px;
   margin: 33px 0 40px 0px;
   border: 0px 0 0 0px;
   border-radius: var(--border-radius);
-  padding-left: 10px;
+  padding-left: 20px;
   border: 1.2px solid #9b9b9b;
 }
 
@@ -43,9 +51,6 @@
 .searchForm {
   position: relative;
   margin-left: 4rem;
-}
-.search-button {
-  padding-left: 40px;
 }
 
 * {
