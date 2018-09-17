@@ -77,8 +77,8 @@ class PersonDashboard extends Component {
                   >
                     <svg
                       className="searchIcon"
-                      width="20px"
-                      height="20px"
+                      width="24px"
+                      height="24px"
                       viewBox="0 0 48 48"
                       fill="white"
                     >
@@ -88,7 +88,7 @@ class PersonDashboard extends Component {
 	z M4.9,19.2c0-7.9,6.4-14.3,14.3-14.3s14.3,6.4,14.3,14.3c0,7.9-6.4,14.3-14.3,14.3S4.9,27.1,4.9,19.2z"
                       />
                     </svg>
-                    <span className="buttonText">Search</span>
+                    <span className="searchButtonText">Search</span>
                   </button>
                 )}
               </div>
