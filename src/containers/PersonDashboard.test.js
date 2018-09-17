@@ -15,8 +15,4 @@ describe('PersonDashboard', () => {
   it('renders one <Input /> components', () => {
     expect(wrapper.find(Input).length).toEqual(1);
   });
-
-  it('should update the state property firstName', () => {
-    expect(wrapper.state().person.firstName).toEqual(exampleFirstName);
-  });
 });
