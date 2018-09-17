@@ -43,3 +43,7 @@
   position: relative;
   margin: 0 4rem;
 }
+
+button:disabled {
+  background-color: #9b9b9b;
+}
