@@ -43,7 +43,8 @@ class PersonDashboard extends Component {
   }
 
   render() {
-    const { isRequestLoading } = this.state;
+    const { person, isRequestLoading } = this.state;
+    const isEnabled = person.name.length > 0 && !isRequestLoading;
 
     return (
       <div onKeyPress={this.handleKeyPress}>
@@ -75,6 +76,7 @@ class PersonDashboard extends Component {
                   <button
                     className="searchPerson-button"
                     onClick={e => this.handleSearch(e)}
+                    disabled={isEnabled ? null : 'disabled'}
                   >
                     <svg
                       className="searchIcon"
