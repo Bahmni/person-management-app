@@ -47,3 +47,6 @@
 button:disabled {
   background-color: #9b9b9b;
 }
+
+#root > div > div.searchForm > div > div > div.search-button > button {
+}

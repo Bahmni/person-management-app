@@ -25,11 +25,15 @@ class PersonDashboard extends Component {
   };
 
   handleSearch() {
+    this.setState({
+      isRequestLoading: true
+    });
     const url = process.env.REACT_APP_URL;
     const searchPerson = this.state.person.name;
     const q = '?q=' + searchPerson;
     const fullUrl = url + q;
-    const customData = '&v=custom%3Adisplay%2Cbirthdate%2Cgender%2Cattributes';
+    const customData =
+      '&v=custom%3Auuid%2Cdisplay%2Cage%2Cgender%2CdateCreated';
     const fullUrlCustom = fullUrl + customData;
 
     fetch(fullUrlCustom, {
@@ -38,7 +42,23 @@ class PersonDashboard extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        this.setState({
+          isRequestLoading: false
+        }).catch(error =>
+          this.setState(
+            {
+              isRequestError: true,
+              isRequestLoading: false
+            },
+            () =>
+              console.error(
+                'Error:',
+                error,
+                'Loading',
+                this.state.isRequestLoading
+              )
+          )
+        );
       });
   }
 
