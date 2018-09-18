@@ -1,0 +1,31 @@
+.resultsTable {
+  width: 100%;
+}
+
+.resultsTableHeader,
+.resultsTableBody {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.resultsTableHeader th,
+.resultsTableBody td {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: left;
+  flex: 1 0 auto;
+  padding: 5px;
+  margin: 2px;
+  padding-left: 6.3rem;
+  width: 20%;
+}
+
+.resultsTableHeader th:first-child,
+.resultsTableBody td:first-child {
+  min-width: 30%;
+}
+
+.resultsTableHeader th {
+  background-color: rgba(155, 155, 155, 1);
+  color: white;
+}

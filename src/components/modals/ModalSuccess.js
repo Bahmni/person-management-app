@@ -7,9 +7,13 @@ class ModalSuccess extends Component {
   // set timeout, default setting is 4 seconds
   timeout = 4000;
   componentDidMount() {
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.props.onClose();
     }, this.timeout);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   handleClick(e) {

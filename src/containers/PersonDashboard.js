@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
+import Table from '../components/common/Table';
 import './PersonDashboard.css';
 
 class PersonDashboard extends Component {
@@ -54,7 +55,7 @@ class PersonDashboard extends Component {
         }
       })
       .then(data => {
-        console.log(data);
+        this.setState({ data: data.results });
       })
 
       .catch(error =>
@@ -123,6 +124,11 @@ class PersonDashboard extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className="tableContainer">
+          {this.state.data.length !== 0 ? (
+            <Table data={this.state.data} />
+          ) : null}
         </div>
       </div>
     );
