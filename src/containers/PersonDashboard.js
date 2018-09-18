@@ -44,21 +44,22 @@ class PersonDashboard extends Component {
       .then(data => {
         this.setState({
           isRequestLoading: false
-        }).catch(error =>
-          this.setState(
-            {
-              isRequestError: true,
-              isRequestLoading: false
-            },
-            () =>
-              console.error(
-                'Error:',
-                error,
-                'Loading',
-                this.state.isRequestLoading
-              )
-          )
-        );
+        });
+        // .catch(error =>
+        //   this.setState(
+        //     {
+        //       isRequestError: true,
+        //       isRequestLoading: false
+        //     },
+        //     () =>
+        //       console.error(
+        //         'Error:',
+        //         error,
+        //         'Loading',
+        //         this.state.isRequestLoading
+        //       )
+        //   )
+        // );
       });
   }
 
