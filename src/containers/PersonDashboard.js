@@ -93,20 +93,18 @@ class PersonDashboard extends Component {
                 />
               </div>
               <div className="search-button">
-                {isRequestLoading ? (
-                  <button>
+                <button
+                  className="searchPerson-button"
+                  onClick={e => this.handleSearch(e)}
+                  disabled={isEnabled ? null : 'disabled'}
+                >
+                  {isRequestLoading ? (
                     <div className="spinner" />
-                  </button>
-                ) : (
-                  <button
-                    className="searchPerson-button"
-                    onClick={e => this.handleSearch(e)}
-                    disabled={isEnabled ? null : 'disabled'}
-                  >
+                  ) : (
                     <svg
                       className="searchIcon"
-                      width="24px"
-                      height="24px"
+                      width="2rem"
+                      height="1.8rem"
                       viewBox="0 0 48 48"
                       fill="white"
                     >
@@ -116,9 +114,12 @@ class PersonDashboard extends Component {
 	z M4.9,19.2c0-7.9,6.4-14.3,14.3-14.3s14.3,6.4,14.3,14.3c0,7.9-6.4,14.3-14.3,14.3S4.9,27.1,4.9,19.2z"
                       />
                     </svg>
-                    <span className="searchButtonText">Search</span>
-                  </button>
-                )}
+                  )}
+
+                  <span className="searchButtonText">
+                    {isRequestLoading ? 'Searching' : 'Search'}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
