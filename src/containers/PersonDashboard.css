@@ -58,6 +58,7 @@ button:disabled {
   background-color: #9b9b9b;
 }
 
+
 @media (max-width: 900px) {
   .searchForm {
     margin: 0 2rem;
@@ -66,4 +67,5 @@ button:disabled {
   .search-item {
     width: 80%;
   }
+
 }
