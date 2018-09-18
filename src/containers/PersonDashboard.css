@@ -1,8 +1,13 @@
 .formGroup {
   border-radius: var(--border-radius);
   border: 1.2px solid #9b9b9b;
-  margin: 10px 30px 0px 0px;
+  margin: 20px 30px 0px 0px;
 }
+
+.formGroup .flex-container-row > * {
+  margin-top: 1rem;
+}
+
 .search-button {
   padding-left: 40px;
 }
@@ -37,6 +42,7 @@
 
 .search-item {
   margin: 0px 0 0px 40px;
+  width: 60%;
 }
 
 .searchForm {
@@ -44,9 +50,22 @@
   margin: 0 4rem;
 }
 
+.div-input > label > input[type='text'] {
+  width: 100%;
+}
+
 button:disabled {
   background-color: #9b9b9b;
 }
 
-#root > div > div.searchForm > div > div > div.search-button > button {
+
+@media (max-width: 900px) {
+  .searchForm {
+    margin: 0 2rem;
+  }
+
+  .search-item {
+    width: 80%;
+  }
+
 }
