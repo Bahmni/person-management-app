@@ -40,27 +40,31 @@ class PersonDashboard extends Component {
       method: 'GET',
       credentials: 'include'
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({
+            isRequestLoading: false
+          });
+          return response.json();
+        } else {
+          return Promise.reject({
+            status: response.status,
+            statusText: response.statusText
+          });
+        }
+      })
       .then(data => {
-        this.setState({
-          isRequestLoading: false
-        });
-        // .catch(error =>
-        //   this.setState(
-        //     {
-        //       isRequestError: true,
-        //       isRequestLoading: false
-        //     },
-        //     () =>
-        //       console.error(
-        //         'Error:',
-        //         error,
-        //         'Loading',
-        //         this.state.isRequestLoading
-        //       )
-        //   )
-        // );
-      });
+        console.log(data);
+      })
+
+      .catch(error =>
+        this.setState(
+          {
+            isRequestLoading: false
+          },
+          () => console.error('Error:', error)
+        )
+      );
   }
 
   render() {
