@@ -3,6 +3,7 @@ import Navbar from '../components/common/Navbar';
 import Input from '../components/common/Input';
 import RadioButtonGroup from '../components/common/RadioButtonGroup';
 import Checkbox from '../components/common/Checkbox';
+import Button from '../components/common/Button';
 import ModalError from '../components/modals/ModalError';
 import ModalSuccess from '../components/modals/ModalSuccess';
 import moment from 'moment';
@@ -362,19 +363,13 @@ class FormContainer extends Component {
             </fieldset>
           </div>
           <hr />
-          <div className="submit-button">
-            {isRequestLoading ? (
-              <button>
-                <div className="spinner" />
-              </button>
-            ) : (
-              <input
-                disabled={isEnabled ? null : 'disabled'}
-                type="submit"
-                value="Register"
-              />
-            )}
-          </div>
+
+          <Button
+            disabled={isEnabled ? null : 'disabled'}
+            value=" Register "
+            isLoading={isRequestLoading}
+          />
+
           {modal}
         </form>
       </div>
