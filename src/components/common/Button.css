@@ -41,3 +41,32 @@
     transform: rotate(360deg);
   }
 }
+
+.loadingButtonWithSvg > .buttonText {
+  position: relative;
+  bottom: 20px;
+  left: 10px;
+}
+
+.searchPageButton > .buttonText {
+  position: relative;
+  left: 18px;
+  top: 3px;
+}
+
+.svgSpinner {
+  margin: 0;
+  left: -30px;
+  top: 2px;
+}
+
+.searchPageButton {
+  display: flex;
+  justify-content: left;
+  width: 100px;
+  margin-left: -40px;
+}
+
+.searchPageButton > svg {
+  height: 1.4rem;
+}

@@ -363,13 +363,12 @@ class FormContainer extends Component {
             </fieldset>
           </div>
           <hr />
-
           <Button
             disabled={isEnabled ? null : 'disabled'}
-            value=" Register "
+            value="Register"
+            valueLoading=""
             isLoading={isRequestLoading}
           />
-
           {modal}
         </form>
       </div>

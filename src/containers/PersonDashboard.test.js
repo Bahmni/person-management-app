@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PersonDashboard from './PersonDashboard';
 import Input from '../components/common/Input';
-import Navbar from '../components/common/Navbar';
-import SelectFromList from '../components/common/RadioButtonGroup';
 
 describe('PersonDashboard', () => {
   let wrapper;
@@ -17,7 +15,7 @@ describe('PersonDashboard', () => {
   });
 
   it('`button` should be disabled', () => {
-    const button = wrapper.find('button').first();
+    const button = wrapper.find('Button').first();
     expect(button.props().disabled).toBe('disabled');
   });
 
@@ -36,7 +34,7 @@ describe('PersonDashboard', () => {
     });
 
     it('should enable `button`', () => {
-      const button = wrapper.find('button').first();
+      const button = wrapper.find('Button').first();
       expect(button.props().disabled).toBe(null);
     });
 

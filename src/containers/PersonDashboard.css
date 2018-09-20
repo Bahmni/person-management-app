@@ -4,33 +4,7 @@
 
 .search-button {
   padding-left: 40px;
-}
-
-.searchIcon {
-  flex: 0 0 20px;
-}
-
-.searchButtonText {
-  flex-grow: 1;
-  color: white;
-  width: 100px;
-  padding-top: 3px;
-  padding-right: 20px;
-}
-.searchPerson-button {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-items: left;
-  background-color: var(--background-color);
-  width: 200px;
-  height: 33px;
-  margin: 33px 0 40px 0px;
-  border: 0px 0 0 0px;
-  border-radius: var(--border-radius);
-  padding-left: 20px;
-  border: 1.2px solid #9b9b9b;
+  margin-top: 33px;
 }
 
 .search-item {
@@ -49,10 +23,6 @@
 
 .search-item .form-input .div-input > label > input[type='text'] {
   width: 100%;
-}
-
-button:disabled {
-  background-color: #9b9b9b;
 }
 
 @media (max-width: 900px) {
