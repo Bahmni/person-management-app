@@ -70,7 +70,7 @@ class PersonDashboard extends Component {
   }
 
   render() {
-    const { person, isRequestLoading } = this.state;
+    const { person, isRequestLoading, data } = this.state;
     const isEnabled = person.name.length > 0 && !isRequestLoading;
 
     return (
@@ -105,12 +105,16 @@ class PersonDashboard extends Component {
                 />
               </div>
             </div>
+            {data.length !== 0 ? (
+              <p className="numResults">
+                {' '}
+                <strong>{data.length}</strong> Persons found
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="tableContainer">
-          {this.state.data.length !== 0 ? (
-            <Table data={this.state.data} />
-          ) : null}
+          {data.length !== 0 ? <Table data={data} /> : null}
         </div>
       </div>
     );
