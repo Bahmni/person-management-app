@@ -83,11 +83,17 @@ class PersonDashboard extends Component {
   errorModalText = ["We're having technical problems.", 'Please try again.'];
 
   render() {
-    const { person, isRequestLoading, isRequestError, data } = this.state;
+    const {
+      person,
+      isRequestLoading,
+      isRequestError,
+      showModal,
+      data
+    } = this.state;
     const isEnabled = person.name.length > 0 && !isRequestLoading;
 
     let modal = null;
-    if (isRequestError) {
+    if (isRequestError && showModal) {
       modal = (
         <ModalError onClose={this.hideModal} text={this.errorModalText} />
       );
