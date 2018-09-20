@@ -20,6 +20,10 @@
 .searchForm legend {
   margin-left: 38px;
 }
+.numResults {
+  margin-left: 2.6rem;
+  margin-bottom: 1rem;
+}
 
 .search-item .form-input .div-input > label > input[type='text'] {
   width: 100%;
