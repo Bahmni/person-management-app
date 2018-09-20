@@ -17,6 +17,7 @@
 .modalSvg {
   width: 30%;
   position: relative;
+  fill-opacity: 0.5;
 }
 
 .modalRight {

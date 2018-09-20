@@ -69,7 +69,6 @@ input[type='number'] {
 }
 
 /* Changing mouse to pointer for clickable inputs */
-input[type='submit'],
 input[type='date'],
 label.labelRadio,
 input[type='checkbox'] + label span,
@@ -95,46 +94,6 @@ input[type='checkbox'] + label span {
 
 input[type='checkbox']:checked + label span {
   background: url('./components/checkbox_checked.svg') 0px center no-repeat;
-}
-
-input[type='submit'],
-.submit-button button {
-  border: none;
-  border-radius: var(--border-radius);
-  height: var(--height);
-  background-color: var(--background-color);
-  color: white;
-  margin-left: auto;
-  margin-bottom: 50px;
-  margin-right: 1rem;
-  padding: 0 45px;
-}
-
-.submit-button button {
-  background-color: #9b9b9b;
-  width: 155px;
-}
-
-.spinner {
-  position: relative;
-  border-radius: 50%;
-  border-top: 2px solid rgba(236, 240, 241, 1);
-  border-right: 2px solid rgba(236, 240, 241, 0.8);
-  border-bottom: 2px solid transparent;
-  animation: spinner 0.8s linear infinite;
-  height: 1.8rem;
-  width: 1.8rem;
-  margin: 0 auto;
-}
-
-@keyframes spinner {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-input:disabled {
-  background-color: #9b9b9b;
 }
 
 @media (max-width: 1080px) {
