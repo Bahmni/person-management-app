@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../components/common/Navbar';
+import ModalError from '../components/modals/ModalError';
 import Input from '../components/common/Input';
 import Table from '../components/common/Table';
 import Button from '../components/common/Button';
@@ -11,7 +12,9 @@ class PersonDashboard extends Component {
       name: ''
     },
     data: [],
-    isRequestLoading: false
+    isRequestLoading: false,
+    isRequestError: false,
+    showModal: false
   };
 
   handleKeyPress = e => {
@@ -62,16 +65,39 @@ class PersonDashboard extends Component {
       .catch(error =>
         this.setState(
           {
-            isRequestLoading: false
+            isRequestLoading: false,
+            isRequestError: true,
+            showModal: true
           },
           () => console.error('Error:', error)
         )
       );
   }
 
+  hideModal = () => {
+    this.setState({
+      showModal: false
+    });
+  };
+
+  errorModalText = ["We're having technical problems.", 'Please try again.'];
+
   render() {
-    const { person, isRequestLoading, data } = this.state;
+    const {
+      person,
+      isRequestLoading,
+      isRequestError,
+      showModal,
+      data
+    } = this.state;
     const isEnabled = person.name.length > 0 && !isRequestLoading;
+
+    let modal = null;
+    if (isRequestError && showModal) {
+      modal = (
+        <ModalError onClose={this.hideModal} text={this.errorModalText} />
+      );
+    }
 
     return (
       <div onKeyPress={this.handleKeyPress}>
@@ -107,7 +133,6 @@ class PersonDashboard extends Component {
             </div>
             {data.length !== 0 ? (
               <p className="numResults">
-                {' '}
                 <strong>{data.length}</strong> Persons found
               </p>
             ) : null}
@@ -116,6 +141,7 @@ class PersonDashboard extends Component {
         <div className="tableContainer">
           {data.length !== 0 ? <Table data={data} /> : null}
         </div>
+        {modal}
       </div>
     );
   }
