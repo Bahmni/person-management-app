@@ -138,18 +138,18 @@ class PersonDashboard extends Component {
               </div>
             </div>
             {data.length !== 0 ? (
-              <Pagination
-                itemsCount={data.length}
-                pageSize={this.state.pageSize}
-                onPageChange={this.handlePageChange}
-              />
-            ) : null}
-            {data.length !== 0 ? (
               <p className="numResults">
                 <strong>{data.length}</strong> Persons found
               </p>
             ) : null}
           </div>
+          {data.length !== 0 ? (
+            <Pagination
+              itemsCount={data.length}
+              pageSize={this.state.pageSize}
+              onPageChange={this.handlePageChange}
+            />
+          ) : null}
         </div>
         <div className="tableContainer">
           {data.length !== 0 ? <Table data={data} /> : null}

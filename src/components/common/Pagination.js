@@ -1,4 +1,5 @@
 import React from 'react';
+import './Pagination.css';
 
 const Pagination = props => {
   let { itemsCount, pageSize } = props;

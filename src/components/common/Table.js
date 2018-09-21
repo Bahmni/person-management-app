@@ -1,15 +1,11 @@
 import React from 'react';
 import './Table.css';
+
 const Table = props => {
   const { data } = props;
 
   return (
     <div>
-      <div className="personContainer">
-        <p className="personsFoundParagraph">
-          <strong>{data.length} </strong>Persons found{' '}
-        </p>
-      </div>
       <table className="resultsTable">
         <thead>
           <tr className="resultsTableHeader">
