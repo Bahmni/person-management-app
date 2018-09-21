@@ -5,7 +5,11 @@ const Table = props => {
 
   return (
     <div>
-      <p>{data.length} Persons found </p>
+      <div className="personContainer">
+        <p className="personsFoundParagraph">
+          <strong>{data.length} </strong>Persons found{' '}
+        </p>
+      </div>
       <table className="resultsTable">
         <thead>
           <tr className="resultsTableHeader">
