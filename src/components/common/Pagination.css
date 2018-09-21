@@ -1,0 +1,28 @@
+.navPageContainer {
+  background-color: white;
+  height: 30px;
+  width: 100%;
+  /* margin-bottom: 0; */
+  padding-left: 25px;
+}
+
+.pagination {
+  width: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding-left: 20px;
+  list-style: none;
+}
+.page-item {
+  list-style: none;
+  position: relative;
+  height: 40px;
+  width: 10px;
+}
+
+@media (max-width: 600px) {
+  .navPageContainer {
+    padding-left: 1rem;
+  }
+}

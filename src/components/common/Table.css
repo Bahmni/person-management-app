@@ -29,3 +29,15 @@
   background-color: rgba(155, 155, 155, 1);
   color: white;
 }
+
+.personsFoundParagraph {
+  position: relative;
+  margin: 1rem 2rem;
+  padding-left: 40px;
+  width: 200px;
+}
+
+.personContainer {
+  width: 200px;
+  width: 60%;
+}

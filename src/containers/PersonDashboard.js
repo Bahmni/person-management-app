@@ -3,6 +3,7 @@ import Navbar from '../components/common/Navbar';
 import ModalError from '../components/modals/ModalError';
 import Input from '../components/common/Input';
 import Table from '../components/common/Table';
+import Pagination from '../components/common/Pagination';
 import Button from '../components/common/Button';
 import './PersonDashboard.css';
 
@@ -14,7 +15,8 @@ class PersonDashboard extends Component {
     data: [],
     isRequestLoading: false,
     isRequestError: false,
-    showModal: false
+    showModal: false,
+    pageSize: 10
   };
 
   handleKeyPress = e => {
@@ -82,6 +84,10 @@ class PersonDashboard extends Component {
 
   errorModalText = ["We're having technical problems.", 'Please try again.'];
 
+  handlePageChange = page => {
+    console.log(page);
+  };
+
   render() {
     const {
       person,
@@ -137,6 +143,13 @@ class PersonDashboard extends Component {
               </p>
             ) : null}
           </div>
+          {data.length !== 0 ? (
+            <Pagination
+              itemsCount={data.length}
+              pageSize={this.state.pageSize}
+              onPageChange={this.handlePageChange}
+            />
+          ) : null}
         </div>
         <div className="tableContainer">
           {data.length !== 0 ? <Table data={data} /> : null}
