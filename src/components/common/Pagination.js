@@ -3,24 +3,20 @@ import React from 'react';
 const Pagination = props => {
   let { itemsCount, pageSize } = props;
 
-  let pagesCount = itemsCount / pageSize;
-
-  function range(size, startAt = 1) {
-    return [...Array(size).keys()].map(i => i + startAt);
-  }
-
-  let pages = range(pagesCount + 1);
-
-  //[1,2,3].map
+  let pagesCount = Math.ceil(itemsCount / pageSize);
+  const pages = [...Array(pagesCount).keys()].map(i => i + 1);
+  if (pages === 1) return null;
 
   return (
-    <ul className="pagination">
-      {pages.map(page => (
-        <li className="page-item">
-          <a className="page-link">{page}</a>
-        </li>
-      ))}
-    </ul>
+    <div className="navPageContainer">
+      <ul className="pagination">
+        {pages.map(page => (
+          <li className="page-item">
+            <a className="page-link">{page}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
