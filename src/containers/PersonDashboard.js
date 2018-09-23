@@ -14,8 +14,8 @@ class PersonDashboard extends Component {
     data: [],
     isRequestLoading: false,
     isRequestError: false,
-    showModal: false,
-    pageSize: 10
+    isRequestMade: false,
+    showModal: false
   };
 
   handleKeyPress = e => {
@@ -60,7 +60,7 @@ class PersonDashboard extends Component {
         }
       })
       .then(data => {
-        this.setState({ data: data.results });
+        this.setState({ data: data.results, isRequestMade: true });
       })
 
       .catch(error =>
@@ -83,13 +83,10 @@ class PersonDashboard extends Component {
 
   errorModalText = ["We're having technical problems.", 'Please try again.'];
 
-  handlePageChange = page => {
-    console.log(page);
-  };
-
   render() {
     const {
       person,
+      isRequestMade,
       isRequestLoading,
       isRequestError,
       showModal,
@@ -138,8 +135,10 @@ class PersonDashboard extends Component {
             </div>
             {data.length !== 0 ? (
               <p className="numResults">
-                <strong>{data.length}</strong> Persons found
+                <strong>{data.length}</strong> Person(s) found
               </p>
+            ) : isRequestMade ? (
+              <p className="numResults">No results found</p>
             ) : null}
           </div>
         </div>
