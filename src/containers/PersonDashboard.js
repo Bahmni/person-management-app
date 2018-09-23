@@ -128,7 +128,6 @@ class PersonDashboard extends Component {
                   value="Search"
                   valueLoading="Searching"
                   isLoading={isRequestLoading}
-                  searchPage={true}
                   onClick={e => this.handleSearch(e)}
                 />
               </div>
