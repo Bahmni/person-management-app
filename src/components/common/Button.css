@@ -16,6 +16,10 @@
   cursor: pointer;
 }
 
+.buttonWithSpinner:focus {
+  outline: 0;
+}
+
 .buttonText {
   color: white;
 }

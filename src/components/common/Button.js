@@ -3,14 +3,7 @@ import Icon from '../common/Icon';
 import './Button.css';
 
 const Button = props => {
-  const {
-    value,
-    valueLoading,
-    disabled,
-    isLoading,
-    searchPage = false,
-    onClick
-  } = props;
+  const { value, valueLoading, disabled, isLoading, onClick } = props;
   return (
     <div className="buttonContainer">
       <button
@@ -19,7 +12,7 @@ const Button = props => {
         onClick={onClick}
       >
         {isLoading ? (
-          searchPage ? (
+          valueLoading ? (
             <div className="loadingButtonWithSvg">
               <div className="spinner svgSpinner" />
               <span className="buttonText"> {valueLoading}</span>
@@ -27,7 +20,7 @@ const Button = props => {
           ) : (
             <div className="spinner" />
           )
-        ) : searchPage ? (
+        ) : valueLoading ? (
           <div className="searchPageButton ">
             <Icon
               data="M47.2,43.8L34.3,30.9c2.5-3.2,4-7.3,4-11.7c0-10.6-8.6-19.1-19.1-19.1C8.7,0.1,0.1,8.7,0.1,19.2
