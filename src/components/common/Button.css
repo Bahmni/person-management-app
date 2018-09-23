@@ -19,7 +19,6 @@
 .buttonText {
   color: white;
 }
-
 .buttonWithSpinner:disabled {
   background-color: #9b9b9b;
 }
@@ -50,8 +49,8 @@
 
 .searchPageButton > .buttonText {
   position: relative;
-  left: 18px;
-  top: 3px;
+  left: -30px;
+  top: 8px;
 }
 
 .svgSpinner {
@@ -62,11 +61,13 @@
 
 .searchPageButton {
   display: flex;
-  justify-content: left;
-  width: 100px;
+  width: 200px;
   margin-left: -40px;
 }
 
-.searchPageButton > svg {
-  height: 1.4rem;
+.searchPageButton .modalSvg {
+  width: 60px;
+  top: 2px;
+  fill-opacity: 1;
+  margin-left: 20px;
 }
