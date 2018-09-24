@@ -34,6 +34,18 @@
   margin: 2px;
 }
 
+tr {
+  border-bottom: 1px solid #c8c8c8;
+  padding-bottom: 15px;
+}
+
+tr:first-child {
+  border-top: none;
+}
+tr:last-child {
+  border-bottom: none;
+}
+
 .resultsTableHeader th:first-child,
 .resultsTableBody td:first-child {
   max-width: 30%;
