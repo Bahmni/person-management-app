@@ -18,15 +18,18 @@ const Table = props => {
         <tbody>
           {data.map(function(item, key) {
             return (
-              <React.Fragment>
-                <tr key={key} className="resultsTableBody">
-                  <td id="dataTableName">{item.display}</td>
-                  <td>{item.gender}</td>
-                  <td>{item.age}</td>
-                  <td id="dataTableReg">{item.dateCreated.substring(0, 10)}</td>
-                </tr>
-                <hr />
-              </React.Fragment>
+              <tr key={key} className="resultsTableBody">
+                <td id="dataTableName">{item.display}</td>
+                <td>{item.gender}</td>
+                <td>{item.age}</td>
+                <td id="dataTableReg">
+                  {item.dateCreated
+                    .substring(0, 10)
+                    .split('-')
+                    .reverse()
+                    .join('/')}
+                </td>
+              </tr>
             );
           })}
         </tbody>
