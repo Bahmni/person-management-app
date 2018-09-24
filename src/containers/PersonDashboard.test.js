@@ -18,33 +18,4 @@ describe('PersonDashboard', () => {
     const button = wrapper.find('Button').first();
     expect(button.props().disabled).toBe('disabled');
   });
-
-  describe('the user populates the input', () => {
-    const searchName = 'Ada';
-
-    beforeEach(() => {
-      const input = wrapper.find('Input').first();
-      input.simulate('change', {
-        target: { value: searchName, name: 'name' }
-      });
-    });
-
-    it('should update the state property person.name', () => {
-      expect(wrapper.state().person.name).toEqual(searchName);
-    });
-
-    it('should enable `button`', () => {
-      const button = wrapper.find('Button').first();
-      expect(button.props().disabled).toBe(null);
-    });
-
-    describe('and then clears the input', () => {
-      beforeEach(() => {
-        const input = wrapper.find('Input').first();
-        input.simulate('change', {
-          target: { value: '', name: 'name' }
-        });
-      });
-    });
-  });
 });
