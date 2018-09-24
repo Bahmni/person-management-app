@@ -41,7 +41,7 @@ The app should be accessible on: http://localhost:3000/
 
 ## Tests
 
-Tests will be written with Jest and Enzyme and Sinon
+Tests will be written with Jest and Enzyme
 
 Jest is installed by default, but you will need to install Enzyme along with an Adapter corresponding to the version of React you are using.
 
