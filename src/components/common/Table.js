@@ -7,23 +7,26 @@ const Table = props => {
   return (
     <div>
       <table className="resultsTable">
-        <thead>
+        <thead className="headersTable">
           <tr className="resultsTableHeader">
-            <th>NAME</th>
+            <th id="headerTableName">NAME</th>
             <th>GENDER</th>
             <th>AGE</th>
-            <th>REGISTRATION</th>
+            <th id="headerTableReg">REGISTRATION</th>
           </tr>
         </thead>
         <tbody>
           {data.map(function(item, key) {
             return (
-              <tr key={key} className="resultsTableBody">
-                <td>{item.display}</td>
-                <td>{item.gender}</td>
-                <td>{item.age}</td>
-                <td>{item.dateCreated.substring(0, 10)}</td>
-              </tr>
+              <React.Fragment>
+                <tr key={key} className="resultsTableBody">
+                  <td id="dataTableName">{item.display}</td>
+                  <td>{item.gender}</td>
+                  <td>{item.age}</td>
+                  <td id="dataTableReg">{item.dateCreated.substring(0, 10)}</td>
+                </tr>
+                <hr />
+              </React.Fragment>
             );
           })}
         </tbody>

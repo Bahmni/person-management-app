@@ -8,21 +8,36 @@
   display: flex;
 }
 
+#headerTableName {
+  margin-left: -8px;
+}
+
+#dataTableName {
+  margin-left: -8px;
+}
+
+#headerTableReg {
+  margin-right: -8px;
+}
+
+#dataTableReg {
+  margin-right: -8px;
+}
+
 .resultsTableHeader th,
 .resultsTableBody td {
   font-size: 1.1rem;
   line-height: 1.5;
   text-align: left;
-  flex: 1 0 auto;
+  flex: 1;
   padding: 5px;
   margin: 2px;
-  padding-left: 6.3rem;
-  width: 20%;
 }
 
 .resultsTableHeader th:first-child,
 .resultsTableBody td:first-child {
-  min-width: 30%;
+  max-width: 30%;
+  padding-left: 5.5rem;
 }
 
 .resultsTableHeader th {
