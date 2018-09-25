@@ -89,11 +89,11 @@ input[type='checkbox'] + label span {
   margin: 0 10px;
   width: var(--height);
   height: var(--height);
-  background: url('/src/assets/checkbox_unchecked.svg') 0px center no-repeat;
+  background: url('../src/assets/checkbox_unchecked.svg') 0px center no-repeat;
 }
 
 input[type='checkbox']:checked + label span {
-  background: url('/src/assets/checkbox_checked.svg') 0px center no-repeat;
+  background: url('../src/assets/checkbox_checked.svg') 0px center no-repeat;
 }
 
 @media (max-width: 1080px) {
