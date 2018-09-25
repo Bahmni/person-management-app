@@ -1,3 +1,5 @@
+// table component for displaying json response
+
 import React from 'react';
 import './Table.css';
 

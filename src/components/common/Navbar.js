@@ -1,3 +1,5 @@
+// navbar component with back button and link to a custom page
+
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';

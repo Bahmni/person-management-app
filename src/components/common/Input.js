@@ -1,3 +1,5 @@
+// input component for input type text, number or date
+
 import React from 'react';
 import PropTypes from 'prop-types';
 

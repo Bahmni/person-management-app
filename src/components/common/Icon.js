@@ -1,3 +1,5 @@
+// icon component for generating svgs, only needs svg data
+
 import React from 'react';
 import PropTypes from 'prop-types';
 

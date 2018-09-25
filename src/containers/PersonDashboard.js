@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../components/common/Navbar';
-import ModalError from '../components/modals/ModalError';
+import ModalError from '../components/common/modals/ModalError';
 import Input from '../components/common/Input';
 import Table from '../components/common/Table';
 import Button from '../components/common/Button';

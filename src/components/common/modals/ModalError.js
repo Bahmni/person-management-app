@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Modal.css';
-import Icon from '../common/Icon';
+import Icon from '../Icon';
 
 class ModalError extends Component {
   handleClick(e) {
