@@ -1,3 +1,6 @@
+// button with three states: normal, disabled and loading (with spinner)
+// can take an optional svg icon
+
 import React from 'react';
 import Icon from '../common/Icon';
 import './Button.css';

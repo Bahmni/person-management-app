@@ -1,7 +1,10 @@
+// success popup with a tick and text
+// popup is closed when clicking outside of the modal or after 4 seconds pass
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Modal.css';
-import Icon from '../common/Icon';
+import Icon from '../Icon';
 
 class ModalSuccess extends Component {
   // set timeout, default setting is 4 seconds

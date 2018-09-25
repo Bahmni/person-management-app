@@ -27,7 +27,7 @@
 .navbarIcon {
   list-style: none;
   position: relative;
-  background: url('../../components/Add_Person.svg') no-repeat;
+  background: url('../../assets/Add_Person.svg') no-repeat;
   height: 40px;
   width: 250px;
   top: 0px;
@@ -46,7 +46,7 @@
 }
 
 .backLinkSVG {
-  background: url('../../components/Arrow_Back.svg') no-repeat;
+  background: url('../../assets/Arrow_Back.svg') no-repeat;
   height: 20px;
   width: 25px;
   display: flex;

@@ -4,8 +4,8 @@ import Input from '../components/common/Input';
 import RadioButtonGroup from '../components/common/RadioButtonGroup';
 import Checkbox from '../components/common/Checkbox';
 import Button from '../components/common/Button';
-import ModalError from '../components/modals/ModalError';
-import ModalSuccess from '../components/modals/ModalSuccess';
+import ModalError from '../components/common/modals/ModalError';
+import ModalSuccess from '../components/common/modals/ModalSuccess';
 import moment from 'moment';
 import './FormContainer.css';
 
