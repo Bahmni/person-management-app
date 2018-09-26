@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "name": "Person Registration",
+  "description": "Bahmni Person Management Open Web App",
+  "launch_path": "/index.html",
+  "icons": {
+      "48": "/src/assets/Add_Person.svg",
+  },
+  "developer": {
+      "name": "???",
+      "url": "http://me.com"
+  },
+  "default_locale": "en",
+  "activities": {
+      "openmrs": {
+          "href": "*"
+      }
+  }
+}
