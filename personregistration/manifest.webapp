@@ -4,16 +4,16 @@
   "description": "Bahmni Person Management Open Web App",
   "launch_path": "/index.html",
   "icons": {
-    "48": "/src/assets/Add_Person.svg"
+      "48": "/src/assets/Add_Person.svg",
   },
   "developer": {
-    "name": "???",
-    "url": "http://me.com"
+      "name": "???",
+      "url": "http://me.com"
   },
   "default_locale": "en",
   "activities": {
-    "openmrs": {
-      "href": "*"
-    }
+      "openmrs": {
+          "href": "*"
+      }
   }
 }
