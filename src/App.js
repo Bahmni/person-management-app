@@ -9,9 +9,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/bahmni/new" exact component={FormContainer} />
-          <Route path="/bahmni/search" exact component={PersonDashboard} />
-          <Route path="/bahmni/" component={PersonDashboard} />
+          <Route path="./new" exact component={FormContainer} />
+          <Route path="./search" exact component={PersonDashboard} />
+          <Route path="./bahmni" component={PersonDashboard} />
         </Switch>
       </BrowserRouter>
     );
