@@ -10,7 +10,7 @@ Currently [Bahmni](https://github.com/Bahmni) only supports registration of pati
 
 Person registration is needed for pre-screening appointements or household surveys.
 
-## App Installation & Setup
+## App installation & setup
 
 Clone the repository onto your local machine.
 
