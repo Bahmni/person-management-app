@@ -103,7 +103,7 @@ class PersonDashboard extends Component {
 
     return (
       <div onKeyPress={this.handleKeyPress}>
-        <Navbar title=" " searchPage={true} />
+        <Navbar title="Person Management" searchPage={true} />
         <div className="searchForm">
           <legend>Search</legend>
           <div className="formGroup">
