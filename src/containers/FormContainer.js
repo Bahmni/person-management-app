@@ -232,7 +232,6 @@ class FormContainer extends Component {
       <div>
         <Navbar
           title="Register New Person"
-          iconLink="/new"
           searchPage={false}
         />
         <form onSubmit={this.handleFormSubmit}>

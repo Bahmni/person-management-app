@@ -6,7 +6,6 @@ import './Navbar.css';
 
 const NavBar = props => {
   const { title, searchPage } = props;
-
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
@@ -32,6 +31,9 @@ const NavBar = props => {
               <p className="navbarText">{'Search Person'}</p>
             </NavLink>
           )}
+          <NavLink to="/new" className="navbarTextLink">
+            <p className="navbarText">Register New Person </p>
+          </NavLink>
         </li>
       </ul>
     </div>
