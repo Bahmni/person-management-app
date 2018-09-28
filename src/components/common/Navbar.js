@@ -6,15 +6,13 @@ import './Navbar.css';
 
 const NavBar = props => {
   const { title, back, iconLink } = props;
-  const homeLink = 'href=' + back;
+
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
-          <NavLink to={homeLink}>
-            <a homeLink>
-              <p className="navbarText">{''}</p>
-            </a>
+          <NavLink to={back}>
+            <p className="navbarText">{''}</p>
           </NavLink>
         </li>
         <li className="navbarIcon">
