@@ -5,24 +5,18 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 const NavBar = props => {
-  const { title, searchPage } = props;
+  const { title, back, iconLink } = props;
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
-          {searchPage ? (
-            <a href="/bahmni/home/index.html#/dashboard">
-              <p className="navbarText">{title}</p>
-            </a>
-          ) : (
-            <NavLink to="/search">
-              <p className="navbarText">{title}</p>
-            </NavLink>
-          )}
+          <NavLink to={back}>
+            <p className="navbarText">{''}</p>
+          </NavLink>
         </li>
         <li className="navbarIcon">
-          <NavLink to="/new" className="navbarTextLink">
-            <p className="navbarText">Register New Person </p>
+          <NavLink to={iconLink} className="navbarTextLink">
+            <p className="navbarText">{title} </p>
           </NavLink>
         </li>
       </ul>
