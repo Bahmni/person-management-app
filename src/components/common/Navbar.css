@@ -27,15 +27,15 @@
 .navbarIcon {
   list-style: none;
   position: relative;
-  background: url('../../assets/Add_Person.svg') no-repeat;
   height: 40px;
   width: 250px;
   top: 0px;
-  left: 20px;
+  left: 0px;
 }
 
-.navbarIcon a {
-  text-decoration: none;
+.backLink {
+  height: 40px;
+  width: 20px;
 }
 
 .navbarText {
@@ -43,14 +43,37 @@
   padding-top: 12px;
   color: white;
   font-weight: 100;
+  list-style: none;
+  background: url('../../assets/Search_Icon.svg') no-repeat;
+  height: 40px;
+  width: 250px;
 }
 
+.navbarNewPerson {
+  padding-left: 3.5rem;
+  padding-top: 12px;
+  color: white;
+  font-weight: 100;
+  list-style: none;
+  background: url('../../assets/Add_Person.svg') no-repeat;
+  height: 40px;
+  width: 250px;
+}
+
+.navbarTextPage {
+  padding-left: 28px;
+  color: white;
+  font-weight: 100;
+  list-style: none;
+  font-style: normal;
+  width: 300px;
+}
 .backLinkSVG {
   background: url('../../assets/Arrow_Back.svg') no-repeat;
   height: 20px;
   width: 25px;
   display: flex;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
 }
 
 @media (max-width: 600px) {
