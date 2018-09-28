@@ -29,7 +29,7 @@ const NavBar = props => {
             </NavLink>
           ) : (
             <NavLink to="/search" className="navbarTextLink">
-              <p className="navbarText">{'Search'}</p>
+              <p className="navbarText">{'Search Person'}</p>
             </NavLink>
           )}
         </li>
