@@ -10,8 +10,10 @@ const NavBar = props => {
     <div className="navbar">
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
-          <NavLink to={back}>
-            <p className="navbarText">{''}</p>
+          <NavLink>
+            <a href={back}>
+              <p className="navbarText">{''}</p>
+            </a>
           </NavLink>
         </li>
         <li className="navbarIcon">
