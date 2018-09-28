@@ -11,7 +11,7 @@ class App extends Component {
         <Switch>
           <Route path="/new" exact component={FormContainer} />
           <Route path="/search" exact component={PersonDashboard} />
-          <Route path="/bahmni" component={PersonDashboard} />
+          <Route path="/" component={PersonDashboard} />
         </Switch>
       </BrowserRouter>
     );
