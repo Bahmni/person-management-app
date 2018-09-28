@@ -31,9 +31,6 @@ const NavBar = props => {
               <p className="navbarText">{'Search Person'}</p>
             </NavLink>
           )}
-          <NavLink to="/new" className="navbarTextLink">
-            <p className="navbarText">Register New Person </p>
-          </NavLink>
         </li>
       </ul>
     </div>
