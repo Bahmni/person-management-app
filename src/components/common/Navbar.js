@@ -12,9 +12,7 @@ const NavBar = props => {
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
           <a href="/bahmni/home/index.html#/dashboard" />
-          <NavLink to={back}>
-            <p className="navbarText">{''}</p>
-          </NavLink>
+          <p className="navbarText">{''}</p>
         </li>
         <li className="navbarIcon">
           <NavLink to={iconLink} className="navbarTextLink">
