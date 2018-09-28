@@ -230,7 +230,7 @@ class FormContainer extends Component {
 
     return (
       <div>
-        <Navbar title="Register New Person" back="./search" iconLink="/new" />
+        <Navbar title=" " />
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <fieldset>

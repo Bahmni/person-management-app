@@ -103,11 +103,7 @@ class PersonDashboard extends Component {
 
     return (
       <div onKeyPress={this.handleKeyPress}>
-        <Navbar
-          title="Person Management"
-          back="href='/bahmni/home/index.html#/dashboard'"
-          iconLink="/new"
-        />
+        <Navbar title=" " searchPage={true} />
         <div className="searchForm">
           <legend>Search</legend>
           <div className="formGroup">
