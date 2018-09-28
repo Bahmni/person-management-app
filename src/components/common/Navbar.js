@@ -24,7 +24,7 @@ const NavBar = props => {
         </li>
         <li className="navbarIcon">
           <NavLink to={iconLink} className="navbarTextLink">
-            <p className="navbarText">{title} </p>
+            {/* <p className="navbarText">{title} </p> */}
           </NavLink>
         </li>
       </ul>
