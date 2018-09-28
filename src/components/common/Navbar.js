@@ -11,8 +11,9 @@ const NavBar = props => {
     <div className="navbar">
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
-          <a href="/bahmni/home/index.html#/dashboard" />
-          <p className="navbarText">{''}</p>
+          <a href="/bahmni/home/index.html#/dashboard">
+            <p className="navbarText">{''}</p>
+          </a>
         </li>
         <li className="navbarIcon">
           <NavLink to={iconLink} className="navbarTextLink">
