@@ -12,10 +12,10 @@ const NavBar = props => {
       <ul className="navbarWrapper">
         <li className="backLinkSVG">
           {searchPage ? (
-            <a
-              href="/bahmni/home/index.html#/dashboard"
-              title="Bahmni Home Dashboard"
-            />
+            <a href="/bahmni/home/index.html#/dashboard">
+              <p className="navbarText">{title}</p>
+              >
+            </a>
           ) : (
             <NavLink to="/search">
               <p className="navbarText">{title}</p>
