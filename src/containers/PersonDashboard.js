@@ -107,6 +107,7 @@ class PersonDashboard extends Component {
           title="Person Management"
           back="/bahmni/home/index.html#/dashboard"
           iconLink="/new"
+          searchPage={true}
         />
         <div className="searchForm">
           <legend>Search</legend>
