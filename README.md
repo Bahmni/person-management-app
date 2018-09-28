@@ -2,7 +2,7 @@
 
 ## Description
 
-The Person management app is a standalone Create-React-App that allows for registration of persons and will be used with [Bahmni](https://github.com/Bahmni).
+The Person management app is a standalone [Create-React-App](https://github.com/facebook/create-react-app) that allows for registration of persons and will be used with [Bahmni](https://github.com/Bahmni).
 
 ## Motivation
 
@@ -10,7 +10,7 @@ Currently [Bahmni](https://github.com/Bahmni) only supports registration of pati
 
 Person registration is needed for pre-screening appointements or household surveys.
 
-## Installation
+## App Installation & Setup
 
 Clone the repository onto your local machine.
 
@@ -39,13 +39,38 @@ To enable CORS request you will need to adapt the apache http server configurati
 
 The app should be accessible on: http://localhost:3000/
 
+## Integrating the app with a Bahmni installation
+
+### 1. Installing Bahmni on Vagrant
+
+To install Bahmni on Vagrant, follow the instructions [here](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/14712841/Bahmni+Virtual+Box).
+
+Or follow a video tutorial [here](https://www.youtube.com/watch?v=2wi7b3cW-xg).
+
+### 2. Link the project source folder with the Bahmni installation
+
+Build the app using **`yarn build`**
+
+Link the project build to Bahmni `/var/www/bahmniapps/`, for example:
+**`sudo ln -s /bahmni/person-management-app/build/ /var/www/bahmniapps/personregistration`**
+
+Make sure to change the ownership of the link to Bahmni:
+**`sudo chown -h bahmni:bahmni /var/www/bahmniapps/personregistration`**
+
+### 3. Default config and configuring the Bahmni installation
+
+Clone the repository Default config repository here: https://github.com/Bahmni/default-config
+
+To create a symlink that will allow you to make changes in the Bahmni Vagrant installation go to`default-config/scripts` and run **`sh vagrant-link.sh`**
+
+To add the to the existing Bahmni dashboard, you'll have to create changes in:
+`default-config/offline/openmrs/apps/home/extension.json`
+
+You will also have to create new folder, in our case `personregistration`, under `default-config/openmrs/apps/` with an `app.json` file.
+
 ## Tests
 
 Tests will be written with Jest and Enzyme.
-
-Jest is installed by default, but you will need to install Enzyme along with an Adapter corresponding to the version of React you are using.
-
-Run **`yarn install`**
 
 To run the tests:
 Run **`yarn test`**
