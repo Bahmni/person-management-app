@@ -47,6 +47,16 @@ To install Bahmni on Vagrant, follow the instructions [here](https://bahmni.atla
 
 Or follow a video tutorial [here](https://www.youtube.com/watch?v=2wi7b3cW-xg).
 
+Make sure to follow the folder structure as outlined in the Bahmni Wiki above:
+
+Create a folder bahmni where you would like all project related files to be present.
+**`cd /Projects`**
+**`mkdir bahmni`**
+
+Clone the following projects from Github inside the newly created folder bahmni
+**`cd bahmni`**
+**`git clone https://github.com/Bahmni/bahmni-vagrant.git`**
+
 ### 2. Link the project source folder with the Bahmni installation
 
 Build the app using **`yarn build`**
@@ -54,7 +64,7 @@ Build the app using **`yarn build`**
 Link the project build to Bahmni `/var/www/bahmniapps/`, for example:
 **`sudo ln -s /bahmni/person-management-app/build/ /var/www/bahmniapps/personregistration`**
 
-Make sure to change the ownership of the link to Bahmni:
+**Make sure to change the ownership of the link to Bahmni:**
 **`sudo chown -h bahmni:bahmni /var/www/bahmniapps/personregistration`**
 
 ### 3. Default config and configuring the Bahmni installation
