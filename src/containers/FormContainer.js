@@ -8,10 +8,12 @@ import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import moment from 'moment';
 import './FormContainer.css';
+import Dropdown from '../components/common/Dropdown';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
+const phoneTypes = ['', 'Mobile', 'Landline'];
 
 // set state
 class FormContainer extends Component {
@@ -21,6 +23,11 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
+      organization: '',
+      email: '',
+      phoneNumber: '',
+      phoneType: '',
+      occupation: '',
       birthdate: moment(),
       birthdateEstimated: false
     },
@@ -98,6 +105,11 @@ class FormContainer extends Component {
         firstName: '',
         middleName: '',
         lastName: '',
+        organization: '',
+        email: '',
+        phoneNumber: '',
+        phoneType: '',
+        occupation: '',
         gender: '',
         birthdate: moment(),
         birthdateEstimated: false
@@ -113,6 +125,11 @@ class FormContainer extends Component {
       firstName,
       lastName,
       gender,
+      organization,
+      email,
+      phoneNumber,
+      phoneType,
+      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
@@ -192,6 +209,11 @@ class FormContainer extends Component {
       middleName,
       lastName,
       gender,
+      organization,
+      email,
+      phoneNumber,
+      phoneType,
+      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
@@ -230,10 +252,7 @@ class FormContainer extends Component {
 
     return (
       <div>
-        <Navbar
-          title="Register New Person"
-          searchPage={false}
-        />
+        <Navbar title="Register New Person" searchPage={false} />
         <form onSubmit={this.handleFormSubmit}>
           <div>
             <fieldset>
@@ -366,12 +385,92 @@ class FormContainer extends Component {
             </fieldset>
           </div>
           <hr />
-          <Button
-            disabled={isEnabled ? null : 'disabled'}
-            value="Register"
-            valueLoading=""
-            isLoading={isRequestLoading}
-          />
+          <div>
+            <fieldset>
+              <legend>Other Information</legend>
+              <div className="flex-container-row">
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Organization '}
+                    name={'organization'}
+                    aria-label={'Organization'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={organization}
+                    id="organization"
+                    required={true}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Email '}
+                    name={'email'}
+                    aria-label={'Email'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={email}
+                    id="email"
+                    required={true}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Phone Number '}
+                    name={'phoneNumber'}
+                    aria-label={'Phone Number'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={phoneNumber}
+                    id="phoneNumber"
+                    required={true}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Dropdown
+                    name="phoneType"
+                    title={'Phone Type '}
+                    value={phoneType}
+                    items={phoneTypes}
+                    onChange={this.handleChange}
+                    required={true}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Occupation '}
+                    name={'occupation'}
+                    aria-label={'Occupation'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={occupation}
+                    id="occupation"
+                    required={true}
+                  />
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <hr />
+          <div className="flex-container-row">
+            <div className="flex-item">
+              <Button
+                disabled={isEnabled ? null : 'disabled'}
+                value="Register"
+                valueLoading=""
+                isLoading={isRequestLoading}
+              />
+              <Button
+                value="Cancel"
+                valueLoading=""
+                isLoading={isRequestLoading}
+                onClick={this.handleClearForm}
+              />
+            </div>
+          </div>
           {modal}
         </form>
       </div>
