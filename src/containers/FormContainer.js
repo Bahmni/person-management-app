@@ -1,18 +1,17 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import Navbar from '../components/common/Navbar';
-import Input from '../components/common/Input';
-import RadioButtonGroup from '../components/common/RadioButtonGroup';
-import Checkbox from '../components/common/Checkbox';
 import Button from '../components/common/Button';
+import Checkbox from '../components/common/Checkbox';
+import Dropdown from '../components/common/Dropdown';
+import Input from '../components/common/Input';
+import Navbar from '../components/common/Navbar';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
-import moment from 'moment';
 import './FormContainer.css';
-import Dropdown from '../components/common/Dropdown';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
-const genderOptions = ['Male', 'Female', 'Other'];
+const genderOptions = ['', 'Male', 'Female', 'Other'];
 const phoneTypes = ['', 'Mobile', 'Landline'];
 
 // set state
@@ -225,12 +224,7 @@ class FormContainer extends Component {
       lastCreatedPerson
     } = this.state;
 
-    const isEnabled =
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      gender.length > 0 &&
-      birthdate.length > 0 &&
-      !isRequestLoading;
+    const isEnabled = firstName.length > 0 && !isRequestLoading;
 
     let modal = null;
 
@@ -253,7 +247,7 @@ class FormContainer extends Component {
     return (
       <div>
         <Navbar title="Register New Person" searchPage={false} />
-        <form onSubmit={this.handleFormSubmit}>
+        <form>
           <div>
             <fieldset>
               <legend>Name</legend>
@@ -292,7 +286,6 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={lastName}
                     id="lastName"
-                    required={true}
                   />
                 </div>
               </div>
@@ -314,7 +307,6 @@ class FormContainer extends Component {
                     value={birthdate}
                     id="birthdate"
                     max={moment().format('YYYY-MM-DD')}
-                    required={true}
                   />
                   <Checkbox
                     title="Estimated"
@@ -368,17 +360,15 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              <legend id="display-none">Gender</legend>
+              <legend>Gender</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
-                  <RadioButtonGroup
-                    title={'Gender'}
+                  <Dropdown
                     name={'gender'}
+                    title={''}
+                    value={gender}
+                    items={genderOptions}
                     onChange={this.handleChange}
-                    options={genderOptions}
-                    checkedOption={gender}
-                    id="selectGender"
-                    required={true}
                   />
                 </div>
               </div>
@@ -399,7 +389,6 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={organization}
                     id="organization"
-                    required={true}
                   />
                 </div>
                 <div className="flex-item">
@@ -412,7 +401,6 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={email}
                     id="email"
-                    required={true}
                   />
                 </div>
                 <div className="flex-item">
@@ -425,7 +413,6 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={phoneNumber}
                     id="phoneNumber"
-                    required={true}
                   />
                 </div>
                 <div className="flex-item">
@@ -435,7 +422,6 @@ class FormContainer extends Component {
                     value={phoneType}
                     items={phoneTypes}
                     onChange={this.handleChange}
-                    required={true}
                   />
                 </div>
                 <div className="flex-item">
@@ -448,7 +434,6 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={occupation}
                     id="occupation"
-                    required={true}
                   />
                 </div>
               </div>
@@ -458,16 +443,19 @@ class FormContainer extends Component {
           <div className="flex-container-row">
             <div className="flex-item">
               <Button
+                value="Cancel"
+                valueLoading=""
+                isLoading={false}
+                onClick={this.handleClearForm}
+              />
+            </div>
+            <div className="flex-item">
+              <Button
                 disabled={isEnabled ? null : 'disabled'}
                 value="Register"
                 valueLoading=""
                 isLoading={isRequestLoading}
-              />
-              <Button
-                value="Cancel"
-                valueLoading=""
-                isLoading={isRequestLoading}
-                onClick={this.handleClearForm}
+                onClick={this.handleFormSubmit}
               />
             </div>
           </div>
