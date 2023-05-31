@@ -1,6 +1,7 @@
 .buttonContainer {
   display: flex;
-  justify-content: flex-end;
+  padding: 0 0 0 2%;
+  justify-content: space-evenly;
 }
 
 .buttonWithSpinner {
