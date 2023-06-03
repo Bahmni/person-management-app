@@ -7,10 +7,11 @@ import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
+import { Constants } from '../components/common/constants';
 import './FormContainer.css';
 
 // Bahmni person API URL
-const url = process.env.REACT_APP_URL;
+const url = Constants.person;
 const genderOptions = ['', 'Male', 'Female', 'Other'];
 const phoneTypes = ['', 'Mobile', 'Landline'];
 
@@ -27,7 +28,7 @@ class FormContainer extends Component {
       phoneNumber: '',
       phoneType: '',
       occupation: '',
-      birthdate: moment(),
+      birthdate: '',
       birthdateEstimated: false
     },
     showModal: false,
@@ -110,7 +111,7 @@ class FormContainer extends Component {
         phoneType: '',
         occupation: '',
         gender: '',
-        birthdate: moment(),
+        birthdate: '',
         birthdateEstimated: false
       },
       isRequestError: false
@@ -141,7 +142,7 @@ class FormContainer extends Component {
         }
       ],
       gender,
-      birthdate: birthdate + 'T12:00:00.000+0000',
+      birthdate: birthdate == '' ? '' : birthdate + 'T12:00:00.000+0000',
       birthdateEstimated
     };
 

@@ -37,7 +37,9 @@ const Button = props => {
   return (
     <div className="buttonContainer">
       <button
-        className="buttonWithSpinner"
+        className={
+          value == 'Cancel' ? 'cancelButtonWithSpinner' : 'buttonWithSpinner'
+        }
         disabled={disabled}
         onClick={onClick}
       >

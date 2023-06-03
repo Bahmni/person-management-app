@@ -28,6 +28,23 @@
   background-color: #9b9b9b;
 }
 
+.cancelButtonWithSpinner {
+  border: none;
+  border-radius: var(--border-radius);
+  height: var(--height);
+  background-color: #393939;
+  color: white;
+  margin-bottom: 50px;
+  margin-right: 1rem;
+  padding: 0 45px;
+  width: 155px;
+  cursor: pointer;
+}
+
+.cancelButtonWithSpinner:hover {
+  background-color: #595959;
+}
+
 .spinner {
   position: relative;
   border-radius: 50%;
