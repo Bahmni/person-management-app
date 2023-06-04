@@ -1,21 +1,16 @@
 import moment from 'moment';
 import React, { Component } from 'react';
+import { getPersonAttributeTypeUuid, savePerson } from '../api/personApi';
 import Button from '../components/common/Button';
 import Checkbox from '../components/common/Checkbox';
 import Dropdown from '../components/common/Dropdown';
 import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
+import { genderOptions, phoneOptions } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
-import { Constants } from '../components/common/constants';
 import './FormContainer.css';
 
-// Bahmni person API URL
-const url = Constants.person;
-const genderOptions = ['', 'Male', 'Female', 'Other'];
-const phoneTypes = ['', 'Mobile', 'Landline'];
-
-// set state
 class FormContainer extends Component {
   state = {
     person: {
@@ -23,18 +18,41 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
+      birthdate: '',
+      birthdateEstimated: false,
       organization: '',
       email: '',
       phoneNumber: '',
       phoneType: '',
-      occupation: '',
-      birthdate: '',
-      birthdateEstimated: false
+      occupation: ''
     },
     showModal: false,
     isRequestError: false,
     isRequestLoading: false,
-    lastCreatedPerson: ''
+    lastCreatedPerson: '',
+    attributes: {
+      organizationUuid: '',
+      emailUuid: '',
+      phoneNumberUuid: '',
+      phoneTypeUuid: '',
+      occupationUuid: ''
+    }
+  };
+
+  componentDidMount() {
+    this.getPersonAttributes();
+  }
+
+  getPersonAttributes = async () => {
+    this.setState({
+      attributes: {
+        organizationUuid: await getPersonAttributeTypeUuid('organization'),
+        emailUuid: await getPersonAttributeTypeUuid('email'),
+        phoneNumberUuid: await getPersonAttributeTypeUuid('mobilePhone'),
+        phoneTypeUuid: await getPersonAttributeTypeUuid('phoneType'),
+        occupationUuid: await getPersonAttributeTypeUuid('occupation')
+      }
+    });
   };
 
   handleChange = ({ target: input }) => {
@@ -118,9 +136,11 @@ class FormContainer extends Component {
     });
   }
 
-  handleFormSubmit = e => {
-    e.preventDefault();
+  isVoided = value => {
+    return value === '' ? true : false;
+  };
 
+  createFormPayload = () => {
     const {
       firstName,
       lastName,
@@ -142,11 +162,55 @@ class FormContainer extends Component {
         }
       ],
       gender,
-      birthdate: birthdate == '' ? '' : birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated
+      birthdateEstimated,
+      attributes: [
+        {
+          attributeType: {
+            uuid: this.state.attributes.organizationUuid
+          },
+          voided: this.isVoided(organization),
+          value: organization
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.emailUuid
+          },
+          voided: this.isVoided(email),
+          value: email
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.phoneNumberUuid
+          },
+          voided: this.isVoided(phoneNumber),
+          value: phoneNumber
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.phoneTypeUuid
+          },
+          voided: this.isVoided(phoneType),
+          value: phoneType
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.occupationUuid
+          },
+          voided: this.isVoided(occupation),
+          value: occupation
+        }
+      ]
     };
+    !this.isVoided(birthdate)
+      ? (formPayload.birthdate = birthdate + 'T12:00:00.000+0000')
+      : null;
+    return formPayload;
+  };
 
-    this.submitRequest(formPayload);
+  handleFormSubmit = e => {
+    e.preventDefault();
+    const payload = this.createFormPayload();
+    this.submitRequest(payload);
   };
 
   submitRequest(formPayload) {
@@ -154,15 +218,7 @@ class FormContainer extends Component {
     this.setState({
       isRequestLoading: true
     });
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(formPayload),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      credentials: 'include'
-    })
+    savePerson(formPayload)
       .then(response => {
         if (response.status === 201) {
           this.setState({
@@ -179,7 +235,7 @@ class FormContainer extends Component {
           });
         }
       })
-      .then(response =>
+      .then(() =>
         this.setState({
           showModal: true
         })
@@ -201,7 +257,7 @@ class FormContainer extends Component {
     'Please try again.'
   ];
 
-  sucessModalText = ['was added.'];
+  successModalText = ['was added.'];
 
   render() {
     const {
@@ -238,7 +294,7 @@ class FormContainer extends Component {
         modal = (
           <ModalSuccess
             onClose={this.hideModal}
-            text={this.sucessModalText}
+            text={this.successModalText}
             lastCreatedPerson={lastCreatedPerson}
           />
         );
@@ -421,7 +477,7 @@ class FormContainer extends Component {
                     name="phoneType"
                     title={'Phone Type '}
                     value={phoneType}
-                    items={phoneTypes}
+                    items={phoneOptions}
                     onChange={this.handleChange}
                   />
                 </div>
