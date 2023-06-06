@@ -1,0 +1,37 @@
+name: Build and Release
+on:
+  push:
+    branches:
+      - capture-relationships
+  workflow_dispatch:
+jobs:
+  build-release:
+    name: Build the web app and make a zip release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build the app
+        run: yarn build
+
+      - name: Zip the build
+        run: zip -r person-management-app.zip build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Build ${{ github.run_number }}
+          tag_name: v-${{ github.run_number }}
+          files: person-management-app.zip

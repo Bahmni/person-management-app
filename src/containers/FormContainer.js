@@ -240,9 +240,9 @@ class FormContainer extends Component {
         }
       ]
     };
-    !this.isVoided(birthdate)
-      ? (formPayload.birthdate = birthdate + 'T12:00:00.000+0000')
-      : null;
+    if (this.isVoided(birthdate)) {
+      formPayload.birthdate = birthdate + 'T12:00:00.000+0000';
+    }
     return formPayload;
   };
 
