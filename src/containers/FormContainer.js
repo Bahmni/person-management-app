@@ -6,7 +6,7 @@ import Checkbox from '../components/common/Checkbox';
 import Dropdown from '../components/common/Dropdown';
 import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
-import { genderOptions, phoneOptions } from '../components/common/constants';
+import { genderOptions } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import './FormContainer.css';
@@ -18,12 +18,14 @@ class FormContainer extends Component {
       middleName: '',
       lastName: '',
       gender: '',
-      birthdate: '',
+      birthdate: moment(),
       birthdateEstimated: false,
       organization: '',
       email: '',
-      phoneNumber: '',
-      phoneType: '',
+      mobilePhone: '',
+      workPhone: '',
+      residencePhone: '',
+      otherPhone: '',
       occupation: ''
     },
     showModal: false,
@@ -33,8 +35,10 @@ class FormContainer extends Component {
     attributes: {
       organizationUuid: '',
       emailUuid: '',
-      phoneNumberUuid: '',
-      phoneTypeUuid: '',
+      mobilePhoneUuid: '',
+      workPhoneUuid: '',
+      residencePhoneUuid: '',
+      otherPhoneUuid: '',
       occupationUuid: ''
     }
   };
@@ -48,8 +52,10 @@ class FormContainer extends Component {
       attributes: {
         organizationUuid: await getPersonAttributeTypeUuid('organization'),
         emailUuid: await getPersonAttributeTypeUuid('email'),
-        phoneNumberUuid: await getPersonAttributeTypeUuid('mobilePhone'),
-        phoneTypeUuid: await getPersonAttributeTypeUuid('phoneType'),
+        mobilePhoneUuid: await getPersonAttributeTypeUuid('mobilePhone'),
+        workPhoneUuid: await getPersonAttributeTypeUuid('workPhone'),
+        residencePhoneUuid: await getPersonAttributeTypeUuid('residencePhone'),
+        otherPhoneUuid: await getPersonAttributeTypeUuid('otherPhone'),
         occupationUuid: await getPersonAttributeTypeUuid('occupation')
       }
     });
@@ -125,11 +131,13 @@ class FormContainer extends Component {
         lastName: '',
         organization: '',
         email: '',
-        phoneNumber: '',
-        phoneType: '',
+        mobilePhone: '',
+        workPhone: '',
+        residencePhone: '',
+        otherPhone: '',
         occupation: '',
         gender: '',
-        birthdate: '',
+        birthdate: moment(),
         birthdateEstimated: false
       },
       isRequestError: false
@@ -147,8 +155,10 @@ class FormContainer extends Component {
       gender,
       organization,
       email,
-      phoneNumber,
-      phoneType,
+      mobilePhone,
+      workPhone,
+      residencePhone,
+      otherPhone,
       occupation,
       birthdate,
       birthdateEstimated
@@ -180,17 +190,31 @@ class FormContainer extends Component {
         },
         {
           attributeType: {
-            uuid: this.state.attributes.phoneNumberUuid
+            uuid: this.state.attributes.mobilePhoneUuid
           },
-          voided: this.isVoided(phoneNumber),
-          value: phoneNumber
+          voided: this.isVoided(mobilePhone),
+          value: mobilePhone
         },
         {
           attributeType: {
-            uuid: this.state.attributes.phoneTypeUuid
+            uuid: this.state.attributes.workPhoneUuid
           },
-          voided: this.isVoided(phoneType),
-          value: phoneType
+          voided: this.isVoided(workPhone),
+          value: workPhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.residencePhoneUuid
+          },
+          voided: this.isVoided(residencePhone),
+          value: residencePhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.otherPhoneUuid
+          },
+          voided: this.isVoided(otherPhone),
+          value: otherPhone
         },
         {
           attributeType: {
@@ -235,11 +259,12 @@ class FormContainer extends Component {
           });
         }
       })
-      .then(() =>
+      .then(response => {
         this.setState({
           showModal: true
-        })
-      )
+        });
+        window.parent.postMessage(response, '*');
+      })
       .catch(error =>
         this.setState(
           {
@@ -267,8 +292,10 @@ class FormContainer extends Component {
       gender,
       organization,
       email,
-      phoneNumber,
-      phoneType,
+      mobilePhone,
+      workPhone,
+      residencePhone,
+      otherPhone,
       occupation,
       birthdate,
       birthdateEstimated
@@ -281,7 +308,12 @@ class FormContainer extends Component {
       lastCreatedPerson
     } = this.state;
 
-    const isEnabled = firstName.length > 0 && !isRequestLoading;
+    const isEnabled =
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      gender !== '' &&
+      birthdate.length > 0 &&
+      !isRequestLoading;
 
     let modal = null;
 
@@ -304,7 +336,7 @@ class FormContainer extends Component {
     return (
       <div>
         <Navbar title="Register New Person" searchPage={false} />
-        <form>
+        <form autoComplete="off">
           <div>
             <fieldset>
               <legend>Name</legend>
@@ -343,6 +375,7 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={lastName}
                     id="lastName"
+                    required={true}
                   />
                 </div>
               </div>
@@ -364,6 +397,7 @@ class FormContainer extends Component {
                     value={birthdate}
                     id="birthdate"
                     max={moment().format('YYYY-MM-DD')}
+                    required={true}
                   />
                   <Checkbox
                     title="Estimated"
@@ -417,15 +451,15 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              <legend>Gender</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
                   <Dropdown
                     name={'gender'}
-                    title={''}
+                    title={'Gender'}
                     value={gender}
                     items={genderOptions}
                     onChange={this.handleChange}
+                    required={true}
                   />
                 </div>
               </div>
@@ -463,22 +497,49 @@ class FormContainer extends Component {
                 <div className="flex-item">
                   <Input
                     type={'text'}
-                    title={'Phone Number '}
-                    name={'phoneNumber'}
-                    aria-label={'Phone Number'}
+                    title={'Mobile Phone '}
+                    name={'mobilePhone'}
+                    aria-label={'Mobile Phone'}
                     aria-required="true"
                     onChange={this.handleChange}
-                    value={phoneNumber}
-                    id="phoneNumber"
+                    value={mobilePhone}
+                    id="mobilePhone"
                   />
                 </div>
                 <div className="flex-item">
-                  <Dropdown
-                    name="phoneType"
-                    title={'Phone Type '}
-                    value={phoneType}
-                    items={phoneOptions}
+                  <Input
+                    type={'text'}
+                    title={'Work Phone '}
+                    name={'workPhone'}
+                    aria-label={'Work Phone'}
+                    aria-required="true"
                     onChange={this.handleChange}
+                    value={workPhone}
+                    id="workPhone"
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Residence Phone '}
+                    name={'residencePhone'}
+                    aria-label={'Residence Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={residencePhone}
+                    id="residencePhone"
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Other Phone '}
+                    name={'otherPhone'}
+                    aria-label={'Other Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={otherPhone}
+                    id="otherPhone"
                   />
                 </div>
                 <div className="flex-item">

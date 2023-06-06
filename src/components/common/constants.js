@@ -7,4 +7,3 @@ export const Constants = {
   personAttributeType: RESTWS_V1 + '/personattributetype'
 };
 export const genderOptions = ['', 'Male', 'Female', 'Other'];
-export const phoneOptions = ['', 'Mobile', 'Landline'];

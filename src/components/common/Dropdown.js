@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const Dropdown = props => {
   const { name, required, title, items, onChange, value } = props;

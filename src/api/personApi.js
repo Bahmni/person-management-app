@@ -1,10 +1,10 @@
 import { Constants } from '../components/common/constants';
 
-export const getPersonAttributeTypeUuid = async attributeName => {
+export async function getPersonAttributeTypeUuid(attributeName) {
   try {
     const url =
       Constants.personAttributeType + '?q=' + attributeName + '&v=default';
-    const response = await fetch(url).then(response => {
+    const response = await fetch(url).then(function(response) {
       if (!response.status === 200) {
         throw Error({ response: response });
       }
@@ -15,9 +15,9 @@ export const getPersonAttributeTypeUuid = async attributeName => {
     console.error(error);
     return error.response;
   }
-};
+}
 
-export const savePerson = async payload => {
+export async function savePerson(payload) {
   try {
     return await fetch(Constants.person, {
       method: 'POST',
@@ -32,4 +32,4 @@ export const savePerson = async payload => {
     console.error(error);
     return error.response;
   }
-};
+}

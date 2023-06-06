@@ -11,12 +11,12 @@ describe('FormContainer', () => {
     wrapper = shallow(<FormContainer />);
   });
 
-  it('renders eleven <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(11);
+  it('renders fourteen <Input /> components', () => {
+    expect(wrapper.find(Input).length).toEqual(14);
   });
 
-  it('renders two <SelectFromList /> component', () => {
-    expect(wrapper.find(SelectFromList).length).toEqual(2);
+  it('renders one <SelectFromList /> component', () => {
+    expect(wrapper.find(SelectFromList).length).toEqual(1);
   });
 
   it('renders firstName input', () => {
