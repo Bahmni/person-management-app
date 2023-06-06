@@ -7,3 +7,12 @@ export const Constants = {
   personAttributeType: RESTWS_V1 + '/personattributetype'
 };
 export const genderOptions = ['', 'Male', 'Female', 'Other'];
+export const personAttributes = {
+  organization: 'organization',
+  email: 'email',
+  mobilePhone: 'mobilePhone',
+  workPhone: 'workPhone',
+  residencePhone: 'residencePhone',
+  otherPhone: 'otherPhone',
+  occupation: 'occupationNew'
+};

@@ -6,7 +6,10 @@ import Checkbox from '../components/common/Checkbox';
 import Dropdown from '../components/common/Dropdown';
 import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
-import { genderOptions } from '../components/common/constants';
+import {
+  genderOptions,
+  personAttributes
+} from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import './FormContainer.css';
@@ -50,13 +53,25 @@ class FormContainer extends Component {
   getPersonAttributes = async () => {
     this.setState({
       attributes: {
-        organizationUuid: await getPersonAttributeTypeUuid('organization'),
-        emailUuid: await getPersonAttributeTypeUuid('email'),
-        mobilePhoneUuid: await getPersonAttributeTypeUuid('mobilePhone'),
-        workPhoneUuid: await getPersonAttributeTypeUuid('workPhone'),
-        residencePhoneUuid: await getPersonAttributeTypeUuid('residencePhone'),
-        otherPhoneUuid: await getPersonAttributeTypeUuid('otherPhone'),
-        occupationUuid: await getPersonAttributeTypeUuid('occupation')
+        organizationUuid: await getPersonAttributeTypeUuid(
+          personAttributes.organization
+        ),
+        emailUuid: await getPersonAttributeTypeUuid(personAttributes.email),
+        mobilePhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.mobilePhone
+        ),
+        workPhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.workPhone
+        ),
+        residencePhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.residencePhone
+        ),
+        otherPhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.otherPhone
+        ),
+        occupationUuid: await getPersonAttributeTypeUuid(
+          personAttributes.occupation
+        )
       }
     });
   };
