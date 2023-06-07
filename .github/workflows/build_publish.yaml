@@ -29,9 +29,13 @@ jobs:
       - name: Zip the build
         run: zip -r person-management-app.zip build
 
+      - name: Echo secrets
+        run: echo ${{secrets.BAHMNI_PAT}}
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           name: Build ${{ github.run_number }}
           tag_name: v-${{ github.run_number }}
           files: person-management-app.zip
+          token: ${{secrets.BAHMNI_PAT}}

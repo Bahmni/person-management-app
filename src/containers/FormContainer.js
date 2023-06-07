@@ -15,42 +15,47 @@ import ModalSuccess from '../components/common/modals/ModalSuccess';
 import './FormContainer.css';
 
 class FormContainer extends Component {
-  state = {
-    person: {
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      gender: '',
-      birthdate: moment(),
-      birthdateEstimated: false,
-      organization: '',
-      email: '',
-      mobilePhone: '',
-      workPhone: '',
-      residencePhone: '',
-      otherPhone: '',
-      occupation: ''
-    },
-    showModal: false,
-    isRequestError: false,
-    isRequestLoading: false,
-    lastCreatedPerson: '',
-    attributes: {
-      organizationUuid: '',
-      emailUuid: '',
-      mobilePhoneUuid: '',
-      workPhoneUuid: '',
-      residencePhoneUuid: '',
-      otherPhoneUuid: '',
-      occupationUuid: ''
-    }
-  };
-
-  componentDidMount() {
-    this.getPersonAttributes();
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        gender: '',
+        birthdate: moment(),
+        birthdateEstimated: false,
+        organization: '',
+        email: '',
+        mobilePhone: '',
+        workPhone: '',
+        residencePhone: '',
+        otherPhone: '',
+        occupation: ''
+      },
+      showModal: false,
+      isAPIError: false,
+      isRequestError: false,
+      isRequestLoading: false,
+      lastCreatedPerson: '',
+      attributes: {
+        organizationUuid: '',
+        emailUuid: '',
+        mobilePhoneUuid: '',
+        workPhoneUuid: '',
+        residencePhoneUuid: '',
+        otherPhoneUuid: '',
+        occupationUuid: ''
+      }
+    };
+    this.handleClearForm = this.handleClearForm.bind(this);
   }
 
-  getPersonAttributes = async () => {
+  componentDidMount() {
+    this.setPersonAttributeIDs();
+  }
+
+  setPersonAttributeIDs = async () => {
     this.setState({
       attributes: {
         organizationUuid: await getPersonAttributeTypeUuid(
