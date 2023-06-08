@@ -2,7 +2,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - capture-relationships
+      - master
   workflow_dispatch:
 jobs:
   build-release:
@@ -28,9 +28,6 @@ jobs:
 
       - name: Zip the build
         run: zip -r person-management-app.zip build
-
-      - name: Echo secrets
-        run: echo ${{secrets.BAHMNI_PAT}}
 
       - name: Release
         uses: softprops/action-gh-release@v1

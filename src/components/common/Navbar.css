@@ -76,6 +76,10 @@
   /* justify-content: flex-start; */
 }
 
+.navbarTextLink {
+  text-decoration: none;
+}
+
 @media (max-width: 600px) {
   .navbarHeader {
     padding-left: 1rem;
