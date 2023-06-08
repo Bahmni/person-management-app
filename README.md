@@ -94,3 +94,7 @@ Tests will be written with Jest and Enzyme.
 
 To run the tests:
 Run **`yarn test`**
+
+## Release
+
+Github Artifacts are created with the help of workflow which contains the build of the person-management-app. The workflow runs on any changes in the master branch and releases a new build. All releases can be accessed [here](https://github.com/Arjun-Go/person-management-app/releases).

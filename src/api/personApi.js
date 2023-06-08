@@ -33,3 +33,20 @@ export async function savePerson(payload) {
     return error.response;
   }
 }
+
+export async function searchPerson(person) {
+  try {
+    const url =
+      Constants.person +
+      '?q=' +
+      person +
+      '&v=custom%3Auuid%2Cdisplay%2Cage%2Cgender%2CdateCreated';
+    return await fetch(url, {
+      method: 'GET',
+      credentials: 'include'
+    });
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+}
