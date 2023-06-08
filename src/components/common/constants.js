@@ -16,3 +16,5 @@ export const personAttributes = {
   otherPhone: 'otherPhone',
   occupation: 'occupationNew'
 };
+export const phoneNumberPattern = '[0-9]{10}';
+export const emailPattern = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';

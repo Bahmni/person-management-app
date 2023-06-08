@@ -7,8 +7,10 @@ import Dropdown from '../components/common/Dropdown';
 import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
 import {
+  emailPattern,
   genderOptions,
-  personAttributes
+  personAttributes,
+  phoneNumberPattern
 } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
@@ -504,7 +506,7 @@ class FormContainer extends Component {
                 </div>
                 <div className="flex-item">
                   <Input
-                    type={'text'}
+                    type={'email'}
                     title={'Email '}
                     name={'email'}
                     aria-label={'Email'}
@@ -512,11 +514,12 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={email}
                     id="email"
+                    pattern={emailPattern}
                   />
                 </div>
                 <div className="flex-item">
                   <Input
-                    type={'text'}
+                    type={'tel'}
                     title={'Mobile Phone '}
                     name={'mobilePhone'}
                     aria-label={'Mobile Phone'}
@@ -524,11 +527,12 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={mobilePhone}
                     id="mobilePhone"
+                    pattern={phoneNumberPattern}
                   />
                 </div>
                 <div className="flex-item">
                   <Input
-                    type={'text'}
+                    type={'tel'}
                     title={'Work Phone '}
                     name={'workPhone'}
                     aria-label={'Work Phone'}
@@ -536,11 +540,12 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={workPhone}
                     id="workPhone"
+                    pattern={phoneNumberPattern}
                   />
                 </div>
                 <div className="flex-item">
                   <Input
-                    type={'text'}
+                    type={'tel'}
                     title={'Residence Phone '}
                     name={'residencePhone'}
                     aria-label={'Residence Phone'}
@@ -548,11 +553,12 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={residencePhone}
                     id="residencePhone"
+                    pattern={phoneNumberPattern}
                   />
                 </div>
                 <div className="flex-item">
                   <Input
-                    type={'text'}
+                    type={'tel'}
                     title={'Other Phone '}
                     name={'otherPhone'}
                     aria-label={'Other Phone'}
@@ -560,6 +566,7 @@ class FormContainer extends Component {
                     onChange={this.handleChange}
                     value={otherPhone}
                     id="otherPhone"
+                    pattern={phoneNumberPattern}
                   />
                 </div>
                 <div className="flex-item">
