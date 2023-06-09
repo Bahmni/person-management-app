@@ -1,33 +1,86 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import Navbar from '../components/common/Navbar';
-import Input from '../components/common/Input';
-import RadioButtonGroup from '../components/common/RadioButtonGroup';
-import Checkbox from '../components/common/Checkbox';
+import { getPersonAttributeTypeUuid, savePerson } from '../api/personApi';
 import Button from '../components/common/Button';
+import Checkbox from '../components/common/Checkbox';
+import Dropdown from '../components/common/Dropdown';
+import Input from '../components/common/Input';
+import Navbar from '../components/common/Navbar';
+import {
+  emailPattern,
+  genderOptions,
+  personAttributes,
+  phoneNumberPattern
+} from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
-import moment from 'moment';
 import './FormContainer.css';
 
-// Bahmni person API URL
-const url = process.env.REACT_APP_URL;
-const genderOptions = ['Male', 'Female', 'Other'];
-
-// set state
 class FormContainer extends Component {
-  state = {
-    person: {
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      gender: '',
-      birthdate: moment(),
-      birthdateEstimated: false
-    },
-    showModal: false,
-    isRequestError: false,
-    isRequestLoading: false,
-    lastCreatedPerson: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        gender: '',
+        birthdate: moment(),
+        birthdateEstimated: false,
+        organization: '',
+        email: '',
+        mobilePhone: '',
+        workPhone: '',
+        residencePhone: '',
+        otherPhone: '',
+        occupation: ''
+      },
+      showModal: false,
+      isAPIError: false,
+      isRequestError: false,
+      isRequestLoading: false,
+      lastCreatedPerson: '',
+      attributes: {
+        organizationUuid: '',
+        emailUuid: '',
+        mobilePhoneUuid: '',
+        workPhoneUuid: '',
+        residencePhoneUuid: '',
+        otherPhoneUuid: '',
+        occupationUuid: ''
+      }
+    };
+    this.handleClearForm = this.handleClearForm.bind(this);
+  }
+
+  componentDidMount() {
+    this.setPersonAttributeIDs();
+  }
+
+  setPersonAttributeIDs = async () => {
+    this.setState({
+      attributes: {
+        organizationUuid: await getPersonAttributeTypeUuid(
+          personAttributes.organization
+        ),
+        emailUuid: await getPersonAttributeTypeUuid(personAttributes.email),
+        mobilePhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.mobilePhone
+        ),
+        workPhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.workPhone
+        ),
+        residencePhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.residencePhone
+        ),
+        otherPhoneUuid: await getPersonAttributeTypeUuid(
+          personAttributes.otherPhone
+        ),
+        occupationUuid: await getPersonAttributeTypeUuid(
+          personAttributes.occupation
+        )
+      }
+    });
   };
 
   handleChange = ({ target: input }) => {
@@ -98,6 +151,13 @@ class FormContainer extends Component {
         firstName: '',
         middleName: '',
         lastName: '',
+        organization: '',
+        email: '',
+        mobilePhone: '',
+        workPhone: '',
+        residencePhone: '',
+        otherPhone: '',
+        occupation: '',
         gender: '',
         birthdate: moment(),
         birthdateEstimated: false
@@ -106,13 +166,22 @@ class FormContainer extends Component {
     });
   }
 
-  handleFormSubmit = e => {
-    e.preventDefault();
+  isVoided = value => {
+    return value === '' ? true : false;
+  };
 
+  createFormPayload = () => {
     const {
       firstName,
       lastName,
       gender,
+      organization,
+      email,
+      mobilePhone,
+      workPhone,
+      residencePhone,
+      otherPhone,
+      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
@@ -125,11 +194,69 @@ class FormContainer extends Component {
         }
       ],
       gender,
-      birthdate: birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated
+      birthdateEstimated,
+      attributes: [
+        {
+          attributeType: {
+            uuid: this.state.attributes.organizationUuid
+          },
+          voided: this.isVoided(organization),
+          value: organization
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.emailUuid
+          },
+          voided: this.isVoided(email),
+          value: email
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.mobilePhoneUuid
+          },
+          voided: this.isVoided(mobilePhone),
+          value: mobilePhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.workPhoneUuid
+          },
+          voided: this.isVoided(workPhone),
+          value: workPhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.residencePhoneUuid
+          },
+          voided: this.isVoided(residencePhone),
+          value: residencePhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.otherPhoneUuid
+          },
+          voided: this.isVoided(otherPhone),
+          value: otherPhone
+        },
+        {
+          attributeType: {
+            uuid: this.state.attributes.occupationUuid
+          },
+          voided: this.isVoided(occupation),
+          value: occupation
+        }
+      ]
     };
+    if (this.isVoided(birthdate)) {
+      formPayload.birthdate = birthdate + 'T12:00:00.000+0000';
+    }
+    return formPayload;
+  };
 
-    this.submitRequest(formPayload);
+  handleFormSubmit = e => {
+    e.preventDefault();
+    const payload = this.createFormPayload();
+    this.submitRequest(payload);
   };
 
   submitRequest(formPayload) {
@@ -137,15 +264,7 @@ class FormContainer extends Component {
     this.setState({
       isRequestLoading: true
     });
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(formPayload),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      credentials: 'include'
-    })
+    savePerson(formPayload)
       .then(response => {
         if (response.status === 201) {
           this.setState({
@@ -162,11 +281,12 @@ class FormContainer extends Component {
           });
         }
       })
-      .then(response =>
+      .then(response => {
         this.setState({
           showModal: true
-        })
-      )
+        });
+        window.parent.postMessage(response, '*');
+      })
       .catch(error =>
         this.setState(
           {
@@ -184,7 +304,7 @@ class FormContainer extends Component {
     'Please try again.'
   ];
 
-  sucessModalText = ['was added.'];
+  successModalText = ['was added.'];
 
   render() {
     const {
@@ -192,6 +312,13 @@ class FormContainer extends Component {
       middleName,
       lastName,
       gender,
+      organization,
+      email,
+      mobilePhone,
+      workPhone,
+      residencePhone,
+      otherPhone,
+      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
@@ -206,7 +333,7 @@ class FormContainer extends Component {
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
-      gender.length > 0 &&
+      gender !== '' &&
       birthdate.length > 0 &&
       !isRequestLoading;
 
@@ -221,7 +348,7 @@ class FormContainer extends Component {
         modal = (
           <ModalSuccess
             onClose={this.hideModal}
-            text={this.sucessModalText}
+            text={this.successModalText}
             lastCreatedPerson={lastCreatedPerson}
           />
         );
@@ -230,11 +357,8 @@ class FormContainer extends Component {
 
     return (
       <div>
-        <Navbar
-          title="Register New Person"
-          searchPage={false}
-        />
-        <form onSubmit={this.handleFormSubmit}>
+        <Navbar title="Register New Person" searchPage={false} />
+        <form autoComplete="off">
           <div>
             <fieldset>
               <legend>Name</legend>
@@ -349,16 +473,14 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              <legend id="display-none">Gender</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
-                  <RadioButtonGroup
-                    title={'Gender'}
+                  <Dropdown
                     name={'gender'}
+                    title={'Gender'}
+                    value={gender}
+                    items={genderOptions}
                     onChange={this.handleChange}
-                    options={genderOptions}
-                    checkedOption={gender}
-                    id="selectGender"
                     required={true}
                   />
                 </div>
@@ -366,12 +488,122 @@ class FormContainer extends Component {
             </fieldset>
           </div>
           <hr />
-          <Button
-            disabled={isEnabled ? null : 'disabled'}
-            value="Register"
-            valueLoading=""
-            isLoading={isRequestLoading}
-          />
+          <div>
+            <fieldset>
+              <legend>Other Information</legend>
+              <div className="flex-container-row">
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Organization '}
+                    name={'organization'}
+                    aria-label={'Organization'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={organization}
+                    id="organization"
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'email'}
+                    title={'Email '}
+                    name={'email'}
+                    aria-label={'Email'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={email}
+                    id="email"
+                    pattern={emailPattern}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'tel'}
+                    title={'Mobile Phone '}
+                    name={'mobilePhone'}
+                    aria-label={'Mobile Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={mobilePhone}
+                    id="mobilePhone"
+                    pattern={phoneNumberPattern}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'tel'}
+                    title={'Work Phone '}
+                    name={'workPhone'}
+                    aria-label={'Work Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={workPhone}
+                    id="workPhone"
+                    pattern={phoneNumberPattern}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'tel'}
+                    title={'Residence Phone '}
+                    name={'residencePhone'}
+                    aria-label={'Residence Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={residencePhone}
+                    id="residencePhone"
+                    pattern={phoneNumberPattern}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'tel'}
+                    title={'Other Phone '}
+                    name={'otherPhone'}
+                    aria-label={'Other Phone'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={otherPhone}
+                    id="otherPhone"
+                    pattern={phoneNumberPattern}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Input
+                    type={'text'}
+                    title={'Occupation '}
+                    name={'occupation'}
+                    aria-label={'Occupation'}
+                    aria-required="true"
+                    onChange={this.handleChange}
+                    value={occupation}
+                    id="occupation"
+                  />
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <hr />
+          <div className="flex-container-row">
+            <div className="flex-item">
+              <Button
+                value="Cancel"
+                valueLoading=""
+                isLoading={false}
+                onClick={this.handleClearForm}
+              />
+            </div>
+            <div className="flex-item">
+              <Button
+                disabled={isEnabled ? null : 'disabled'}
+                value="Register"
+                valueLoading=""
+                isLoading={isRequestLoading}
+                onClick={this.handleFormSubmit}
+              />
+            </div>
+          </div>
           {modal}
         </form>
       </div>

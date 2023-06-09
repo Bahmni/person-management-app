@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import FormContainer from './FormContainer';
 import Input from '../components/common/Input';
-import SelectFromList from '../components/common/RadioButtonGroup';
+import SelectFromList from '../components/common/Dropdown';
 
 describe('FormContainer', () => {
   let wrapper;
@@ -11,8 +11,8 @@ describe('FormContainer', () => {
     wrapper = shallow(<FormContainer />);
   });
 
-  it('renders seven <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(7);
+  it('renders fourteen <Input /> components', () => {
+    expect(wrapper.find(Input).length).toEqual(14);
   });
 
   it('renders one <SelectFromList /> component', () => {
@@ -48,7 +48,7 @@ describe('FormContainer', () => {
     let selectGender;
 
     beforeEach(() => {
-      selectGender = wrapper.find('#selectGender');
+      selectGender = wrapper.find('#lastName');
       selectGender.simulate('change', {
         target: { name: 'gender', value: exampleGenderSelected }
       });
