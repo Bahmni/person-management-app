@@ -35,4 +35,4 @@ jobs:
           name: Build ${{ github.run_number }}
           tag_name: v-${{ github.run_number }}
           files: person-management-app.zip
-          token: ${{secrets.IPD_PAT}}
+          token: ${{secrets.BAHMNI_PAT}}
