@@ -14,9 +14,9 @@ import {
 } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
-import './FormContainer.css';
+import './CreatePerson.css';
 
-class FormContainer extends Component {
+class CreatePerson extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,6 +54,9 @@ class FormContainer extends Component {
   }
 
   componentDidMount() {
+    console.log(window.location.href);
+    console.log(window.location.hostname);
+    console.log(window.location.pathname);
     this.setPersonAttributeIDs();
   }
 
@@ -611,4 +614,4 @@ class FormContainer extends Component {
   }
 }
 
-export default FormContainer;
+export default CreatePerson;

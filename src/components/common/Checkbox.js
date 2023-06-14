@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Checkbox.css';
 
 const Checkbox = props => {
-  const { name, title, onChange, checked } = props;
+  const { name, title, onChange, checked, disabled } = props;
   return (
     <div className="form-input">
       <div className="input-label">
@@ -18,6 +19,7 @@ const Checkbox = props => {
             onChange={onChange}
             checked={checked}
             id="checkbox"
+            disabled={disabled}
           />
           <label className="labelCheckbox" htmlFor="checkbox">
             <span />

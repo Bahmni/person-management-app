@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './Dropdown.css';
 
 const Dropdown = props => {
-  const { name, required, title, items, onChange, value } = props;
+  const { name, required, title, items, onChange, value, disabled } = props;
   return (
     <div className="form-input">
       <div className="input-label">
@@ -14,6 +15,7 @@ const Dropdown = props => {
           name={name}
           value={value}
           onChange={onChange}
+          disabled={disabled}
         >
           {items.map(item => {
             return (

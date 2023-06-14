@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Input.css';
 
 const Input = props => {
   const {
@@ -14,7 +15,8 @@ const Input = props => {
     required,
     min,
     max,
-    pattern
+    pattern,
+    disabled
   } = props;
   return (
     <div className="form-input">
@@ -34,6 +36,7 @@ const Input = props => {
             min={min}
             max={max}
             pattern={pattern}
+            disabled={disabled}
           />
         </label>
       </div>
