@@ -54,9 +54,6 @@ class CreatePerson extends Component {
   }
 
   componentDidMount() {
-    console.log(window.location.href);
-    console.log(window.location.hostname);
-    console.log(window.location.pathname);
     this.setPersonAttributeIDs();
   }
 
@@ -288,7 +285,7 @@ class CreatePerson extends Component {
         this.setState({
           showModal: true
         });
-        window.parent.postMessage(response, '*');
+        this.sendPersonToIframe(response);
       })
       .catch(error =>
         this.setState(
@@ -301,6 +298,15 @@ class CreatePerson extends Component {
         )
       );
   }
+
+  sendPersonToIframe = async response => {
+    var iframe = window.frameElement;
+    if (iframe) {
+      const delay = 4000;
+      await new Promise(resolve => setTimeout(resolve, delay));
+      window.parent.postMessage(response, '*');
+    }
+  };
 
   errorModalText = [
     'An error occurred while trying to register this person.',
