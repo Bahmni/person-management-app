@@ -34,6 +34,7 @@
 .checkbox-container {
   display: flex;
   justify-content: flex-start;
+  padding-top: 0.938rem;
 }
 
 #hidden-title,

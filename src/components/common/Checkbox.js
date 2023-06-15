@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Checkbox.css';
 
 const Checkbox = props => {
   const { name, title, onChange, checked, disabled } = props;
@@ -19,10 +18,9 @@ const Checkbox = props => {
             onChange={onChange}
             checked={checked}
             id="checkbox"
-            disabled={disabled}
           />
           <label className="labelCheckbox" htmlFor="checkbox">
-            <span />
+            <span style={{ cursor: disabled ? 'not-allowed' : 'pointer' }} />
           </label>
           <span id="estimatedTitle">{title}</span>
         </div>

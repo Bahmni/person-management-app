@@ -3,13 +3,16 @@ import { shallow, render as mount } from 'enzyme';
 import EditPerson from './EditPerson';
 import Input from '../components/common/Input';
 import SelectFromList from '../components/common/Dropdown';
-import { BrowserRouter } from 'react-router-dom';
 
 describe('EditPerson', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<EditPerson />);
+    wrapper = shallow(
+      <EditPerson
+        match={{ params: { uuid: '819ba69e-6c13-4803-8a14-d7abfac66e99' } }}
+      />
+    );
   });
 
   it('renders fourteen <Input /> components', () => {
@@ -24,39 +27,35 @@ describe('EditPerson', () => {
     expect(wrapper.find('#firstName').length).toEqual(1);
   });
 
-  describe('the user populates first name input', () => {
-    const exampleFirstName = 'Max';
+  it('Checks if firstName input is disabled', () => {
+    expect(wrapper.find('#firstName').prop('disabled')).toBe(true);
+  });
+
+  it('renders lastName input', () => {
+    expect(wrapper.find('#lastName').length).toEqual(1);
+  });
+
+  it('Checks if lastName input is disabled', () => {
+    expect(wrapper.find('#lastName').prop('disabled')).toBe(true);
+  });
+
+  it('renders email input', () => {
+    expect(wrapper.find('#email').length).toEqual(1);
+  });
+
+  describe('the user populates email input', () => {
+    const exampleEmail = 'Max@gmail.com';
     let firstNameInput;
 
     beforeEach(() => {
-      firstNameInput = wrapper.find('#firstName');
+      firstNameInput = wrapper.find('#email');
       firstNameInput.simulate('change', {
-        target: { value: exampleFirstName, name: 'firstName' }
+        target: { value: exampleEmail, name: 'email' }
       });
     });
 
-    it('should update the state property firstName', () => {
-      expect(wrapper.state().person.firstName).toEqual(exampleFirstName);
+    it('should update the state property email', () => {
+      expect(wrapper.state().person.email).toEqual(exampleEmail);
     });
-
-    it('requires First name input', () => {
-      expect(firstNameInput.props().required).toBe(true);
-    });
-  }); // end of firstName describe
-
-  describe('the user selects value from gender options', () => {
-    const exampleGenderSelected = 'Female';
-    let selectGender;
-
-    beforeEach(() => {
-      selectGender = wrapper.find('#lastName');
-      selectGender.simulate('change', {
-        target: { name: 'gender', value: exampleGenderSelected }
-      });
-    });
-
-    it('should update the state property gender', () => {
-      expect(wrapper.state().person.gender).toEqual(exampleGenderSelected);
-    });
-  }); // end of gender options describe
+  });
 }); // end of outer describe
