@@ -194,6 +194,8 @@ class CreatePerson extends Component {
         }
       ],
       gender,
+      birthdate: birthdate + 'T12:00:00.000+0000',
+      age: moment.duration(moment().diff(birthdate)).years(),
       birthdateEstimated,
       attributes: [
         {
@@ -247,9 +249,6 @@ class CreatePerson extends Component {
         }
       ]
     };
-    if (this.isVoided(birthdate)) {
-      formPayload.birthdate = birthdate + 'T12:00:00.000+0000';
-    }
     return formPayload;
   };
 

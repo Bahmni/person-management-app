@@ -1,6 +1,10 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { getPersonAttributeTypeUuid, savePerson } from '../api/personApi';
+import {
+  fetchPerson,
+  getPersonAttributeTypeUuid,
+  savePerson
+} from '../api/personApi';
 import Button from '../components/common/Button';
 import Checkbox from '../components/common/Checkbox';
 import Dropdown from '../components/common/Dropdown';
@@ -16,10 +20,11 @@ import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import './EditPerson.css';
 
-class CreatePerson extends Component {
+class EditPerson extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      uuid: this.props.match.params.uuid,
       person: {
         firstName: '',
         middleName: '',
@@ -55,6 +60,7 @@ class CreatePerson extends Component {
 
   componentDidMount() {
     this.setPersonAttributeIDs();
+    this.loadPersonData();
   }
 
   setPersonAttributeIDs = async () => {
@@ -81,6 +87,43 @@ class CreatePerson extends Component {
         )
       }
     });
+  };
+
+  loadPersonData = async () => {
+    await fetchPerson(this.state.uuid)
+      .then(response => {
+        if (response.status === 200) {
+          this.setState({
+            isRequestLoading: false
+          });
+          return response.json();
+        } else {
+          return Promise.reject({
+            status: response.status,
+            statusText: response.statusText
+          });
+        }
+      })
+      .then(data => {
+        console.log(data);
+        this.setState({
+          person: {
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            gender: '',
+            birthdate: moment(),
+            birthdateEstimated: false,
+            organization: '',
+            email: '',
+            mobilePhone: '',
+            workPhone: '',
+            residencePhone: '',
+            otherPhone: '',
+            occupation: ''
+          }
+        });
+      });
   };
 
   handleChange = ({ target: input }) => {
@@ -620,4 +663,4 @@ class CreatePerson extends Component {
   }
 }
 
-export default CreatePerson;
+export default EditPerson;

@@ -50,3 +50,16 @@ export async function searchPerson(person) {
     return error.response;
   }
 }
+
+export async function fetchPerson(uuid) {
+  try {
+    const url = Constants.person + '/' + uuid;
+    return await fetch(url, {
+      method: 'GET',
+      credentials: 'include'
+    });
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+}

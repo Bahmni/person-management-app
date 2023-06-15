@@ -12,7 +12,7 @@ class App extends Component {
         <Switch>
           <Route path="/new" exact component={CreatePerson} />
           <Route path="/search" exact component={PersonDashboard} />
-          <Route path="/edit" exact component={EditPerson} />
+          <Route path="/edit/:uuid" exact component={EditPerson} />
           <Route path="/" component={PersonDashboard} />
         </Switch>
       </BrowserRouter>
