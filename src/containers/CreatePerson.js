@@ -173,6 +173,7 @@ class CreatePerson extends Component {
   createFormPayload = () => {
     const {
       firstName,
+      middleName,
       lastName,
       gender,
       organization,
@@ -190,7 +191,8 @@ class CreatePerson extends Component {
       names: [
         {
           familyName: lastName,
-          givenName: firstName
+          givenName: firstName,
+          middleName: middleName
         }
       ],
       gender,

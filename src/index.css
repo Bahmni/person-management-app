@@ -100,6 +100,10 @@ input[type='checkbox']:checked + label span {
   background: url('../src/assets/checkbox_checked.svg') 0px center no-repeat;
 }
 
+input[type='checkbox']:disabled + label span {
+  cursor: not-allowed;
+}
+
 @media (max-width: 1080px) {
   form {
     width: 70%;

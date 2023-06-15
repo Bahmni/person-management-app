@@ -63,3 +63,21 @@ export async function fetchPerson(uuid) {
     return error.response;
   }
 }
+
+export async function updatePerson(uuid, payload) {
+  try {
+    const url = Constants.person + '/' + uuid;
+    return await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      credentials: 'include'
+    });
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+}

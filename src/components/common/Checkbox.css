@@ -1,5 +1,0 @@
-.checkbox-container input:disabled {
-  background: #dddddd;
-  cursor: not-allowed;
-  pointer-events: all !important;
-}

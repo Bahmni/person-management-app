@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   fetchPerson,
   getPersonAttributeTypeUuid,
-  savePerson
+  updatePerson
 } from '../api/personApi';
 import Button from '../components/common/Button';
 import Checkbox from '../components/common/Checkbox';
@@ -44,7 +44,7 @@ class EditPerson extends Component {
       isAPIError: false,
       isRequestError: false,
       isRequestLoading: false,
-      lastCreatedPerson: '',
+      lastUpdatedPerson: '',
       attributes: {
         organizationUuid: '',
         emailUuid: '',
@@ -105,39 +105,111 @@ class EditPerson extends Component {
         }
       })
       .then(data => {
-        console.log(data);
-        const name = data.display.split(' ');
+        const { firstName, middleName, lastName } = this.getAllNames(
+          data.display
+        );
         this.setState({
           person: {
-            firstName: name[0],
-            middleName: name[2] && name[1],
-            lastName: '',
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName,
             gender: data.gender,
-            birthdate: data.birthdate,
-            birthdateEstimated: data.birthdateEstimated,
-            organization: data.attributes.organization
-              ? data.attributes.organization.display
-              : '',
-            email: '',
-            mobilePhone: '',
-            workPhone: '',
-            residencePhone: '',
-            otherPhone: '',
-            occupation: ''
+            birthdate: moment(data.birthdate).format('YYYY-MM-DD'),
+            birthdateEstimated: data.birthdateEstimated
           }
         });
+        data.attributes && this.setPersonAttributeValues(data.attributes);
       });
+  };
+
+  setPersonAttributeValues = attributes => {
+    attributes.forEach(attribute => {
+      switch (attribute.display.split(' = ')[0]) {
+        case personAttributes.organization: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              organization: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.email: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              email: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.mobilePhone: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              mobilePhone: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.workPhone: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              workPhone: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.residencePhone: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              residencePhone: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.otherPhone: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              otherPhone: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        case personAttributes.occupation: {
+          this.setState({
+            person: {
+              ...this.state.person,
+              occupation: attribute.display.split(' = ')[1]
+            }
+          });
+          break;
+        }
+        default:
+          break;
+      }
+    });
+  };
+
+  getAllNames = name => {
+    const nameArray = name.split(' ');
+    const firstName = nameArray[0];
+    if (nameArray.length === 2) {
+      const lastName = nameArray[1];
+      return { firstName, lastName };
+    } else if (nameArray.length === 3) {
+      const middleName = nameArray[1];
+      const lastName = nameArray[2];
+      return { firstName, middleName, lastName };
+    }
   };
 
   handleChange = ({ target: input }) => {
     const person = { ...this.state.person };
     person[input.name] = input.value;
-    this.setState({ person });
-  };
-
-  handleCheckbox = ({ target: input }) => {
-    const person = { ...this.state.person };
-    person[input.name] = input.checked;
     this.setState({ person });
   };
 
@@ -147,66 +219,16 @@ class EditPerson extends Component {
     });
   };
 
-  fromAgetoDate = e => {
-    // input name: years, months or days
-    let inputName = e.target.name;
-    // the user input for the years or months or days
-    let inputValue = e.target.value;
-
-    // mapping the values with the momentsjs required format
-    const getMomentFormat = {
-      year: 'years',
-      month: 'months',
-      day: 'days'
-    };
-    // takes two dates (now and current birthdate input) and calculates
-    // the difference between them in years, months and days
-    function toAge(date) {
-      let now = moment();
-      let userPickedDate = moment(date);
-      const diffDuration = moment.duration(now.diff(userPickedDate));
-      const age = {
-        year: diffDuration.years(),
-        month: diffDuration.months(),
-        day: diffDuration.days()
-      };
-      return age;
-    }
-
-    this.setState(prevState => {
-      const prevBirthdate = prevState.person.birthdate;
-
-      const toAgeObject = toAge(prevBirthdate);
-      let diff = inputValue - toAgeObject[inputName];
-
-      const person = { ...this.state.person };
-      person.birthdate = moment(prevBirthdate)
-        .subtract(diff, getMomentFormat[inputName])
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
-
-      return {
-        person
-      };
-    });
-  };
-
   handleClearForm() {
     this.setState({
       person: {
-        firstName: '',
-        middleName: '',
-        lastName: '',
         organization: '',
         email: '',
         mobilePhone: '',
         workPhone: '',
         residencePhone: '',
         otherPhone: '',
-        occupation: '',
-        gender: '',
-        birthdate: moment(),
-        birthdateEstimated: false
+        occupation: ''
       },
       isRequestError: false
     });
@@ -219,6 +241,7 @@ class EditPerson extends Component {
   createFormPayload = () => {
     const {
       firstName,
+      middleName,
       lastName,
       gender,
       organization,
@@ -236,7 +259,8 @@ class EditPerson extends Component {
       names: [
         {
           familyName: lastName,
-          givenName: firstName
+          givenName: firstName,
+          middleName: middleName
         }
       ],
       gender,
@@ -296,29 +320,35 @@ class EditPerson extends Component {
     if (this.isVoided(birthdate)) {
       formPayload.birthdate = birthdate + 'T12:00:00.000+0000';
     }
+    this.isVoided(organization) && delete formPayload.attributes[0].value;
+    this.isVoided(email) && delete formPayload.attributes[1].value;
+    this.isVoided(mobilePhone) && delete formPayload.attributes[2].value;
+    this.isVoided(workPhone) && delete formPayload.attributes[3].value;
+    this.isVoided(residencePhone) && delete formPayload.attributes[4].value;
+    this.isVoided(otherPhone) && delete formPayload.attributes[5].value;
+    this.isVoided(occupation) && delete formPayload.attributes[6].value;
     return formPayload;
   };
 
-  handleFormSubmit = e => {
+  handlePersonUpdate = e => {
     e.preventDefault();
     const payload = this.createFormPayload();
-    this.submitRequest(payload);
+    this.updateRequest(payload);
   };
 
-  submitRequest(formPayload) {
+  updateRequest(formPayload) {
     const { firstName, lastName } = this.state.person;
     this.setState({
       isRequestLoading: true
     });
-    savePerson(formPayload)
+    updatePerson(this.state.uuid, formPayload)
       .then(response => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           this.setState({
             ...this.state.submitForm,
-            lastCreatedPerson: firstName + ' ' + lastName,
+            lastUpdatedPerson: firstName + ' ' + lastName,
             isRequestLoading: false
           });
-          this.handleClearForm();
           return response.json();
         } else {
           return Promise.reject({
@@ -331,7 +361,8 @@ class EditPerson extends Component {
         this.setState({
           showModal: true
         });
-        window.parent.postMessage(response, '*');
+        this.sendPersonToIframe(response);
+        this.handleClearForm();
       })
       .catch(error =>
         this.setState(
@@ -345,12 +376,21 @@ class EditPerson extends Component {
       );
   }
 
+  sendPersonToIframe = async response => {
+    var iframe = window.frameElement;
+    if (iframe) {
+      const delay = 4000;
+      await new Promise(resolve => setTimeout(resolve, delay));
+      window.parent.postMessage(response, '*');
+    }
+  };
+
   errorModalText = [
     'An error occurred while trying to register this person.',
     'Please try again.'
   ];
 
-  successModalText = ['was added.'];
+  successModalText = ['was updated.'];
 
   render() {
     const {
@@ -373,15 +413,10 @@ class EditPerson extends Component {
       isRequestError,
       isRequestLoading,
       showModal,
-      lastCreatedPerson
+      lastUpdatedPerson: lastCreatedPerson
     } = this.state;
 
-    const isEnabled =
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      gender !== '' &&
-      birthdate.length > 0 &&
-      !isRequestLoading;
+    const isEnabled = !isRequestLoading;
 
     let modal = null;
 
@@ -416,7 +451,6 @@ class EditPerson extends Component {
                     name={'firstName'}
                     aria-label={'First name'}
                     aria-required="true"
-                    onChange={this.handleChange}
                     value={firstName}
                     id="firstName"
                     required={true}
@@ -429,7 +463,6 @@ class EditPerson extends Component {
                     title={'Middle name '}
                     name={'middleName'}
                     aria-label={'Middle name'}
-                    onChange={this.handleChange}
                     value={middleName}
                     id="middleName"
                     disabled={true}
@@ -442,7 +475,6 @@ class EditPerson extends Component {
                     name={'lastName'}
                     aria-label={'Last name'}
                     aria-required="true"
-                    onChange={this.handleChange}
                     value={lastName}
                     id="lastName"
                     required={true}
@@ -464,7 +496,6 @@ class EditPerson extends Component {
                     name={'birthdate'}
                     aria-label={'Date of Birth'}
                     aria-required="true"
-                    onChange={this.handleChange}
                     value={birthdate}
                     id="birthdate"
                     max={moment().format('YYYY-MM-DD')}
@@ -475,7 +506,6 @@ class EditPerson extends Component {
                     title="Estimated"
                     name="birthdateEstimated"
                     checked={birthdateEstimated}
-                    onChange={this.handleCheckbox}
                     id="estimatedDate"
                     disabled={true}
                   />
@@ -487,7 +517,6 @@ class EditPerson extends Component {
                     name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
                     value={moment.duration(moment().diff(birthdate)).years()}
                     id="age"
                     min={0}
@@ -500,7 +529,6 @@ class EditPerson extends Component {
                     name={'month'}
                     aria-label={'Months'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
                     value={moment.duration(moment().diff(birthdate)).months()}
                     id="months"
                     min={0}
@@ -513,7 +541,6 @@ class EditPerson extends Component {
                     name={'day'}
                     aria-label={'Days'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
                     value={moment.duration(moment().diff(birthdate)).days()}
                     id="days"
                     min={0}
@@ -534,7 +561,6 @@ class EditPerson extends Component {
                     title={'Gender'}
                     value={gender}
                     items={genderOptions}
-                    onChange={this.handleChange}
                     required={true}
                     disabled={true}
                   />
@@ -655,7 +681,7 @@ class EditPerson extends Component {
                 value="Update"
                 valueLoading=""
                 isLoading={isRequestLoading}
-                onClick={this.handleFormSubmit}
+                onClick={this.handlePersonUpdate}
               />
             </div>
           </div>
