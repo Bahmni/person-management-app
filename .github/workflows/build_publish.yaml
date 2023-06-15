@@ -24,7 +24,7 @@ jobs:
         run: yarn test
 
       - name: Build the app
-        run: yarn build
+        run: yarn build-prod
 
       - name: Zip the build
         run: zip -r person-management-app.zip build

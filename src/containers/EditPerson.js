@@ -90,7 +90,7 @@ class EditPerson extends Component {
   };
 
   loadPersonData = async () => {
-    await fetchPerson(this.state.uuid)
+    fetchPerson(this.state.uuid)
       .then(response => {
         if (response.status === 200) {
           this.setState({
@@ -106,15 +106,18 @@ class EditPerson extends Component {
       })
       .then(data => {
         console.log(data);
+        const name = data.display.split(' ');
         this.setState({
           person: {
-            firstName: '',
-            middleName: '',
+            firstName: name[0],
+            middleName: name[2] && name[1],
             lastName: '',
-            gender: '',
-            birthdate: moment(),
-            birthdateEstimated: false,
-            organization: '',
+            gender: data.gender,
+            birthdate: data.birthdate,
+            birthdateEstimated: data.birthdateEstimated,
+            organization: data.attributes.organization
+              ? data.attributes.organization.display
+              : '',
             email: '',
             mobilePhone: '',
             workPhone: '',
