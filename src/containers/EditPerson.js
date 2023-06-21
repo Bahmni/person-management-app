@@ -108,18 +108,32 @@ class EditPerson extends Component {
         const { firstName, middleName, lastName } = this.getAllNames(
           data.display
         );
+        const gender = this.getGender(data.gender);
         this.setState({
           person: {
             firstName: firstName,
             middleName: middleName,
             lastName: lastName,
-            gender: data.gender,
+            gender: gender,
             birthdate: moment(data.birthdate).format('YYYY-MM-DD'),
             birthdateEstimated: data.birthdateEstimated
           }
         });
         data.attributes && this.setPersonAttributeValues(data.attributes);
       });
+  };
+
+  getGender = gender => {
+    switch (gender) {
+      case 'M':
+        return 'Male';
+      case 'F':
+        return 'Female';
+      case 'O':
+        return 'Other';
+      default:
+        return gender;
+    }
   };
 
   setPersonAttributeValues = attributes => {

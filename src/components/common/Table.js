@@ -26,16 +26,15 @@ const Table = props => {
           {data.map(function(item, key) {
             return (
               <tr key={key} className="resultsTableBody">
-                <td id="dataTableName">
-                  <a
-                    onClick={() => {
-                      if (isIframe) {
-                        handleClick(item);
-                      }
-                    }}
-                  >
-                    {item.display}
-                  </a>
+                <td
+                  id="dataTableName"
+                  onClick={() => {
+                    if (isIframe) {
+                      handleClick(item);
+                    }
+                  }}
+                >
+                  <a>{item.display}</a>
                 </td>
                 <td>{item.gender}</td>
                 <td>{item.age}</td>
