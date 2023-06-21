@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Checkbox = props => {
-  const { name, title, onChange, checked } = props;
+  const { name, title, onChange, checked, disabled } = props;
   return (
     <div className="form-input">
       <div className="input-label">
@@ -20,7 +20,7 @@ const Checkbox = props => {
             id="checkbox"
           />
           <label className="labelCheckbox" htmlFor="checkbox">
-            <span />
+            <span style={{ cursor: disabled ? 'not-allowed' : 'pointer' }} />
           </label>
           <span id="estimatedTitle">{title}</span>
         </div>

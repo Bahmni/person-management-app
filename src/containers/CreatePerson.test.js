@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FormContainer from './FormContainer';
+import CreatePerson from './CreatePerson';
 import Input from '../components/common/Input';
 import SelectFromList from '../components/common/Dropdown';
 
-describe('FormContainer', () => {
+describe('CreatePerson', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<FormContainer />);
+    wrapper = shallow(<CreatePerson />);
   });
 
   it('renders fourteen <Input /> components', () => {
