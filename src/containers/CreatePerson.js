@@ -170,6 +170,19 @@ class CreatePerson extends Component {
     return value === '' ? true : false;
   };
 
+  getGender = gender => {
+    switch (gender) {
+      case 'Male':
+        return 'M';
+      case 'Female':
+        return 'F';
+      case 'Other':
+        return 'O';
+      default:
+        return gender;
+    }
+  };
+
   createFormPayload = () => {
     const {
       firstName,
@@ -262,6 +275,7 @@ class CreatePerson extends Component {
 
   submitRequest(formPayload) {
     const { firstName, lastName } = this.state.person;
+    formPayload.gender = this.getGender(formPayload.gender);
     this.setState({
       isRequestLoading: true
     });
