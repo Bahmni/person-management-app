@@ -26,6 +26,11 @@ class CreatePerson extends Component {
         lastName: '',
         gender: '',
         birthdate: moment(),
+        age: {
+          years: 0,
+          months: 0,
+          days: 0
+        },
         birthdateEstimated: false,
         organization: '',
         email: '',
@@ -85,7 +90,28 @@ class CreatePerson extends Component {
 
   handleChange = ({ target: input }) => {
     const person = { ...this.state.person };
-    person[input.name] = input.value;
+    if (input.name === 'birthdate') {
+      var birthdate = input.value;
+      const today = moment();
+      person.age.years = moment.duration(today.diff(birthdate)).years();
+      person.age.months = moment.duration(today.diff(birthdate)).months();
+      person.age.days = moment.duration(today.diff(birthdate)).days();
+      person.birthdate = birthdate;
+    } else if (
+      input.name === 'years' ||
+      input.name === 'months' ||
+      input.name === 'days'
+    ) {
+      person.age[input.name] = input.value;
+      const now = moment();
+      const currentDOB = moment()
+        .year(now.year() - person.age.years)
+        .month(now.month() - person.age.months)
+        .date(now.date() - person.age.days);
+      person.birthdate = currentDOB.format('YYYY-MM-DD');
+    } else {
+      person[input.name] = input.value;
+    }
     this.setState({ person });
   };
 
@@ -98,50 +124,6 @@ class CreatePerson extends Component {
   hideModal = () => {
     this.setState({
       showModal: false
-    });
-  };
-
-  fromAgetoDate = e => {
-    // input name: years, months or days
-    let inputName = e.target.name;
-    // the user input for the years or months or days
-    let inputValue = e.target.value;
-
-    // mapping the values with the momentsjs required format
-    const getMomentFormat = {
-      year: 'years',
-      month: 'months',
-      day: 'days'
-    };
-    // takes two dates (now and current birthdate input) and calculates
-    // the difference between them in years, months and days
-    function toAge(date) {
-      let now = moment();
-      let userPickedDate = moment(date);
-      const diffDuration = moment.duration(now.diff(userPickedDate));
-      const age = {
-        year: diffDuration.years(),
-        month: diffDuration.months(),
-        day: diffDuration.days()
-      };
-      return age;
-    }
-
-    this.setState(prevState => {
-      const prevBirthdate = prevState.person.birthdate;
-
-      const toAgeObject = toAge(prevBirthdate);
-      let diff = inputValue - toAgeObject[inputName];
-
-      const person = { ...this.state.person };
-      person.birthdate = moment(prevBirthdate)
-        .subtract(diff, getMomentFormat[inputName])
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
-
-      return {
-        person
-      };
     });
   };
 
@@ -160,6 +142,11 @@ class CreatePerson extends Component {
         occupation: '',
         gender: '',
         birthdate: moment(),
+        age: {
+          years: 0,
+          months: 0,
+          days: 0
+        },
         birthdateEstimated: false
       },
       isRequestError: false
@@ -347,6 +334,8 @@ class CreatePerson extends Component {
       birthdateEstimated
     } = this.state.person;
 
+    const { years, months, days } = this.state.person.age;
+
     const {
       isRequestError,
       isRequestLoading,
@@ -457,11 +446,11 @@ class CreatePerson extends Component {
                   <Input
                     type={'number'}
                     title={'Years '}
-                    name={'year'}
+                    name={'years'}
                     aria-label={'Years'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).years()}
+                    onChange={this.handleChange}
+                    value={years}
                     id="age"
                     min={0}
                     max={120}
@@ -469,11 +458,11 @@ class CreatePerson extends Component {
                   <Input
                     type={'number'}
                     title={'Months '}
-                    name={'month'}
+                    name={'months'}
                     aria-label={'Months'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).months()}
+                    onChange={this.handleChange}
+                    value={months}
                     id="months"
                     min={0}
                     max={12}
@@ -481,11 +470,11 @@ class CreatePerson extends Component {
                   <Input
                     type={'number'}
                     title={'Days '}
-                    name={'day'}
+                    name={'days'}
                     aria-label={'Days'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).days()}
+                    onChange={this.handleChange}
+                    value={days}
                     id="days"
                     min={0}
                     max={31}
