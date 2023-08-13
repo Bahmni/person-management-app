@@ -125,12 +125,12 @@ class EditPerson extends Component {
 
   getGender = gender => {
     switch (gender) {
-      case 'Male':
-        return 'M';
-      case 'Female':
-        return 'F';
-      case 'Other':
-        return 'O';
+      case 'M':
+        return 'Male';
+      case 'F':
+        return 'Female';
+      case 'O':
+        return 'Other';
       default:
         return gender;
     }
