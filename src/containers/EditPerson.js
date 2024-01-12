@@ -460,50 +460,54 @@ class EditPerson extends Component {
               </div>
             </fieldset>
           </div>
-          <hr />
-          <div>
-            <fieldset className="other-attributes">
-              <legend>Other Information</legend>
-              {personAttributes.map(attribute => {
-                return (
-                  <div className="flex-container-row" key={attribute.name}>
-                    <div className="flex-item">
-                      <Input
-                        type={'text'}
-                        title={attribute.text}
-                        name={attribute.name}
-                        aria-label={attribute.text}
-                        aria-required="true"
-                        onChange={this.handleOtherAttributesChange}
-                        value={attribute.value}
-                        id={attribute.name}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </fieldset>
-          </div>
-          <hr />
-          <div className="flex-container-row">
-            <div className="flex-item">
-              <Button
-                value="Cancel"
-                valueLoading=""
-                isLoading={false}
-                onClick={this.handleClearForm}
-              />
+          {personAttributes.length > 0 && (
+            <div>
+              <hr />
+              <div>
+                <fieldset className="other-attributes">
+                  <legend>Other Information</legend>
+                  {personAttributes.map(attribute => {
+                    return (
+                      <div className="flex-container-row" key={attribute.name}>
+                        <div className="flex-item">
+                          <Input
+                            type={'text'}
+                            title={attribute.text}
+                            name={attribute.name}
+                            aria-label={attribute.text}
+                            aria-required="true"
+                            onChange={this.handleOtherAttributesChange}
+                            value={attribute.value}
+                            id={attribute.name}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </fieldset>
+              </div>
+              <hr />
+              <div className="flex-container-row">
+                <div className="flex-item">
+                  <Button
+                    value="Cancel"
+                    valueLoading=""
+                    isLoading={false}
+                    onClick={this.handleClearForm}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Button
+                    disabled={isEnabled ? null : 'disabled'}
+                    value="Update"
+                    valueLoading=""
+                    isLoading={isRequestLoading}
+                    onClick={this.handlePersonUpdate}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex-item">
-              <Button
-                disabled={isEnabled ? null : 'disabled'}
-                value="Update"
-                valueLoading=""
-                isLoading={isRequestLoading}
-                onClick={this.handlePersonUpdate}
-              />
-            </div>
-          </div>
+          )}
           {modal}
         </form>
       </div>
