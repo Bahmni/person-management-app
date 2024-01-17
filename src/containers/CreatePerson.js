@@ -1,17 +1,16 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { getPersonAttributeTypeUuid, savePerson } from '../api/personApi';
+import {
+  getPersonAttributeTypeUuid,
+  savePerson,
+  fetchPersonAttributeConfig
+} from '../api/personApi';
 import Button from '../components/common/Button';
 import Checkbox from '../components/common/Checkbox';
 import Dropdown from '../components/common/Dropdown';
 import Input from '../components/common/Input';
 import Navbar from '../components/common/Navbar';
-import {
-  emailPattern,
-  genderOptions,
-  personAttributes,
-  phoneNumberPattern
-} from '../components/common/constants';
+import { genderOptions } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import './CreatePerson.css';
@@ -31,61 +30,51 @@ class CreatePerson extends Component {
           months: 0,
           days: 0
         },
-        birthdateEstimated: false,
-        organization: '',
-        email: '',
-        mobilePhone: '',
-        workPhone: '',
-        residencePhone: '',
-        otherPhone: '',
-        occupation: ''
+        birthdateEstimated: false
       },
       showModal: false,
       isAPIError: false,
       isRequestError: false,
       isRequestLoading: false,
       lastCreatedPerson: '',
-      attributes: {
-        organizationUuid: '',
-        emailUuid: '',
-        mobilePhoneUuid: '',
-        workPhoneUuid: '',
-        residencePhoneUuid: '',
-        otherPhoneUuid: '',
-        occupationUuid: ''
-      }
+      attributes: []
     };
     this.handleClearForm = this.handleClearForm.bind(this);
   }
 
   componentDidMount() {
-    this.setPersonAttributeIDs();
+    this.getAttributes().then(response => {
+      const attributes = response.config.personAttributesForRelations.map(
+        async attribute => {
+          const uuid = await getPersonAttributeTypeUuid(
+            attribute.attributeName
+          );
+          return {
+            ...attribute,
+            value: '',
+            uuid: uuid
+          };
+        }
+      );
+
+      Promise.all(attributes).then(resolvedAttributes => {
+        this.setState({
+          attributes: resolvedAttributes
+        });
+      });
+    });
   }
 
-  setPersonAttributeIDs = async () => {
-    this.setState({
-      attributes: {
-        organizationUuid: await getPersonAttributeTypeUuid(
-          personAttributes.organization
-        ),
-        emailUuid: await getPersonAttributeTypeUuid(personAttributes.email),
-        mobilePhoneUuid: await getPersonAttributeTypeUuid(
-          personAttributes.mobilePhone
-        ),
-        workPhoneUuid: await getPersonAttributeTypeUuid(
-          personAttributes.workPhone
-        ),
-        residencePhoneUuid: await getPersonAttributeTypeUuid(
-          personAttributes.residencePhone
-        ),
-        otherPhoneUuid: await getPersonAttributeTypeUuid(
-          personAttributes.otherPhone
-        ),
-        occupationUuid: await getPersonAttributeTypeUuid(
-          personAttributes.occupation
-        )
-      }
-    });
+  getAttributes = async () => {
+    const response = await fetchPersonAttributeConfig();
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      return Promise.reject({
+        status: response.status,
+        statusText: response.statusText
+      });
+    }
   };
 
   handleChange = ({ target: input }) => {
@@ -115,6 +104,15 @@ class CreatePerson extends Component {
     this.setState({ person });
   };
 
+  handleOtherAttributesChange = ({ target: input }) => {
+    const attributes = [...this.state.attributes];
+    const index = attributes.findIndex(
+      attribute => attribute.name === input.name
+    );
+    attributes[index].value = input.value;
+    this.setState({ attributes });
+  };
+
   handleCheckbox = ({ target: input }) => {
     const person = { ...this.state.person };
     person[input.name] = input.checked;
@@ -133,13 +131,6 @@ class CreatePerson extends Component {
         firstName: '',
         middleName: '',
         lastName: '',
-        organization: '',
-        email: '',
-        mobilePhone: '',
-        workPhone: '',
-        residencePhone: '',
-        otherPhone: '',
-        occupation: '',
         gender: '',
         birthdate: moment(),
         age: {
@@ -150,6 +141,10 @@ class CreatePerson extends Component {
         birthdateEstimated: false
       },
       isRequestError: false
+    });
+    this.state.attributes.map(attribute => {
+      attribute.value = '';
+      return attribute;
     });
   }
 
@@ -176,16 +171,19 @@ class CreatePerson extends Component {
       middleName,
       lastName,
       gender,
-      organization,
-      email,
-      mobilePhone,
-      workPhone,
-      residencePhone,
-      otherPhone,
-      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
+
+    const attributes = this.state.attributes.map(attribute => {
+      return {
+        attributeType: {
+          uuid: attribute.uuid
+        },
+        voided: this.isVoided(attribute.value),
+        value: attribute.value
+      };
+    });
 
     const formPayload = {
       names: [
@@ -199,57 +197,7 @@ class CreatePerson extends Component {
       birthdate: birthdate + 'T12:00:00.000+0000',
       age: moment.duration(moment().diff(birthdate)).years(),
       birthdateEstimated,
-      attributes: [
-        {
-          attributeType: {
-            uuid: this.state.attributes.organizationUuid
-          },
-          voided: this.isVoided(organization),
-          value: organization
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.emailUuid
-          },
-          voided: this.isVoided(email),
-          value: email
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.mobilePhoneUuid
-          },
-          voided: this.isVoided(mobilePhone),
-          value: mobilePhone
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.workPhoneUuid
-          },
-          voided: this.isVoided(workPhone),
-          value: workPhone
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.residencePhoneUuid
-          },
-          voided: this.isVoided(residencePhone),
-          value: residencePhone
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.otherPhoneUuid
-          },
-          voided: this.isVoided(otherPhone),
-          value: otherPhone
-        },
-        {
-          attributeType: {
-            uuid: this.state.attributes.occupationUuid
-          },
-          voided: this.isVoided(occupation),
-          value: occupation
-        }
-      ]
+      attributes: attributes
     };
     return formPayload;
   };
@@ -323,16 +271,10 @@ class CreatePerson extends Component {
       middleName,
       lastName,
       gender,
-      organization,
-      email,
-      mobilePhone,
-      workPhone,
-      residencePhone,
-      otherPhone,
-      occupation,
       birthdate,
       birthdateEstimated
     } = this.state.person;
+    const personAttributes = this.state.attributes;
 
     const { years, months, days } = this.state.person.age;
 
@@ -500,123 +442,54 @@ class CreatePerson extends Component {
               </div>
             </fieldset>
           </div>
-          <hr />
-          <div>
-            <fieldset>
-              <legend>Other Information</legend>
+          {personAttributes.length > 0 && (
+            <div>
+              <hr />
+              <div>
+                <fieldset className="other-attributes">
+                  <legend>Other Information</legend>
+                  {personAttributes.map(attribute => {
+                    return (
+                      <div className="flex-container-row" key={attribute.name}>
+                        <div className="flex-item">
+                          <Input
+                            type={'text'}
+                            title={attribute.text}
+                            name={attribute.name}
+                            aria-label={attribute.text}
+                            aria-required="true"
+                            onChange={this.handleOtherAttributesChange}
+                            value={attribute.value}
+                            id={attribute.name}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </fieldset>
+              </div>
+              <hr />
               <div className="flex-container-row">
                 <div className="flex-item">
-                  <Input
-                    type={'text'}
-                    title={'Organization '}
-                    name={'organization'}
-                    aria-label={'Organization'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={organization}
-                    id="organization"
+                  <Button
+                    value="Cancel"
+                    valueLoading=""
+                    isLoading={false}
+                    onClick={this.handleClearForm}
                   />
                 </div>
                 <div className="flex-item">
-                  <Input
-                    type={'email'}
-                    title={'Email '}
-                    name={'email'}
-                    aria-label={'Email'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={email}
-                    id="email"
-                    pattern={emailPattern}
-                  />
-                </div>
-                <div className="flex-item">
-                  <Input
-                    type={'tel'}
-                    title={'Mobile Phone '}
-                    name={'mobilePhone'}
-                    aria-label={'Mobile Phone'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={mobilePhone}
-                    id="mobilePhone"
-                    pattern={phoneNumberPattern}
-                  />
-                </div>
-                <div className="flex-item">
-                  <Input
-                    type={'tel'}
-                    title={'Work Phone '}
-                    name={'workPhone'}
-                    aria-label={'Work Phone'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={workPhone}
-                    id="workPhone"
-                    pattern={phoneNumberPattern}
-                  />
-                </div>
-                <div className="flex-item">
-                  <Input
-                    type={'tel'}
-                    title={'Residence Phone '}
-                    name={'residencePhone'}
-                    aria-label={'Residence Phone'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={residencePhone}
-                    id="residencePhone"
-                    pattern={phoneNumberPattern}
-                  />
-                </div>
-                <div className="flex-item">
-                  <Input
-                    type={'tel'}
-                    title={'Other Phone '}
-                    name={'otherPhone'}
-                    aria-label={'Other Phone'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={otherPhone}
-                    id="otherPhone"
-                    pattern={phoneNumberPattern}
-                  />
-                </div>
-                <div className="flex-item">
-                  <Input
-                    type={'text'}
-                    title={'Occupation '}
-                    name={'occupation'}
-                    aria-label={'Occupation'}
-                    aria-required="true"
-                    onChange={this.handleChange}
-                    value={occupation}
-                    id="occupation"
+                  <Button
+                    disabled={isEnabled ? null : 'disabled'}
+                    value="Register"
+                    valueLoading=""
+                    isLoading={isRequestLoading}
+                    onClick={this.handleFormSubmit}
                   />
                 </div>
               </div>
-            </fieldset>
-          </div>
-          <hr />
-          <div className="flex-container-row">
-            <div className="flex-item">
-              <Button
-                value="Cancel"
-                valueLoading=""
-                isLoading={false}
-                onClick={this.handleClearForm}
-              />
             </div>
-            <div className="flex-item">
-              <Button
-                disabled={isEnabled ? null : 'disabled'}
-                value="Register"
-                valueLoading=""
-                isLoading={isRequestLoading}
-                onClick={this.handleFormSubmit}
-              />
-            </div>
-          </div>
+          )}
           {modal}
         </form>
       </div>

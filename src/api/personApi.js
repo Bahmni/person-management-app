@@ -81,3 +81,16 @@ export async function updatePerson(uuid, payload) {
     return error.response;
   }
 }
+
+export async function fetchPersonAttributeConfig() {
+  try {
+    const url = Constants.registrationConfig;
+    return await fetch(url, {
+      method: 'GET',
+      credentials: 'include'
+    });
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+}
