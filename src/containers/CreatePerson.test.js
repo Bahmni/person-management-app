@@ -5,6 +5,44 @@ import Input from '../components/common/Input';
 import SelectFromList from '../components/common/Dropdown';
 import moment from 'moment';
 
+jest.mock('../api/personApi', () => {
+  return {
+    fetchPersonAttributeConfig: jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        json: jest.fn(() =>
+          Promise.resolve({
+            config: {
+              personAttributesForRelations: [
+                {
+                  name: 'occupation',
+                  attributeName: 'occupationNew',
+                  text: 'Occupation'
+                }
+              ]
+            }
+          })
+        )
+      })
+    ),
+    getPersonAttributeTypeUuid: jest.fn(() =>
+      Promise.resolve({
+        status: 200,
+        json: jest.fn(() =>
+          Promise.resolve({
+            results: [
+              {
+                uuid: '8d871d18-c2cc-11de-8d13-0010c6dffd0f',
+                display: 'Occupation'
+              }
+            ]
+          })
+        )
+      })
+    )
+  };
+});
+
 describe('CreatePerson', () => {
   let wrapper;
 
@@ -13,7 +51,7 @@ describe('CreatePerson', () => {
   });
 
   it('renders fourteen <Input /> components', () => {
-    expect(wrapper.find(Input).length).toEqual(14);
+    expect(wrapper.find(Input).length).toEqual(7);
   });
 
   it('renders one <SelectFromList /> component', () => {
