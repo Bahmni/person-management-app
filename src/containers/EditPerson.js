@@ -109,6 +109,7 @@ class EditPerson extends Component {
             birthdateEstimated: data.birthdateEstimated
           }
         });
+        // eslint-disable-next-line
         if (data.attributes != []) {
           this.setState({ attributesData: data.attributes });
           this.setPersonAttributeValues(data.attributes);
