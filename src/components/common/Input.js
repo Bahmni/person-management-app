@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Input.css';
 
 const Input = props => {
   const {
@@ -13,7 +14,9 @@ const Input = props => {
     placeholder,
     required,
     min,
-    max
+    max,
+    pattern,
+    disabled
   } = props;
   return (
     <div className="form-input">
@@ -23,6 +26,7 @@ const Input = props => {
       <div className="div-input">
         <label>
           <input
+            autoComplete="off"
             name={name}
             type={type}
             value={value}
@@ -31,6 +35,8 @@ const Input = props => {
             required={required}
             min={min}
             max={max}
+            pattern={pattern}
+            disabled={disabled}
           />
         </label>
       </div>
@@ -39,7 +45,7 @@ const Input = props => {
 };
 
 Input.propTypes = {
-  type: PropTypes.oneOf(['text', 'number', 'date']).isRequired,
+  type: PropTypes.oneOf(['text', 'number', 'date', 'tel', 'email']).isRequired,
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,

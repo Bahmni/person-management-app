@@ -5,6 +5,11 @@ import './Table.css';
 
 const Table = props => {
   const { data } = props;
+  const isIframe = window.self !== window.top;
+
+  const handleClick = async item => {
+    window.parent.postMessage(item, '*');
+  };
 
   return (
     <div>
@@ -21,7 +26,16 @@ const Table = props => {
           {data.map(function(item, key) {
             return (
               <tr key={key} className="resultsTableBody">
-                <td id="dataTableName">{item.display}</td>
+                <td
+                  id="dataTableName"
+                  onClick={() => {
+                    if (isIframe) {
+                      handleClick(item);
+                    }
+                  }}
+                >
+                  <a>{item.display}</a>
+                </td>
                 <td>{item.gender}</td>
                 <td>{item.age}</td>
                 <td id="dataTableReg">
