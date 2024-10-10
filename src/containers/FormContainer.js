@@ -8,11 +8,12 @@ import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
 import moment from 'moment';
 import './FormContainer.css';
+import { useTranslation } from 'react-i18next';
 
 // Bahmni person API URL
 const url = process.env.REACT_APP_URL;
 const genderOptions = ['Male', 'Female', 'Other'];
-
+const { t } = useTranslation();
 // set state
 class FormContainer extends Component {
   state = {
@@ -180,11 +181,14 @@ class FormContainer extends Component {
   }
 
   errorModalText = [
-    'An error occurred while trying to register this person.',
-    'Please try again.'
+    t(
+      'An error occurred while trying to register this person.',
+      'An error occurred while trying to register this person.'
+    ),
+    t('Please try again.', 'Please try again.')
   ];
 
-  sucessModalText = ['was added.'];
+  sucessModalText = [t('was added.', 'was added.')];
 
   render() {
     const {
@@ -231,7 +235,7 @@ class FormContainer extends Component {
     return (
       <div>
         <Navbar
-          title="Register New Person"
+          title={t('Register New Person', 'Register New Person')}
           searchPage={false}
         />
         <form onSubmit={this.handleFormSubmit}>
@@ -242,7 +246,7 @@ class FormContainer extends Component {
                 <div className="flex-item">
                   <Input
                     type={'text'}
-                    title={'First name '}
+                    title={t('First name', 'First name ')}
                     name={'firstName'}
                     aria-label={'First name'}
                     aria-required="true"
@@ -255,7 +259,7 @@ class FormContainer extends Component {
                 <div className="flex-item">
                   <Input
                     type={'text'}
-                    title={'Middle name '}
+                    title={t('Middle name', 'Middle name ')}
                     name={'middleName'}
                     aria-label={'Middle name'}
                     onChange={this.handleChange}
@@ -266,7 +270,7 @@ class FormContainer extends Component {
                 <div className="flex-item">
                   <Input
                     type={'text'}
-                    title={'Last name '}
+                    title={t('Last name', 'Last name ')}
                     name={'lastName'}
                     aria-label={'Last name'}
                     aria-required="true"
@@ -287,7 +291,7 @@ class FormContainer extends Component {
                 <div className="flex-item2">
                   <Input
                     type={'date'}
-                    title={'Date of Birth '}
+                    title={t('Date of Birth', 'Date of Birth ')}
                     name={'birthdate'}
                     aria-label={'Date of Birth'}
                     aria-required="true"
@@ -298,7 +302,7 @@ class FormContainer extends Component {
                     required={true}
                   />
                   <Checkbox
-                    title="Estimated"
+                    title={t('Estimated', 'Estimated')}
                     name="birthdateEstimated"
                     checked={birthdateEstimated}
                     onChange={this.handleCheckbox}
@@ -308,7 +312,7 @@ class FormContainer extends Component {
                 <div className="flex-item2">
                   <Input
                     type={'number'}
-                    title={'Years '}
+                    title={t('Years', 'Years ')}
                     name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
@@ -320,7 +324,7 @@ class FormContainer extends Component {
                   />
                   <Input
                     type={'number'}
-                    title={'Months '}
+                    title={t('Months', 'Months ')}
                     name={'month'}
                     aria-label={'Months'}
                     aria-required="true"
@@ -332,7 +336,7 @@ class FormContainer extends Component {
                   />
                   <Input
                     type={'number'}
-                    title={'Days '}
+                    title={t('Days', 'Days ')}
                     name={'day'}
                     aria-label={'Days'}
                     aria-required="true"
@@ -349,11 +353,11 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              <legend id="display-none">Gender</legend>
+              <legend id="display-none">{t('Gender', 'Gender')}</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
                   <RadioButtonGroup
-                    title={'Gender'}
+                    title={t('Gender', 'Gender')}
                     name={'gender'}
                     onChange={this.handleChange}
                     options={genderOptions}
@@ -368,7 +372,7 @@ class FormContainer extends Component {
           <hr />
           <Button
             disabled={isEnabled ? null : 'disabled'}
-            value="Register"
+            value={t('Register', 'Register')}
             valueLoading=""
             isLoading={isRequestLoading}
           />

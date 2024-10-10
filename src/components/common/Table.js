@@ -2,19 +2,21 @@
 
 import React from 'react';
 import './Table.css';
+import { useTranslation } from 'react-i18next';
 
 const Table = props => {
   const { data } = props;
+  const { t } = useTranslation();
 
   return (
     <div>
       <table className="resultsTable">
         <thead className="headersTable">
           <tr className="resultsTableHeader">
-            <th id="headerTableName">NAME</th>
-            <th>GENDER</th>
-            <th>AGE</th>
-            <th id="headerTableReg">REGISTRATION</th>
+            <th id="headerTableName">{t('NAME', 'NAME')}</th>
+            <th>{t('GENDER', 'GENDER')}</th>
+            <th>{t('AGE', 'AGE')}</th>
+            <th id="headerTableReg">{t('REGISTRATION', 'REGISTRATION')}</th>
           </tr>
         </thead>
         <tbody>
