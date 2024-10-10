@@ -11,17 +11,13 @@ const NavBar = props => {
   return (
     <div className="navbar">
       <ul className="navbarWrapper">
-        <li className="backLinkSVG">
-          {searchPage ? (
-            <a href="/bahmni/home/index.html#/dashboard">
-              <p className="backLink">{''}</p>
-            </a>
-          ) : (
-            <NavLink to="/search">
+        {!searchPage && (
+          <li className="backLinkSVG">
+            <NavLink to="/">
               <p className="backLink">{''}</p>
             </NavLink>
-          )}
-        </li>
+          </li>
+        )}
         <p className="navbarTextPage">{title}</p>
         <li className="navbarIcon">
           {searchPage ? (
@@ -31,7 +27,7 @@ const NavBar = props => {
               </p>
             </NavLink>
           ) : (
-            <NavLink to="/search" className="navbarTextLink">
+            <NavLink to="/" className="navbarTextLink">
               <p className="navbarText">
                 {t('Search Person', 'Search Person')}
               </p>

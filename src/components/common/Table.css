@@ -13,6 +13,11 @@
   margin-left: -8px;
 }
 
+#dataTableName:hover {
+  cursor: pointer;
+  background-color: rgba(155, 155, 155, 0.5);
+}
+
 #headerTableReg,
 #dataTableReg {
   margin-right: -8px;

@@ -1,40 +1,117 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import Navbar from '../components/common/Navbar';
-import Input from '../components/common/Input';
-import RadioButtonGroup from '../components/common/RadioButtonGroup';
-import Checkbox from '../components/common/Checkbox';
+import {
+  getPersonAttributeTypeUuid,
+  savePerson,
+  fetchPersonAttributeConfig
+} from '../api/personApi';
 import Button from '../components/common/Button';
+import Checkbox from '../components/common/Checkbox';
+import Dropdown from '../components/common/Dropdown';
+import Input from '../components/common/Input';
+import Navbar from '../components/common/Navbar';
+import { genderOptions } from '../components/common/constants';
 import ModalError from '../components/common/modals/ModalError';
 import ModalSuccess from '../components/common/modals/ModalSuccess';
-import moment from 'moment';
-import './FormContainer.css';
+import './CreatePerson.css';
 import { useTranslation } from 'react-i18next';
 
-// Bahmni person API URL
-const url = process.env.REACT_APP_URL;
-const genderOptions = ['Male', 'Female', 'Other'];
-const { t } = useTranslation();
-// set state
-class FormContainer extends Component {
-  state = {
-    person: {
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      gender: '',
-      birthdate: moment(),
-      birthdateEstimated: false
-    },
-    showModal: false,
-    isRequestError: false,
-    isRequestLoading: false,
-    lastCreatedPerson: ''
+class CreatePerson extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      person: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        gender: '',
+        birthdate: moment(),
+        age: {
+          years: 0,
+          months: 0,
+          days: 0
+        },
+        birthdateEstimated: false
+      },
+      showModal: false,
+      isAPIError: false,
+      isRequestError: false,
+      isRequestLoading: false,
+      lastCreatedPerson: '',
+      attributes: []
+    };
+    this.handleClearForm = this.handleClearForm.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAttributes().then(response => {
+      const attributes = response.config.personAttributesForRelations.map(
+        async attribute => {
+          const uuid = await getPersonAttributeTypeUuid(
+            attribute.attributeName
+          );
+          return {
+            ...attribute,
+            value: '',
+            uuid: uuid
+          };
+        }
+      );
+
+      Promise.all(attributes).then(resolvedAttributes => {
+        this.setState({
+          attributes: resolvedAttributes
+        });
+      });
+    });
+  }
+
+  getAttributes = async () => {
+    const response = await fetchPersonAttributeConfig();
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      return Promise.reject({
+        status: response.status,
+        statusText: response.statusText
+      });
+    }
   };
 
   handleChange = ({ target: input }) => {
     const person = { ...this.state.person };
-    person[input.name] = input.value;
+    if (input.name === 'birthdate') {
+      var birthdate = input.value;
+      const today = moment();
+      person.age.years = moment.duration(today.diff(birthdate)).years();
+      person.age.months = moment.duration(today.diff(birthdate)).months();
+      person.age.days = moment.duration(today.diff(birthdate)).days();
+      person.birthdate = birthdate;
+    } else if (
+      input.name === 'years' ||
+      input.name === 'months' ||
+      input.name === 'days'
+    ) {
+      person.age[input.name] = input.value;
+      const now = moment();
+      const currentDOB = moment()
+        .year(now.year() - person.age.years)
+        .month(now.month() - person.age.months)
+        .date(now.date() - person.age.days);
+      person.birthdate = currentDOB.format('YYYY-MM-DD');
+    } else {
+      person[input.name] = input.value;
+    }
     this.setState({ person });
+  };
+
+  handleOtherAttributesChange = ({ target: input }) => {
+    const attributes = [...this.state.attributes];
+    const index = attributes.findIndex(
+      attribute => attribute.name === input.name
+    );
+    attributes[index].value = input.value;
+    this.setState({ attributes });
   };
 
   handleCheckbox = ({ target: input }) => {
@@ -49,50 +126,6 @@ class FormContainer extends Component {
     });
   };
 
-  fromAgetoDate = e => {
-    // input name: years, months or days
-    let inputName = e.target.name;
-    // the user input for the years or months or days
-    let inputValue = e.target.value;
-
-    // mapping the values with the momentsjs required format
-    const getMomentFormat = {
-      year: 'years',
-      month: 'months',
-      day: 'days'
-    };
-    // takes two dates (now and current birthdate input) and calculates
-    // the difference between them in years, months and days
-    function toAge(date) {
-      let now = moment();
-      let userPickedDate = moment(date);
-      const diffDuration = moment.duration(now.diff(userPickedDate));
-      const age = {
-        year: diffDuration.years(),
-        month: diffDuration.months(),
-        day: diffDuration.days()
-      };
-      return age;
-    }
-
-    this.setState(prevState => {
-      const prevBirthdate = prevState.person.birthdate;
-
-      const toAgeObject = toAge(prevBirthdate);
-      let diff = inputValue - toAgeObject[inputName];
-
-      const person = { ...this.state.person };
-      person.birthdate = moment(prevBirthdate)
-        .subtract(diff, getMomentFormat[inputName])
-        .subtract(1, 'days')
-        .format('YYYY-MM-DD');
-
-      return {
-        person
-      };
-    });
-  };
-
   handleClearForm() {
     this.setState({
       person: {
@@ -101,52 +134,88 @@ class FormContainer extends Component {
         lastName: '',
         gender: '',
         birthdate: moment(),
+        age: {
+          years: 0,
+          months: 0,
+          days: 0
+        },
         birthdateEstimated: false
       },
       isRequestError: false
     });
+    this.state.attributes.map(attribute => {
+      attribute.value = '';
+      return attribute;
+    });
   }
 
-  handleFormSubmit = e => {
-    e.preventDefault();
+  isVoided = value => {
+    return value === '' ? true : false;
+  };
 
+  getGender = gender => {
+    switch (gender) {
+      case 'Male':
+        return 'M';
+      case 'Female':
+        return 'F';
+      case 'Other':
+        return 'O';
+      default:
+        return gender;
+    }
+  };
+
+  createFormPayload = () => {
     const {
       firstName,
+      middleName,
       lastName,
       gender,
       birthdate,
       birthdateEstimated
     } = this.state.person;
 
+    const attributes = this.state.attributes.map(attribute => {
+      return {
+        attributeType: {
+          uuid: attribute.uuid
+        },
+        voided: this.isVoided(attribute.value),
+        value: attribute.value
+      };
+    });
+
     const formPayload = {
       names: [
         {
           familyName: lastName,
-          givenName: firstName
+          givenName: firstName,
+          middleName: middleName
         }
       ],
       gender,
       birthdate: birthdate + 'T12:00:00.000+0000',
-      birthdateEstimated
+      age: moment.duration(moment().diff(birthdate)).years(),
+      birthdateEstimated,
+      attributes: attributes
     };
+    return formPayload;
+  };
 
-    this.submitRequest(formPayload);
+  handleFormSubmit = e => {
+    e.preventDefault();
+    const payload = this.createFormPayload();
+    this.submitRequest(payload);
   };
 
   submitRequest(formPayload) {
     const { firstName, lastName } = this.state.person;
+    formPayload.gender = this.getGender(formPayload.gender);
     this.setState({
       isRequestLoading: true
     });
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(formPayload),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      credentials: 'include'
-    })
+    savePerson(formPayload)
       .then(response => {
         if (response.status === 201) {
           this.setState({
@@ -163,11 +232,12 @@ class FormContainer extends Component {
           });
         }
       })
-      .then(response =>
+      .then(response => {
         this.setState({
           showModal: true
-        })
-      )
+        });
+        this.sendPersonToIframe(response);
+      })
       .catch(error =>
         this.setState(
           {
@@ -179,6 +249,15 @@ class FormContainer extends Component {
         )
       );
   }
+
+  sendPersonToIframe = async response => {
+    var iframe = window.frameElement;
+    if (iframe) {
+      const delay = 4000;
+      await new Promise(resolve => setTimeout(resolve, delay));
+      window.parent.postMessage(response, '*');
+    }
+  };
 
   errorModalText = [
     t(
@@ -199,6 +278,10 @@ class FormContainer extends Component {
       birthdate,
       birthdateEstimated
     } = this.state.person;
+    const personAttributes = this.state.attributes;
+    const { t } = useTranslation();
+
+    const { years, months, days } = this.state.person.age;
 
     const {
       isRequestError,
@@ -210,7 +293,7 @@ class FormContainer extends Component {
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
-      gender.length > 0 &&
+      gender !== '' &&
       birthdate.length > 0 &&
       !isRequestLoading;
 
@@ -225,7 +308,7 @@ class FormContainer extends Component {
         modal = (
           <ModalSuccess
             onClose={this.hideModal}
-            text={this.sucessModalText}
+            text={this.successModalText}
             lastCreatedPerson={lastCreatedPerson}
           />
         );
@@ -238,7 +321,7 @@ class FormContainer extends Component {
           title={t('Register New Person', 'Register New Person')}
           searchPage={false}
         />
-        <form onSubmit={this.handleFormSubmit}>
+        <form autoComplete="off">
           <div>
             <fieldset>
               <legend>Name</legend>
@@ -316,8 +399,8 @@ class FormContainer extends Component {
                     name={'year'}
                     aria-label={'Years'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).years()}
+                    onChange={this.handleChange}
+                    value={years}
                     id="age"
                     min={0}
                     max={120}
@@ -328,8 +411,8 @@ class FormContainer extends Component {
                     name={'month'}
                     aria-label={'Months'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).months()}
+                    onChange={this.handleChange}
+                    value={months}
                     id="months"
                     min={0}
                     max={12}
@@ -340,8 +423,8 @@ class FormContainer extends Component {
                     name={'day'}
                     aria-label={'Days'}
                     aria-required="true"
-                    onChange={this.fromAgetoDate}
-                    value={moment.duration(moment().diff(birthdate)).days()}
+                    onChange={this.handleChange}
+                    value={days}
                     id="days"
                     min={0}
                     max={31}
@@ -353,29 +436,68 @@ class FormContainer extends Component {
           <hr />
           <div>
             <fieldset>
-              <legend id="display-none">{t('Gender', 'Gender')}</legend>
               <div className="flex-container-row">
                 <div className="flex-item">
-                  <RadioButtonGroup
-                    title={t('Gender', 'Gender')}
+                  <Dropdown
                     name={'gender'}
+                    title={t('Gender', 'Gender')}
+                    value={gender}
+                    items={genderOptions}
                     onChange={this.handleChange}
-                    options={genderOptions}
-                    checkedOption={gender}
-                    id="selectGender"
                     required={true}
                   />
                 </div>
               </div>
             </fieldset>
           </div>
-          <hr />
-          <Button
-            disabled={isEnabled ? null : 'disabled'}
-            value={t('Register', 'Register')}
-            valueLoading=""
-            isLoading={isRequestLoading}
-          />
+          {personAttributes.length > 0 && (
+            <div>
+              <hr />
+              <div>
+                <fieldset className="other-attributes">
+                  <legend>{t('Other Information', 'Other Information')}</legend>
+                  {personAttributes.map(attribute => {
+                    return (
+                      <div className="flex-container-row" key={attribute.name}>
+                        <div className="flex-item">
+                          <Input
+                            type={'text'}
+                            title={attribute.text}
+                            name={attribute.name}
+                            aria-label={attribute.text}
+                            aria-required="true"
+                            onChange={this.handleOtherAttributesChange}
+                            value={attribute.value}
+                            id={attribute.name}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </fieldset>
+              </div>
+              <hr />
+              <div className="flex-container-row">
+                <div className="flex-item">
+                  <Button
+                    value={t('Cancel', 'Cancel')}
+                    valueLoading=""
+                    isLoading={false}
+                    onClick={this.handleClearForm}
+                  />
+                </div>
+                <div className="flex-item">
+                  <Button
+                    disabled={isEnabled ? null : 'disabled'}
+                    value={t('Register', 'Register')}
+                    valueLoading=""
+                    isLoading={isRequestLoading}
+                    onClick={this.handleFormSubmit}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           {modal}
         </form>
       </div>
@@ -383,4 +505,4 @@ class FormContainer extends Component {
   }
 }
 
-export default FormContainer;
+export default CreatePerson;
