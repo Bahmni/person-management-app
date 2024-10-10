@@ -6,7 +6,8 @@
   "GENDER": "GENDER",
   "AGE": "AGE",
   "REGISTRATION": "REGISTRATION",
-  "An error occurred while trying to register this person.": "An error occurred while trying to register this person.",
+  "An error occurred while trying to register this person.":
+    "An error occurred while trying to register this person.",
   "Please try again.": "Please try again.",
   "was added.": "was added.",
   "First name": "First name ",

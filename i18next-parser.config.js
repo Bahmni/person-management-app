@@ -1,6 +1,6 @@
 module.exports = {
     locales: ['en', 'fr'],
-    output: 'translations/$LOCALE.json',
+    output: 'src/translations/$LOCALE.json',
     input: ['src/**/*.{js,jsx}'], 
     keySeparator: false,
     namespaceSeparator: false, 

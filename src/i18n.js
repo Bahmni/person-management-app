@@ -4,9 +4,9 @@ import enTranslations from './translations/en.json';
 import frTranslations from './translations/fr.json';
 
 const getLanguage = () => {
-    const language = localStorage.getItem('NG_TRANSLATE_LANG_KEY')
-    return language || 'en'
-}
+  const language = localStorage.getItem('NG_TRANSLATE_LANG_KEY');
+  return language || 'en';
+};
 
 i18n.use(initReactI18next).init({
   resources: {

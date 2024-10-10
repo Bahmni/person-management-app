@@ -6,7 +6,8 @@
   "GENDER": "GENRE",
   "AGE": "ÂGE",
   "REGISTRATION": "INSCRIPTION",
-  "An error occurred while trying to register this person.": "Une erreur s'est produite lors de l'enregistrement de cette personne.",
+  "An error occurred while trying to register this person.":
+    "Une erreur s'est produite lors de l'enregistrement de cette personne.",
   "Please try again.": "Veuillez réessayer.",
   "was added.": "a été ajouté.",
   "First name": "Prénom",
@@ -19,7 +20,8 @@
   "Days": "Jours",
   "Gender": "Genre",
   "Register": "Enregistrer",
-  "We're having technical problems.": "Nous rencontrons des problèmes techniques.",
+  "We're having technical problems.":
+    "Nous rencontrons des problèmes techniques.",
   "Search": "Rechercher",
   "Name": "Nom",
   "Searching": "Recherche en cours",
