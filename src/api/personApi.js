@@ -53,7 +53,7 @@ export async function searchPerson(person) {
 
 export async function fetchPerson(uuid) {
   try {
-    const url = Constants.person + '/' + uuid;
+    const url = Constants.person + '/' + uuid + '?v=full';
     return await fetch(url, {
       method: 'GET',
       credentials: 'include'

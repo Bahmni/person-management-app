@@ -132,8 +132,13 @@ class EditPerson extends Component {
 
   setPersonAttributeValues = attributes => {
     attributes.forEach(attribute => {
-      const attributeName = attribute.display.split(' = ')[0];
-      const attributeValue = attribute.display.split(' = ')[1];
+      const attributeName = attribute.attributeType
+        ? attribute.attributeType.display
+        : attribute.display.split(' = ')[0];
+      const attributeValue =
+        attribute.value !== undefined && attribute.value !== null
+          ? String(attribute.value)
+          : attribute.display.split(' = ')[1];
       this.setState(prevState => ({
         attributes: prevState.attributes.map(stateAttribute => {
           if (stateAttribute.attributeName === attributeName) {
