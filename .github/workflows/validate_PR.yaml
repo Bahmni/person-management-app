@@ -1,0 +1,24 @@
+name: Workflow to validate PRs
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+    build-release:
+        name: Build the web app and make a zip release
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout to repository
+              uses: actions/checkout@v3
+      
+            - name: Setup Node.js 16.x
+              uses: actions/setup-node@v1
+              with:
+                node-version: "16.x"
+      
+            - name: Install dependencies
+              run: yarn install
+      
+            - name: Run tests
+              run: yarn test

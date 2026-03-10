@@ -5,6 +5,7 @@ import Input from '../components/common/Input';
 import Table from '../components/common/Table';
 import Button from '../components/common/Button';
 import './PersonDashboard.css';
+import { searchPerson } from '../api/personApi';
 
 class PersonDashboard extends Component {
   state = {
@@ -34,18 +35,8 @@ class PersonDashboard extends Component {
     this.setState({
       isRequestLoading: true
     });
-    const url = process.env.REACT_APP_URL;
-    const searchPerson = this.state.person.name;
-    const q = '?q=' + searchPerson;
-    const fullUrl = url + q;
-    const customData =
-      '&v=custom%3Auuid%2Cdisplay%2Cage%2Cgender%2CdateCreated';
-    const fullUrlCustom = fullUrl + customData;
 
-    fetch(fullUrlCustom, {
-      method: 'GET',
-      credentials: 'include'
-    })
+    searchPerson(this.state.person.name)
       .then(response => {
         if (response.status === 200) {
           this.setState({
