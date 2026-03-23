@@ -26,13 +26,35 @@ jobs:
       - name: Build the app
         run: yarn build-prod
 
-      - name: Zip the build
-        run: zip -r person-management-app.zip build
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - id: versionCheck
+        uses: EndBug/version-check@v2
         with:
-          name: Build ${{ github.run_number }}
-          tag_name: v-${{ github.run_number }}
-          files: person-management-app.zip
-          token: ${{secrets.BAHMNI_PAT}}
+          file-url: https://unpkg.com/person-management-app@latest/package.json
+          static-checking: localIsNew
+
+      - name: Version guard
+        if: steps.versionCheck.outputs.changed == 'false'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('No version change detected. You should run `yarn bump:<patch|minor|major>` to bump the version')
+
+      - name: Publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+          yarn publish --new-version ${{ steps.versionCheck.outputs.version }}
+
+      - name: Create Tag
+        uses: actions/github-script@v5
+        env:
+          VERSION: ${{ steps.versionCheck.outputs.version }}
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v' + process.env.VERSION,
+              sha: context.sha
+            })
