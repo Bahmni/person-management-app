@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Modal.css';
 import Icon from '../Icon';
+import { useTranslation } from 'react-i18next';
 
 class ModalError extends Component {
   handleClick(e) {
     this.props.onClose(e);
   }
   render() {
+    const { t } = useTranslation();
     const modalBackgroundColor = {
       backgroundColor: 'rgba(217, 89, 88, 0.65)'
     };
@@ -20,7 +22,7 @@ class ModalError extends Component {
           </div>
           <div className="modalButton">
             <button className="errorButton" onClick={e => this.handleClick(e)}>
-              OK
+              {t('OK', 'OK')}
             </button>
           </div>
         </div>

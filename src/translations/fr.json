@@ -1,0 +1,30 @@
+{
+  "OK": "D'accord",
+  "Register New Person": "Enregistrer une nouvelle personne",
+  "Search Person": "Rechercher une personne",
+  "NAME": "NOM",
+  "GENDER": "GENRE",
+  "AGE": "ÂGE",
+  "REGISTRATION": "INSCRIPTION",
+  "An error occurred while trying to register this person.":
+    "Une erreur s'est produite lors de l'enregistrement de cette personne.",
+  "Please try again.": "Veuillez réessayer.",
+  "was added.": "a été ajouté.",
+  "First name": "Prénom",
+  "Middle name": "Deuxième prénom",
+  "Last name": "Nom de famille",
+  "Date of Birth": "Date de naissance",
+  "Estimated": "Estimé",
+  "Years": "Années",
+  "Months": "Mois",
+  "Days": "Jours",
+  "Gender": "Genre",
+  "Register": "Enregistrer",
+  "We're having technical problems.":
+    "Nous rencontrons des problèmes techniques.",
+  "Search": "Rechercher",
+  "Name": "Nom",
+  "Searching": "Recherche en cours",
+  "Person(s) found": "Personne(s) trouvée(s)",
+  "No results found": "Aucun résultat trouvé"
+}

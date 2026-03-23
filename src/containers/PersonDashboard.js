@@ -5,6 +5,7 @@ import Input from '../components/common/Input';
 import Table from '../components/common/Table';
 import Button from '../components/common/Button';
 import './PersonDashboard.css';
+import { useTranslation } from 'react-i18next';
 import { searchPerson } from '../api/personApi';
 
 class PersonDashboard extends Component {
@@ -72,7 +73,10 @@ class PersonDashboard extends Component {
     });
   };
 
-  errorModalText = ["We're having technical problems.", 'Please try again.'];
+  errorModalText = [
+    t("We're having technical problems.", "We're having technical problems."),
+    t('Please try again.', 'Please try again.')
+  ];
 
   render() {
     const {
@@ -86,6 +90,7 @@ class PersonDashboard extends Component {
     const isEnabled = person.name.length > 0 && !isRequestLoading;
 
     let modal = null;
+    const { t } = useTranslation();
     if (isRequestError && showModal) {
       modal = (
         <ModalError onClose={this.hideModal} text={this.errorModalText} />
@@ -96,14 +101,14 @@ class PersonDashboard extends Component {
       <div onKeyPress={this.handleKeyPress}>
         <Navbar title="Person Management" searchPage={true} />
         <div className="searchForm">
-          <legend>Search</legend>
+          <legend>{t('Search', 'Search')}</legend>
           <div className="formGroup">
             <div className="flex-container-row">
               <div className="search-item">
                 <span className="padding" />
                 <Input
                   type={'text'}
-                  title={'Name '}
+                  title={t('Name', 'Name ')}
                   name={'name'}
                   aria-label={'Name'}
                   aria-required="true"
@@ -116,8 +121,8 @@ class PersonDashboard extends Component {
               <div className="search-button">
                 <Button
                   disabled={isEnabled ? null : 'disabled'}
-                  value="Search"
-                  valueLoading="Searching"
+                  value={t('Search', 'Search')}
+                  valueLoading={t('Searching', 'Searching')}
                   isLoading={isRequestLoading}
                   onClick={e => this.handleSearch(e)}
                   data="M47.2,43.8L34.3,30.9c2.5-3.2,4-7.3,4-11.7c0-10.6-8.6-19.1-19.1-19.1C8.7,0.1,0.1,8.7,0.1,19.2 c0,10.6,8.6,19.1,19.1,19.1c4.4,0,8.5-1.5,11.7-4l12.9,12.9c0.5,0.5,1.1,0.7,1.7,0.7s1.2-0.2,1.7-0.7C48.2,46.3,48.2,44.8,47.2,43.8 z M4.9,19.2c0-7.9,6.4-14.3,14.3-14.3s14.3,6.4,14.3,14.3c0,7.9-6.4,14.3-14.3,14.3S4.9,27.1,4.9,19.2z"
@@ -126,10 +131,13 @@ class PersonDashboard extends Component {
             </div>
             {data.length !== 0 ? (
               <p className="numResults">
-                <strong>{data.length}</strong> Person(s) found
+                <strong>{data.length}</strong>{' '}
+                {t('Person(s) found', 'Person(s) found')}
               </p>
             ) : isRequestMade ? (
-              <p className="numResults">No results found</p>
+              <p className="numResults">
+                {t('No results found', 'No results found')}
+              </p>
             ) : null}
           </div>
         </div>
