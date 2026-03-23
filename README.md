@@ -6,9 +6,9 @@ The Person management app is a standalone [Create-React-App](https://github.com/
 
 ## Motivation
 
-Currently [Bahmni](https://github.com/Bahmni) only supports registration of patients and not persons (people that don't need medical procedures or hospital appointements.
+Currently [Bahmni](https://github.com/Bahmni) only supports registration of patients and not persons (people that don't need medical procedures or hospital appointments.
 
-Person registration is needed for pre-screening appointements or household surveys.
+Person registration is needed for pre-screening appointments or household surveys.
 
 ## App installation & setup
 
